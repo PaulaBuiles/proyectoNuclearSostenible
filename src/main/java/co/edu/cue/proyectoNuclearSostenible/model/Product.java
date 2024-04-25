@@ -22,9 +22,27 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "price", nullable = false)
     private Double price;
+
+    @Column(name = "imageUrl", nullable = false)
     private String imageUrl;
+
+    @Column(name = "description", nullable = false)
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name="id_user")
+    @NotNull(message = "El usuario no puede ser nulo o vacio")
+    private User user;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Product> listShopping = new HashSet<>();
+
+
+
 
 }
