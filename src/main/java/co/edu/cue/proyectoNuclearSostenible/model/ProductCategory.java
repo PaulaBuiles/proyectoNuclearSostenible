@@ -18,5 +18,13 @@ public class ProductCategory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean status;
+
+
+
 
 }

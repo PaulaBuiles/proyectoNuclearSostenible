@@ -26,4 +26,7 @@ public class State implements Serializable {
     @OneToMany(mappedBy = "state", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Product> listShopping = new HashSet<>();
 
+    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean status;
+
 }

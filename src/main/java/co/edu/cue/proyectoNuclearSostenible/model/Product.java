@@ -39,10 +39,10 @@ public class Product implements Serializable {
     @NotNull(message = "El usuario no puede ser nulo o vacio")
     private User user;
 
+    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean status;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Product> listShopping = new HashSet<>();
-
-
-
+    private Set<Product> listPublications = new HashSet<>();
 
 }

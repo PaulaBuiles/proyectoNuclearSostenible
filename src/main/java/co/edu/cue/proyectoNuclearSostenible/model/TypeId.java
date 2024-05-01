@@ -30,6 +30,9 @@ public class TypeId implements Serializable {
     @OneToMany(mappedBy = "typeId", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<User> listUsers = new HashSet<User>();
 
+    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    private Boolean status;
+
 
 
 }
