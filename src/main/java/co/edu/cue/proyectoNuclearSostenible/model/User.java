@@ -53,8 +53,8 @@ public class User implements Serializable {
     @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
     private Boolean status;
 
-    @Column(name = "isEstudent", nullable = false)
-    private Boolean isEstudent;
+    @Column(name = "isStudent", nullable = false)
+    private Boolean isStudent;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Product> listProducts = new HashSet<>();
