@@ -19,11 +19,11 @@ public class UserController {
 
 
     @PostMapping(headers = "Accept=application/json")
-    public ResponseEntity<UserDto> createUser (@RequestBody UserDto user) {
+    public ResponseEntity<?> createUser (@RequestBody UserDto user) {
         try {
             return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.CONFLICT);
         }
     }
 

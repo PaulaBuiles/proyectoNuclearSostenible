@@ -1,5 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.ProductCategory;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.StateDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.TypeIdDao;
@@ -16,6 +17,12 @@ public class StateServiceImpl implements StateService {
     private StateDao stateDao;
 
     public State createState(State state) {
+        String lowercaseTitle = state.getDescription().toLowerCase();
+        State existingCategory = stateDao.findByDescriptionIgnoreCase(lowercaseTitle);
+        if(existingCategory != null) {
+            throw new IllegalArgumentException("Ya existe una estado con el nombre proporcionado.");
+        }
         return stateDao.save(state);
     }
+
 }

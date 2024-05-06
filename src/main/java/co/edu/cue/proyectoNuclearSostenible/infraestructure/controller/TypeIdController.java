@@ -21,11 +21,11 @@ public class TypeIdController {
     @Autowired
     private TypeIdService typeIdService;
     @PostMapping(headers = "Accept=application/json")
-    public ResponseEntity<TypeId> createType (@RequestBody TypeId typeId) {
+    public ResponseEntity<?> createType (@RequestBody TypeId typeId) {
         try {
-            return new ResponseEntity<>(typeIdService.createType(typeId), HttpStatus.OK);
+            return new ResponseEntity<>(typeIdService.validateInfo(typeId), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
 }

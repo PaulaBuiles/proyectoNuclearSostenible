@@ -19,11 +19,11 @@ public class StateController {
     @Autowired
     private StateService stateService;
     @PostMapping(headers = "Accept=application/json")
-    public ResponseEntity<State> createState (@RequestBody State state) {
+    public ResponseEntity<?> createState (@RequestBody State state) {
         try {
             return new ResponseEntity<>(stateService.createState(state), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.CONFLICT);
         }
     }
 }

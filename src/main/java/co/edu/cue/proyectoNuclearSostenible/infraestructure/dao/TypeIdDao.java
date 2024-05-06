@@ -6,10 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface TypeIdDao extends JpaRepository<TypeId, Long> {
 
     @Query("SELECT t FROM TypeId t WHERE t.idTypeId = :id")
     TypeId findTypeIdById(@Param("id") Long id);
+    List<TypeId> findByCodeIgnoreCaseOrDescriptionIgnoreCase(String lowercaseCode, String lowercaseDescription);
 }
