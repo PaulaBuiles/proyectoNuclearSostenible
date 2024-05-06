@@ -1,4 +1,4 @@
-package co.edu.cue.proyectoNuclearSostenible.model;
+package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -21,8 +21,9 @@ public class ProductCategory implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
+
 
 
 

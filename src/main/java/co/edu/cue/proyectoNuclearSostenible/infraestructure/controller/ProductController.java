@@ -1,10 +1,9 @@
-package co.edu.cue.proyectoNuclearSostenible.controller;
+package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 
-import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ProductoDto;
-import co.edu.cue.proyectoNuclearSostenible.model.Product;
+import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ProductDto;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.Product;
 import co.edu.cue.proyectoNuclearSostenible.service.ProductService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,20 +21,20 @@ public class ProductController {
 
 
     @PostMapping
-    public ResponseEntity<ProductoDto> createProduct(@Valid @RequestBody Product product){
-        return new;
+    public ResponseEntity<ProductDto> createProduct(@Valid @RequestBody Product product){
+        return null;
     }
 
     // Endpoint para actualizar un producto existente
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody Product productDetails){
-        return new;
+        return null;
     }
 
     // Endpoint para eliminar un producto
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        return new;
+        return null;
     }
 
 }

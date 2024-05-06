@@ -1,4 +1,4 @@
-package co.edu.cue.proyectoNuclearSostenible.model;
+package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -19,11 +19,11 @@ public class Publication implements Serializable {
     private Long idPublication;
 
     @ManyToOne
-    @JoinColumn(name="id_user")
+    @JoinColumn(name="buyer_id")
     private User buyer;
 
     @ManyToOne
-    @JoinColumn(name="id_user")
+    @JoinColumn(name="owner_id")
     private User owner;
 
 

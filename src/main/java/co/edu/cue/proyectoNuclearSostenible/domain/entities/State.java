@@ -1,5 +1,6 @@
-package co.edu.cue.proyectoNuclearSostenible.model;
+package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,9 +25,11 @@ public class State implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "state", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Product> listShopping = new HashSet<>();
+    @JsonIgnore
+    private Set<Publication> listShopping = new HashSet<>();
 
-    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
+
 
 }

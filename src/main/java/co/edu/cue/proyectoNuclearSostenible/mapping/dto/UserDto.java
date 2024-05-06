@@ -6,6 +6,7 @@ public record UserDto (
     String fullName,
     String email,
     String phone,
+    String password,
     Long typeIdUserId, // Cambiado para reflejar el ID del TypeId
     String identification,
     String image,

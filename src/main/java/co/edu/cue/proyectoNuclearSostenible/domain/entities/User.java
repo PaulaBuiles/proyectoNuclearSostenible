@@ -1,4 +1,4 @@
-package co.edu.cue.proyectoNuclearSostenible.model;
+package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "user", indexes = @Index(columnList = "idUser"))
+@Table(name = "users", indexes = @Index(columnList = "idUser"))
 public class User implements Serializable {
 
     @Serial
@@ -50,8 +50,9 @@ public class User implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
+
 
     @Column(name = "isStudent", nullable = false)
     private Boolean isStudent;

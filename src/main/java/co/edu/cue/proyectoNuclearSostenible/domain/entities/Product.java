@@ -1,4 +1,4 @@
-package co.edu.cue.proyectoNuclearSostenible.model;
+package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
 
 import jakarta.persistence.*;
@@ -39,10 +39,11 @@ public class Product implements Serializable {
     @NotNull(message = "El usuario no puede ser nulo o vacio")
     private User user;
 
-    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Product> listPublications = new HashSet<>();
+    private Set<Publication> listPublications = new HashSet<>();
+
 
 }

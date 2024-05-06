@@ -1,6 +1,7 @@
-package co.edu.cue.proyectoNuclearSostenible.model;
+package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,11 +28,13 @@ public class TypeId implements Serializable {
     @Column(name = "code", nullable = false)
     private String code;
 
-    @OneToMany(mappedBy = "typeId", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "typeIdUser", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<User> listUsers = new HashSet<User>();
 
-    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
+
 
 
 
