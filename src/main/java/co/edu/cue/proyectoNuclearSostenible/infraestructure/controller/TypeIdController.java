@@ -1,9 +1,7 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.TypeId;
-import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.service.TypeIdService;
-import co.edu.cue.proyectoNuclearSostenible.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

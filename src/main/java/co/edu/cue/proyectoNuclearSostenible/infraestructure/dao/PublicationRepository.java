@@ -1,7 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.dao;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Publication;
-import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.PublicationMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -19,8 +18,6 @@ public class PublicationRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-
-    private PublicationMapper publicationMapper;
 
     public List<Publication> searchPublications(String title, String productName, String productDescription, String categoryTitle, String stateDescription) {
         // Verificar si se proporcionan parámetros de búsqueda

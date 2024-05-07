@@ -2,14 +2,10 @@ package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Product;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.ProductCategory;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.ProductCategoryDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.ProductDao;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ProductDto;
-import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.ProductMapper;
-import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +75,7 @@ public class ProductServiceImp implements ProductService {
      * Valida la información del producto antes de crearlo.
      *
      * @param productDto Los datos del producto a validar.
-     * @throws IllegalArgumentException Si ya existe un producto con el mismo nombre.
+     * @throws IllegalArgumentException Sí ya existe un producto con el mismo nombre.
      */
     private void validateProductInfo(ProductDto productDto) {
         // Convertir el nombre a minúsculas para la comparación insensible a mayúsculas y minúsculas
@@ -110,8 +106,8 @@ public class ProductServiceImp implements ProductService {
     /**
      * Obtiene un producto a partir de su ID.
      *
-     * @param id La ID del producto a obtener.
-     * @return El producto correspondiente a la ID proporcionada.
+     * @param id El ID del producto a obtener.
+     * @return El producto correspondiente al ID proporcionado.
      */
     public Product getById(Long id){
         return productDao.findProductById(id);

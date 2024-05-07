@@ -1,14 +1,11 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.ProductCategory;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.TypeId;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.TypeIdDao;
 import co.edu.cue.proyectoNuclearSostenible.service.TypeIdService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.StyledEditorKit;
 import java.util.List;
 
 @Service
@@ -16,11 +13,12 @@ import java.util.List;
 public class TypeIdServiceImpl implements TypeIdService {
     @Autowired
     private TypeIdDao typeIdDao;
+
     /**
      * Obtiene un tipo de identificación a partir de su ID.
      *
-     * @param id La ID del tipo de identificación a obtener.
-     * @return El tipo de identificación correspondiente a la ID proporcionada.
+     * @param id El ID del tipo de identificación a obtener.
+     * @return El tipo de identificación correspondiente al ID proporcionado.
      */
     public TypeId getById(Long id){
         return typeIdDao.findTypeIdById(id);

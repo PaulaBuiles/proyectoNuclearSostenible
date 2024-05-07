@@ -1,10 +1,7 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.ProductCategory;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.TypeId;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.StateDao;
-import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.TypeIdDao;
 import co.edu.cue.proyectoNuclearSostenible.service.StateService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +38,8 @@ public class StateServiceImpl implements StateService {
     /**
      * Obtiene un estado a partir de su ID.
      *
-     * @param id La ID del estado a obtener.
-     * @return El estado correspondiente a la ID proporcionada.
+     * @param id El ID del estado a obtener.
+     * @return El estado correspondiente al ID proporcionado.
      */
     public State getById(Long id){
         return stateDao.findStateById(id);

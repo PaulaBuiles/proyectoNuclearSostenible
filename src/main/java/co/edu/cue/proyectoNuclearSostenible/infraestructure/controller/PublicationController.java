@@ -1,10 +1,7 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Publication;
-import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.PublicationRepository;
-import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ProductDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.PublicationDto;
-import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.service.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

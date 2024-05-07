@@ -1,7 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.dao;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.TypeId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

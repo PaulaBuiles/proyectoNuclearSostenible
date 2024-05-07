@@ -1,6 +1,5 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
@@ -96,8 +95,8 @@ public class UserServiceImp implements UserService {
     /**
      * Obtiene un usuario a partir de su ID.
      *
-     * @param id La ID del usuario a obtener.
-     * @return El usuario correspondiente a la ID proporcionada.
+     * @param id El ID del usuario a obtener.
+     * @return El usuario correspondiente al ID proporcionado.
      */
     public User getById(Long id){
         return userDao.findUserById(id);
