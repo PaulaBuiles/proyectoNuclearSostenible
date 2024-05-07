@@ -22,51 +22,17 @@ public class PublicationRepository {
 
     private PublicationMapper publicationMapper;
 
-    /*public List<Publication> searchPublications(String category, String title, String name, String description, String state) {
-        String queryString = "SELECT p FROM Publication p JOIN p.product pr JOIN pr.productCategory pc WHERE 1=1";
-
-        if (category != null && !category.isEmpty()) {
-            queryString += " AND pc.title = :category";
-        }
-        if (title != null && !title.isEmpty()) {
-            queryString += " AND p.title LIKE :title";
-        }
-        if (name != null && !name.isEmpty()) {
-            queryString += " AND p.name LIKE :name";
-        }
-        if (description != null && !description.isEmpty()) {
-            queryString += " AND p.description LIKE :description";
-        }
-        if (state != null && !state.isEmpty()) {
-            queryString += " AND p.state = :state";
-        }
-
-        TypedQuery<Publication> query = entityManager.createQuery(queryString, Publication.class);
-
-        if (category != null && !category.isEmpty()) {
-            query.setParameter("category", category);
-        }
-        if (title != null && !title.isEmpty()) {
-            query.setParameter("title", "%" + title + "%");
-        }
-        if (name != null && !name.isEmpty()) {
-            query.setParameter("name", "%" + name + "%");
-        }
-        if (description != null && !description.isEmpty()) {
-            query.setParameter("description", "%" + description + "%");
-        }
-        if (state != null && !state.isEmpty()) {
-            query.setParameter("state", state);
-        }
-
-        return query.getResultList();
-    }*/
-
     public List<Publication> searchPublications(String title, String productName, String productDescription, String categoryTitle, String stateDescription) {
+        // Verificar si se proporcionan parámetros de búsqueda
+        if (title == null && productName == null && productDescription == null && categoryTitle == null && stateDescription == null) {
+            // No se proporcionaron parámetros, devolver un mensaje o lanzar una excepción
+            throw new IllegalArgumentException("Debe proporcionar al menos un parámetro de búsqueda.");
+        }
+
         String queryString = "SELECT DISTINCT p FROM Publication p JOIN p.product pr ";
 
         if (categoryTitle != null && !categoryTitle.isEmpty()) {
-            queryString += " JOIN pr.category c ";
+            queryString += " JOIN pr.productCategory c ";
         }
 
         if (stateDescription != null && !stateDescription.isEmpty()) {
