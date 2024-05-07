@@ -8,4 +8,7 @@ public interface UserService {
     UserDto createUser(UserDto user);
 
     User getUser(UserDto user);
+
+    User getById(Long id);
+
 }

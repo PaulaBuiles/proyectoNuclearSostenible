@@ -1,6 +1,7 @@
 package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "product")
+@Table(name = "product", indexes = @Index(columnList = "idProduct"))
 public class Product implements Serializable {
 
     @Serial
@@ -20,7 +21,7 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idProduct;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -43,6 +44,7 @@ public class Product implements Serializable {
     private Boolean status;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Publication> listPublications = new HashSet<>();
 
 

@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping(headers = "Accept=application/json")
-    public ResponseEntity<User> getUser(@RequestBody UserDto user) {
+    public ResponseEntity<?> getUser(@RequestBody UserDto user) {
         try {
             return new ResponseEntity<>(userService.getUser(user), HttpStatus.OK);
         } catch (Exception e) {

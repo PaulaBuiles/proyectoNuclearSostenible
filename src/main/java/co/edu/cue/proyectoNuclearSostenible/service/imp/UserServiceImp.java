@@ -1,5 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
@@ -62,5 +63,8 @@ public class UserServiceImp implements UserService {
 
     public User getUser(UserDto user) {
         return userDao.findById(user.idUser()).get();
+    }
+    public User getById(Long id){
+        return userDao.findUserById(id);
     }
 }

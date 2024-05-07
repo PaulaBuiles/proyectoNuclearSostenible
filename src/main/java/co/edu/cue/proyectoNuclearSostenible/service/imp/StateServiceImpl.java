@@ -2,6 +2,7 @@ package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.ProductCategory;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.TypeId;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.StateDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.TypeIdDao;
 import co.edu.cue.proyectoNuclearSostenible.service.StateService;
@@ -23,6 +24,10 @@ public class StateServiceImpl implements StateService {
             throw new IllegalArgumentException("Ya existe una estado con el nombre proporcionado.");
         }
         return stateDao.save(state);
+    }
+
+    public State getById(Long id){
+        return stateDao.findStateById(id);
     }
 
 }
