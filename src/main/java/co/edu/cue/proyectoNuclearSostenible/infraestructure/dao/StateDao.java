@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 public interface StateDao extends JpaRepository<State, Long> {
     State findByDescriptionIgnoreCase(String lowercaseDescription);
 
-    @Query("SELECT t FROM State t WHERE t.id = :id")
+    @Query("SELECT t FROM State t WHERE t.idState = :id")
     State findStateById(@Param("id") Long id);
 }
