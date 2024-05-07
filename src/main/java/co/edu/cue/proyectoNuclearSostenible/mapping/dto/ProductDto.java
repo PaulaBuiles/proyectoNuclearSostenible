@@ -6,5 +6,6 @@ public record ProductDto(Long idProduct,
                          String imageUrl,
                          String description,
                          Long userId,
+                         Long categoryId,
                          Boolean status) {
 }

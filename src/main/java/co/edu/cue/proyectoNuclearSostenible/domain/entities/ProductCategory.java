@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "product_category")
+@Table(name = "product_category", indexes = @Index(columnList = "idCategory"))
 public class ProductCategory implements Serializable {
 
     @Serial
@@ -19,7 +19,7 @@ public class ProductCategory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idCategory;
 
     @Column(name = "title", nullable = false)
     private String title;

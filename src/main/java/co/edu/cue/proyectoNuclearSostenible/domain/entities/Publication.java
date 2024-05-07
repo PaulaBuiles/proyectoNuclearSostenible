@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "publication")
+@Table(name = "publication", indexes = @Index(columnList = "idPublication"))
 public class Publication implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

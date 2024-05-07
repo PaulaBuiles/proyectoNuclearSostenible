@@ -47,5 +47,10 @@ public class Product implements Serializable {
     @JsonIgnore
     private Set<Publication> listPublications = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name="idCategory")
+    @NotNull(message = "La categoria no puede ser nulo o vacio")
+    private ProductCategory productCategory;
+
 
 }
