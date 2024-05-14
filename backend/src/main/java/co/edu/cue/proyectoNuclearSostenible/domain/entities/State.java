@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "state")
+@Table(name = "state" , indexes = @Index(columnList = "idState"))
 public class State implements Serializable {
 
     @Serial
@@ -19,7 +19,7 @@ public class State implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idState;
 
     @Column(name = "description", nullable = false)
     private String description;
