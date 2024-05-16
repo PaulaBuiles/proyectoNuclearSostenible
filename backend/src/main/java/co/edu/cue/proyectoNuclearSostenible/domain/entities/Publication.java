@@ -23,10 +23,8 @@ public class Publication implements Serializable {
     @JoinColumn(name="buyer_id")
     private User buyer;
 
-    @ManyToOne
-    @JoinColumn(name="owner_id")
-    private User owner;
-
+    @OneToMany(mappedBy = "publication", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Offer> offers;
 
     @ManyToOne
     @JoinColumn(name="id_product")
