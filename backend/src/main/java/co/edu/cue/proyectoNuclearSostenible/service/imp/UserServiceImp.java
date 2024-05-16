@@ -5,9 +5,13 @@ import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.UserService;
+import co.edu.cue.proyectoNuclearSostenible.utilities.Validation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +19,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImp implements UserService {
+public class UserServiceImp implements UserService, UserDetailsService {
 
     @Qualifier("userMapper")
     private UserMapper mapper;
@@ -53,7 +57,7 @@ public class UserServiceImp implements UserService {
      * @throws IllegalArgumentException Si se encuentran múltiples usuarios con las mismas credenciales o si ya existe un usuario con alguno de los datos proporcionados.
      */
     private void validateUserInfo(UserDto userDto) {
-        // Convertir los datos del DTO a minúsculas para la comparación insensible a mayúsculas y minúsculas
+
         String username = userDto.userName().toLowerCase();
         String email = userDto.email().toLowerCase();
         String identification = userDto.identification().toLowerCase();
@@ -70,7 +74,7 @@ public class UserServiceImp implements UserService {
         // Verificar si ya existe un usuario con alguno de los datos proporcionados
         if (!existingUsers.isEmpty()) {
             User existingUser = existingUsers.get(0);
-            if (existingUser.getUserName().equalsIgnoreCase(username)) {
+            if (existingUser.getUsername().equalsIgnoreCase(username)) {
                 throw new IllegalArgumentException("Ya existe un usuario con ese nombre de usuario.");
             } else if (existingUser.getEmail().equalsIgnoreCase(email)) {
                 throw new IllegalArgumentException("Ya existe un usuario con ese correo electrónico.");
@@ -101,4 +105,18 @@ public class UserServiceImp implements UserService {
     public User getById(Long id){
         return userDao.findUserById(id);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+        User user = userDao.findByUser_name(username);
+        if (Validation.isNullOrEmpty(user)) {
+        return org.springframework.security.core.userdetails.User.builder().username(user.getUsername()).password(user.getPassword()).roles(user.getRol()).build();
+
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
+    }
+
+
+
 }
