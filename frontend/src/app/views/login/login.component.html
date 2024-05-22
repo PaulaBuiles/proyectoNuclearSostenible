@@ -1,0 +1,49 @@
+
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-spinner">
+        <div class="three-body">
+            <div class="three-body__dot"></div>
+            <div class="three-body__dot"></div>
+            <div class="three-body__dot"></div>
+            </div>
+    </div>
+  </div>
+  <div *ngIf="showError" class="error-overlay">
+    <div class="error-message">
+      <p>No se puede iniciar sesión. Por favor, inténtelo de nuevo.</p>
+      <button (click)="dismissError()">Cerrar</button>
+    </div>
+  </div>
+  
+  
+  <div class="box">
+    <div class="container">
+      <div class="top-header">
+        <header>Iniciar Sesión</header>
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="input-field">
+          <input type="text" class="input" placeholder="Usuario" formControlName="username">
+          <i class="bx bx-user"></i>
+        </div>
+        <div class="input-field">
+          <input type="password" class="input" placeholder="Contraseña" formControlName="password">
+          <i class="bx bx-lock-alt"></i>
+        </div>
+        <div class="input-field">
+          <input type="submit" class="submit" value="Inicio">
+        </div>
+  
+        <div class="bottom">
+          <div class="left">
+            <input type="checkbox" id="check" formControlName="rememberMe">
+            <label for="check"> Recordarme</label>
+          </div>
+          <div class="right">
+            <label><a href="#">¿Olvidaste la contraseña?</a></label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
