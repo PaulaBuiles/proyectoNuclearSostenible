@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserDao extends JpaRepository<User, Long> {
 
@@ -14,5 +15,9 @@ public interface UserDao extends JpaRepository<User, Long> {
     @Query("SELECT t FROM User t WHERE t.idUser = :id")
     User findUserById(@Param("id") Long id);
 
-    User findByUser_name(String username);
+    User findByUserName(String username);
+
+    Optional<User> findByIdentification(String identification);
+
+    User findByEmail(String email);
 }
