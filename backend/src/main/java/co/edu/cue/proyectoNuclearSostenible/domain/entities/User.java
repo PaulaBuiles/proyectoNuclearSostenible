@@ -75,10 +75,18 @@ public class User implements Serializable, UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Product> ownComplaints = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_rewards",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "reward_id")
+    )
+    private Set<Reward> rewards = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-            return Set.of(new SimpleGrantedAuthority(Boolean.TRUE.equals(this.isAdmin) ? "ROLE_ADMIN" : "ROLE_USER"));
+            return Set.of(new SimpleGrantedAuthority(Boolean.TRUE.equals(this.isAdmin) ? "ADMIN" : "USER"));
     }
 
     public String getRol() {
