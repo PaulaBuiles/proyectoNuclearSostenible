@@ -7,8 +7,8 @@ import { LoginComponent } from './views/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './views/products/products.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { PersonalInformationComponent } from './personal-information/personal-information.component';
+import { NavbarComponent } from './utils/navbar/navbar.component';
+import { PersonalInformationComponent } from './views/user/personal-information/personal-information.component';
 
 
 @NgModule({
