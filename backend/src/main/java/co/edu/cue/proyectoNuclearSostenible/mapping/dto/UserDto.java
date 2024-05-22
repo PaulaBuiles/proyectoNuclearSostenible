@@ -12,5 +12,6 @@ public record UserDto (
     String image,
     String description,
     Boolean status,
-    Boolean isStudent
+    Boolean isAdmin,
+    int points
 ){}

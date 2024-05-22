@@ -25,7 +25,7 @@ public class Assessment implements Serializable {
 
     @OneToOne
     @JoinColumn(name="id_transaction")
-    private Transaction id_transaction;
+    private Transaction transaction;
 
 
 

@@ -57,8 +57,10 @@ public class User implements Serializable, UserDetails {
     @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
 
+    @Column(name = "points", nullable = false, columnDefinition = "INT DEFAULT 0")
+    private int points;
 
-    @Column(name = "isStudent", nullable = false)
+    @Column(name = "isAdmin", nullable = false)
     private Boolean isAdmin;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -80,12 +82,12 @@ public class User implements Serializable, UserDetails {
     }
 
     public String getRol() {
-        return (Boolean.TRUE.equals(this.isAdmin) ? "ROLE_ADMIN" : "ROLE_USER");
+        return (Boolean.TRUE.equals(this.isAdmin) ? "ADMIN" : "USER");
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.userName;
     }
 
     @Override

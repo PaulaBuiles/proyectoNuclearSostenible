@@ -5,17 +5,19 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "transaction", indexes = @Index(columnList = "idTransaction"))
+@Table(name = "reward", indexes = @Index(columnList = "idReward"))
 public class Reward implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAssessment;
+    private Long idReward;
 
     @Column(name = "description")
     private String description;

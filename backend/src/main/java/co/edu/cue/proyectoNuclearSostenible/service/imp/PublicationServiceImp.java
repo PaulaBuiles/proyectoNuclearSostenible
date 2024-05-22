@@ -30,6 +30,7 @@ public class PublicationServiceImp implements PublicationService {
     private UserServiceImp userService;
     private ProductServiceImp productService;
     private StateServiceImpl stateService;
+
     /**
      * Crea una nueva publicación en el sistema.
      *
@@ -102,7 +103,7 @@ public class PublicationServiceImp implements PublicationService {
         User buyer = userService.getUser(buyerDto);
 
         // Actualizar la publicación con el comprador y el nuevo estado (Vendido)
-        publication.setBuyer(buyer);
+        publication.setOwner(buyer);
         State soldState = stateService.getById(state);
         publication.setState(soldState);
 

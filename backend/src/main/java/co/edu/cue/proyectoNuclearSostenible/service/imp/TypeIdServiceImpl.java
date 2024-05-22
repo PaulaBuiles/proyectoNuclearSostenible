@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class TypeIdServiceImpl implements TypeIdService {
+
     @Autowired
     private TypeIdDao typeIdDao;
 

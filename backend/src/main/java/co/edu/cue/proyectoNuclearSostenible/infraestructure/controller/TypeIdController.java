@@ -18,6 +18,7 @@ public class TypeIdController {
 
     @Autowired
     private TypeIdService typeIdService;
+
     /**
      * Crea un nuevo tipo de identificación en el sistema.
      *

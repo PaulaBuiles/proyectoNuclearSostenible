@@ -18,4 +18,7 @@ public class Constants {
     public static final Integer SUB_STRING_HEADER_HTTP = 7;
     /** Constante que contiene el valor de un día en milisegundos */
     public static final Integer DAY_MILIS = 24 * 60 * 60 * 1000;
+
+    public static final String MSN_INICIO_LOG_INFO = "Inicio de operación: ";
+
 }
