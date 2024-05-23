@@ -22,11 +22,11 @@ public class Report implements Serializable {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="denounced_id")
+    @JoinColumn(name="id_denounced")
     private User denounced;
 
     @ManyToOne
-    @JoinColumn(name="complainant_id")
+    @JoinColumn(name="id_complainant")
     private User complainant;
     
 }
