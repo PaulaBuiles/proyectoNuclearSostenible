@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth.service'; // Asegúrate de que el path sea correcto
+import { AuthService } from '../../service/auth.service'; // Asegúrate de que el path sea correcto
 
 @Component({
   selector: 'app-navbar',
@@ -11,9 +11,16 @@ export class NavbarComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.checkLoginStatus();
     this.authService.isLoggedIn().subscribe(status => {
       this.isLoggedIn = status;
     });
+  }
+
+  async checkLoginStatus(): Promise<void> {
+    const status = await this.authService.isLoggedIn().toPromise();
+    this.isLoggedIn = status ?? false;
+
   }
 }

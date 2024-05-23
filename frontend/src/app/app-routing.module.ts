@@ -6,6 +6,7 @@ import { ProductsComponent } from './views/products/products.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'products', component: ProductsComponent },
+  { path: 'user', loadChildren: () => import('./views/user/user.module').then(m => m.UserModule)},
   // Agrega más rutas aquí si es necesario
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' } 

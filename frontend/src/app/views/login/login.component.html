@@ -1,49 +1,22 @@
-
-  <div *ngIf="loading" class="loading-overlay">
-    <div class="loading-spinner">
-        <div class="three-body">
-            <div class="three-body__dot"></div>
-            <div class="three-body__dot"></div>
-            <div class="three-body__dot"></div>
-            </div>
-    </div>
-  </div>
-  <div *ngIf="showError" class="error-overlay">
-    <div class="error-message">
-      <p>No se puede iniciar sesión. Por favor, inténtelo de nuevo.</p>
-      <button (click)="dismissError()">Cerrar</button>
-    </div>
-  </div>
-  
-  
-  <div class="box">
-    <div class="container">
-      <div class="top-header">
-        <header>Iniciar Sesión</header>
-      </div>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="input-field">
-          <input type="text" class="input" placeholder="Usuario" formControlName="username">
-          <i class="bx bx-user"></i>
-        </div>
-        <div class="input-field">
-          <input type="password" class="input" placeholder="Contraseña" formControlName="password">
-          <i class="bx bx-lock-alt"></i>
-        </div>
-        <div class="input-field">
-          <input type="submit" class="submit" value="Inicio">
-        </div>
-  
-        <div class="bottom">
-          <div class="left">
-            <input type="checkbox" id="check" formControlName="rememberMe">
-            <label for="check"> Recordarme</label>
+<div class="body">
+  <div class="wrapper">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+          <h1 class="title">Inicio</h1>
+          <div class="inp">
+              <input formControlName="userName" type="text" class="input" placeholder="usuario">
+              <i class="fa-solid fa-user"></i>
           </div>
-          <div class="right">
-            <label><a href="#">¿Olvidaste la contraseña?</a></label>
+          <div class="inp">
+              <input formControlName="password" type="password" class="input" placeholder="contraseña">
+              <i class="fa-solid fa-lock"></i>
           </div>
-        </div>
+          <button type="submit" class="submit">Iniciar sesión</button>
+          <p class="footer">¿No tienes cuenta? <a href="#" class="link">Por favor, Regístrate</a></p>   
       </form>
-    </div>
+      <div></div>
+      <div class="banner">
+          <h1 class="wel_text">Bienvenido</h1><br>
+          <p class="para"></p>
+      </div>
   </div>
-  
+</div>
