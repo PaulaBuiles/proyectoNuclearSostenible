@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RequestsService } from '../../../service/requests.service';
+import { UserDto } from '../../../model/user-dto.model';
 
 @Component({
   selector: 'app-profile',
@@ -22,9 +24,24 @@ export class ProfileComponent {
 
   filteredProducts = [...this.user.products];
 
-  constructor() { }
+  
+
+  user1: UserDto | null = null;
+
+  constructor(private requestsService: RequestsService) {}
 
   ngOnInit(): void {
+    const userId = 1; // Por ejemplo, puedes obtener este ID dinámicamente
+    this.requestsService.getUserById(userId).subscribe(
+      (user: UserDto) => {
+        this.user1 = user;
+        console.log(user);
+      },
+      error => {
+        console.error('Error fetching user', error);
+      }
+    );
   }
+  
 }
 

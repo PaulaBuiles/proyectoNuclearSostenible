@@ -8,6 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsMo
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './views/products/products.component';
 import { NavbarComponent } from './utils/navbar/navbar.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './token.interceptor'; // Ajusta la ruta según tu estructura de proyecto
+
+
 
 
 @NgModule({
@@ -24,7 +28,9 @@ import { NavbarComponent } from './utils/navbar/navbar.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

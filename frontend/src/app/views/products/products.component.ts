@@ -11,7 +11,7 @@ export class ProductsComponent {
     { title: 'Producto 2', description: 'Descripción del Producto 2', price: 19.99, imageUrl: 'https://cdn.pixabay.com/photo/2024/02/26/19/39/monochrome-image-8598798_640.jpg' },
     { title: 'Producto 3', description: 'Descripción del Producto 3', price: 19.99, imageUrl: 'https://cdn.pixabay.com/photo/2024/02/26/19/39/monochrome-image-8598798_640.jpg' },
     { title: 'Producto 4', description: 'Descripción del Producto 4', price: 29.99, imageUrl: 'https://cdn.pixabay.com/photo/2024/02/26/19/39/monochrome-image-8598798_640.jpg' },
-    { title: 'Producto 5', description: 'Descripción del Producto 5', price: 29.99, imageUrl: 'https://cdn.pixabay.com/photo/2024/02/26/19/39/monochrome-image-8598798_640.jpg' },
+    { title: 'Producto 5', description: 'Descripción del Producto 5', price: 29.99, imageUrl: 'https://drive.google.com/file/d/1G75IfGKla2cO3BM89JQVoasLObl36vwl/view?usp=sharing' },
   ];
 
   filteredProducts = [...this.products];

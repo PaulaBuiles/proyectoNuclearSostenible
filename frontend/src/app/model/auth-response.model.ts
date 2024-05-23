@@ -1,5 +1,11 @@
 export interface AuthResponse {
-    message: string;
-    token?: string; 
-  }
-  
+  authenticationResponseDto: {
+    token: string;
+  };
+  user: {
+    // Propiedades del usuario
+  };
+  statusDto: {
+    // Propiedades del estado
+  };
+}
