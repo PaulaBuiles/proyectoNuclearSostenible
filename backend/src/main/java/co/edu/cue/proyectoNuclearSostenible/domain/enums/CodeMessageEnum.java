@@ -1,4 +1,4 @@
-package co.edu.cue.proyectoNuclearSostenible.utilities.enums;
+package co.edu.cue.proyectoNuclearSostenible.domain.enums;
 
 public enum CodeMessageEnum {
 

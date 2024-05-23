@@ -5,7 +5,7 @@ import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.UserService;
-import co.edu.cue.proyectoNuclearSostenible.utilities.Validation;
+import co.edu.cue.proyectoNuclearSostenible.config.Validation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

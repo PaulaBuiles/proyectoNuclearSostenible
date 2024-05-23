@@ -4,12 +4,16 @@ import co.edu.cue.proyectoNuclearSostenible.domain.entities.Reward;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.RewardDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
+import co.edu.cue.proyectoNuclearSostenible.mapping.dto.RewardDto;
+import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
+import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.RewardMapper;
+import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.RewardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RewardServiceImp implements RewardService {
+public class RewardServiceImpl implements RewardService {
 
     @Autowired
     private RewardDao rewardDao;
@@ -17,30 +21,32 @@ public class RewardServiceImp implements RewardService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private RewardMapper rewardMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
-    public void addPoints(User user, int points, String description) {
+    public void addPoints(UserDto userDto, int points, String description) {
+        User user = userMapper.mapToEntity(userDto);
         Reward reward = new Reward();
         reward.setDescription(description);
         reward.setPoints_value(points);
-        reward.getUsers().add(user);
+        reward.getUserRewards().add(user);
         user.getRewards().add(reward);
+
+        user.setPoints(user.getPoints() + points);
 
         rewardDao.save(reward);
         userDao.save(user);
     }
 
     @Override
-    public void redeemPoints(User user, int points, String rewardDescription) {
-        Integer totalPoints = rewardDao.findTotalPointsByUserId(user.getIdUser());
-        if (totalPoints != null && totalPoints >= points) {
-            Reward reward = new Reward();
-            reward.setDescription(rewardDescription);
-            reward.setPoints_value(-points);
-            reward.getUsers().add(user);
-            user.getRewards().add(reward);
-
-            rewardDao.save(reward);
+    public void redeemPoints(UserDto userDto, int points) {
+        User user = userMapper.mapToEntity(userDto);
+        if (user.getPoints() >= points) {
+            user.setPoints(user.getPoints() - points);
             userDao.save(user);
         } else {
             throw new IllegalArgumentException("Insufficient points");
@@ -48,9 +54,8 @@ public class RewardServiceImp implements RewardService {
     }
 
     @Override
-    public int getPoints(User user) {
-        Integer totalPoints = rewardDao.findTotalPointsByUserId(user.getIdUser());
-        return totalPoints != null ? totalPoints : 0;
+    public int getPoints(UserDto userDto) {
+        User user = userMapper.mapToEntity(userDto);
+        return user.getPoints();
     }
-
 }

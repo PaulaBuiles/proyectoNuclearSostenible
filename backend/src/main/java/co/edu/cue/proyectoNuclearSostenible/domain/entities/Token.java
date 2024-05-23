@@ -18,6 +18,6 @@ public class Token {
     private Boolean isLogOut;
 
     @ManyToOne
-    @JoinColumn(name = "id_persona")
+    @JoinColumn(name = "id_user")
     private User user;
 }

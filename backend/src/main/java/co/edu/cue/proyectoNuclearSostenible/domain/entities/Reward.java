@@ -26,5 +26,5 @@ public class Reward implements Serializable {
     private Integer points_value;
 
     @ManyToMany(mappedBy = "rewards")
-    private Set<User> users = new HashSet<>();
+    private Set<User> userRewards = new HashSet<>();
 }

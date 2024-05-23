@@ -12,7 +12,7 @@ import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserOutDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapper;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapperImpl;
 import co.edu.cue.proyectoNuclearSostenible.service.UserService;
-import co.edu.cue.proyectoNuclearSostenible.utilities.enums.CodeMessageEnum;
+import co.edu.cue.proyectoNuclearSostenible.domain.enums.CodeMessageEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class LoginService {
@@ -43,6 +45,7 @@ public class LoginService {
 
     @Autowired
     private TokenRepository tokenRepository;
+
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -87,11 +90,8 @@ public class LoginService {
         User user = userDao.findByUserName(userDto.userName());
         if (user != null) {
             String jwt = jwtService.generateToken(user);
-            Token token = new Token();
-            token.setToken(jwt);
-            token.setUser(user);
-            token.setIsLogOut(false);
-            tokenRepository.save(token);
+            deleteUserToken(user);
+            saveUserToken(jwt, user);
 
             userOutDto.setAuthenticationResponseDto(new AuthenticationResponseDTO(jwt));
             userOutDto.setUser(user);
@@ -103,6 +103,25 @@ public class LoginService {
             log.error(CodeMessageEnum.ERROR_INVALID_RESULT.getMessage() + " autenticar");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User no encontrado");
         }
+    }
+
+    private void deleteUserToken(User user){
+        List<Token> lstValidToken = tokenRepository.findByUserAndIsLogOut(user, false);
+
+        if (!lstValidToken.isEmpty()) {
+            lstValidToken.forEach(t -> {
+                t.setIsLogOut(true);
+            });
+        }
+        tokenRepository.saveAll(lstValidToken);
+    }
+
+    private void saveUserToken(String jwt, User user){
+        Token token = new Token();
+        token.setToken(jwt);
+        token.setUser(user);
+        token.setIsLogOut(false);
+        tokenRepository.save(token);
     }
 
 }

@@ -1,4 +1,4 @@
-package co.edu.cue.proyectoNuclearSostenible.utilities;
+package co.edu.cue.proyectoNuclearSostenible.config;
 
 import co.edu.cue.proyectoNuclearSostenible.service.imp.JwtService;
 import co.edu.cue.proyectoNuclearSostenible.service.imp.UserServiceImp;

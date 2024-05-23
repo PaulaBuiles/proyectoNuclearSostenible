@@ -1,4 +1,4 @@
-package co.edu.cue.proyectoNuclearSostenible.utilities;
+package co.edu.cue.proyectoNuclearSostenible.config;
 
 public class Constants {
     /**

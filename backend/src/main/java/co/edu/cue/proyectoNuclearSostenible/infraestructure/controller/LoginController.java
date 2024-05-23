@@ -3,7 +3,7 @@ package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserOutDto;
 import co.edu.cue.proyectoNuclearSostenible.service.imp.LoginService;
-import co.edu.cue.proyectoNuclearSostenible.utilities.enums.CodeMessageEnum;
+import co.edu.cue.proyectoNuclearSostenible.domain.enums.CodeMessageEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

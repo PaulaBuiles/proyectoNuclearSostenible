@@ -1,4 +1,5 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
+import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -7,14 +8,18 @@ import java.util.Date;
 import java.util.function.Function;
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
-import co.edu.cue.proyectoNuclearSostenible.utilities.Constants;
+import co.edu.cue.proyectoNuclearSostenible.config.Constants;
 
 
 @Service
 public class JwtService {
+
+    @Autowired
+    private TokenRepository tokenRepository;
 
     private final String LLAVE_SECRETA =
             "6baa694f8a35f98c3c39bf7eaab58b7167b0db4f1e570da0cb6cfd76d684edc7";
@@ -22,10 +27,20 @@ public class JwtService {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-    public Boolean isValid(String token, UserDetails user) {
+
+    public Boolean isValid(String token, UserDetails userDetails) {
         String username = extractUsername(token);
-        return username.equals(user.getUsername()) && !isTokenExpired(token);
+
+        Boolean isValidToken = tokenRepository.findByToken(token).map(t ->
+
+                !t.getIsLogOut()).orElse(false);
+
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token) &&
+
+                isValidToken;
     }
+
+
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
