@@ -62,7 +62,6 @@ public class User implements Serializable, UserDetails {
 
     @Column(name = "isAdmin", nullable = false)
     private Boolean isAdmin;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Product> listProducts = new HashSet<>();
 
