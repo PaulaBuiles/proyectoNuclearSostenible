@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface RewardDao extends JpaRepository<Reward, Long> {
 
-    @Query("SELECT r FROM Reward r JOIN r.users u WHERE u.idUser = :userId")
+    @Query("SELECT r FROM Reward r JOIN r.userRewards u WHERE u.idUser = :userId")
     List<Reward> findRewardsByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT SUM(r.points_value) FROM Reward r JOIN r.users u WHERE u.idUser = :userId")
+    @Query("SELECT SUM(r.points_value) FROM Reward r JOIN r.userRewards u WHERE u.idUser = :userId")
     Integer findTotalPointsByUserId(@Param("userId") Long userId);
 }

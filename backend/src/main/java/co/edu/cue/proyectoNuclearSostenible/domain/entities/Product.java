@@ -52,5 +52,8 @@ public class Product implements Serializable {
     @NotNull(message = "La categoria no puede ser nulo o vacio")
     private ProductCategory productCategory;
 
+    @OneToMany(mappedBy = "exchangedProduct", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Offer> lstOffer = new HashSet<>();
+
 
 }

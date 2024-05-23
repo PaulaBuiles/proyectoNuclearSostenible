@@ -3,6 +3,7 @@ package co.edu.cue.proyectoNuclearSostenible.service.imp;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Offer;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Publication;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Transaction;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.OfferDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.PublicationDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.StateDao;
@@ -13,7 +14,6 @@ import co.edu.cue.proyectoNuclearSostenible.service.OfferService;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class OfferServiceImpl implements OfferService {
@@ -78,11 +78,8 @@ public class OfferServiceImpl implements OfferService {
      * @param publicationId ID de la publicación.
      * @return Lista de DTOs de ofertas.
      */
-    @Override
-    public List<OfferDto> getOffersByPublication(Long publicationId) {
-        return offerDao.findByPublicationId(publicationId).stream()
-                .map(offerMapper::mapToDTO)
-                .collect(Collectors.toList());
+    public List<Offer> getOffersByPublication(Long publicationId) {
+        return offerDao.findOffersByPublicationId(publicationId);
     }
 
     /**
@@ -91,12 +88,10 @@ public class OfferServiceImpl implements OfferService {
      * @param userId ID del usuario.
      * @return Lista de DTOs de ofertas.
      */
-    @Override
-    public List<OfferDto> getOffersByUser(Long userId) {
-        return offerDao.findByOffererId(userId).stream()
-                .map(offerMapper::mapToDTO)
-                .collect(Collectors.toList());
+    public List<Offer> getOffersByUser(Long userId) {
+        return offerDao.findOfferById(userId);
     }
+
 
     /**
      * Obtiene una oferta por su ID o lanza una excepción si no se encuentra.

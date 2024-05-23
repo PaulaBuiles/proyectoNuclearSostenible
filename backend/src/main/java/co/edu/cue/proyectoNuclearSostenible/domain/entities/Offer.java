@@ -19,15 +19,15 @@ public class Offer implements Serializable {
     private Long idOffer;
 
     @ManyToOne
-    @JoinColumn(name = "publication_id", nullable = false)
+    @JoinColumn(name = "id_publication", nullable = false)
     private Publication publication;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "id_product")
     private Product exchangedProduct;
 
     @ManyToOne
-    @JoinColumn(name = "offerer_id", nullable = false)
+    @JoinColumn(name = "id_offerer", nullable = false)
     private User offerer;
 
     @Column(name = "monetary_value")
