@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 @Controller
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     @Autowired
@@ -42,10 +43,10 @@ public class UserController {
      *         Si la obtención es exitosa, devuelve un ResponseEntity con el cuerpo de la respuesta conteniendo el usuario obtenido y el código de estado HTTP 200 (OK).
      *         Si ocurre un error durante la obtención, devuelve un ResponseEntity con el código de estado HTTP 409 (Conflict).
      */
-    @GetMapping(headers = "Accept=application/json")
-    public ResponseEntity<?> getUser(@RequestBody UserDto user) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
         try {
-            return new ResponseEntity<>(userService.getUser(user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }

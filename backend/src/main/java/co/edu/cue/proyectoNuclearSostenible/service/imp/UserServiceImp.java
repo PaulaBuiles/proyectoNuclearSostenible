@@ -96,6 +96,10 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userDao.findById(user.idUser()).get();
     }
 
+    public User getUserById(Long id) {
+        return userDao.findById(id).get();
+    }
+
     /**
      * Obtiene un usuario a partir de su ID.
      *
