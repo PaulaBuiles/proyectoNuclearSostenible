@@ -37,16 +37,13 @@ public class ProductServiceImp implements ProductService {
      * @throws IllegalArgumentException Si ya existe una categoría con el mismo título proporcionado.
      */
     public ProductCategory createCategory(ProductCategory category) {
-        // Convertir el título a minúsculas para la comparación insensible a mayúsculas y minúsculas
+
         String lowercaseTitle = category.getTitle().toLowerCase();
 
-        // Verificar si ya existe una categoría con el mismo título proporcionado
         ProductCategory existingCategory = productCategoryDao.findByTitleIgnoreCase(lowercaseTitle);
         if(existingCategory != null) {
             throw new IllegalArgumentException("Ya existe una categoría con el título proporcionado.");
         }
-
-        // Guardar y devolver la nueva categoría de producto
         return productCategoryDao.save(category);
     }
 
@@ -58,16 +55,12 @@ public class ProductServiceImp implements ProductService {
      * @throws IllegalArgumentException Si ya existe un producto con el mismo nombre.
      */
     public ProductDto createProduct(ProductDto productDto) {
-        // Validar la información del producto
         validateProductInfo(productDto);
 
-        // Mapear DTO a entidad
         Product product = mapper.mapToEntity(productDto);
 
-        // Obtener y configurar el usuario propietario del producto
         product.setUser(userService.getById(productDto.userId()));
 
-        // Guardar el producto en la base de datos y mapear el resultado a un DTO
         return mapper.mapToDTO(productDao.save(product));
     }
 
@@ -78,16 +71,12 @@ public class ProductServiceImp implements ProductService {
      * @throws IllegalArgumentException Sí ya existe un producto con el mismo nombre.
      */
     private void validateProductInfo(ProductDto productDto) {
-        // Convertir el nombre a minúsculas para la comparación insensible a mayúsculas y minúsculas
         String name = productDto.name().toLowerCase();
 
-        // Obtener la ID del usuario propietario
         Long userId = productDto.userId();
 
-        // Buscar productos existentes con el mismo nombre y usuario propietario
-        List<Product> existingProducts = productDao.findByNameIgnoreCaseOrUser_IdUser(name, userId);
+        List<Product> existingProducts = productDao.findByNameIgnoreCaseAndUser_IdUser(name,userId);
 
-        // Verificar si ya existe un producto con el mismo nombre
         if (!existingProducts.isEmpty()) {
             throw new IllegalArgumentException("Ya existe un producto con ese nombre.");
         }
@@ -111,6 +100,14 @@ public class ProductServiceImp implements ProductService {
      */
     public Product getById(Long id){
         return productDao.findProductById(id);
+    }
+
+
+    /**
+     * Obtiene una lista de productos.
+     */
+    public List<Product> getAllProducts() {
+        return productDao.findAll();
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProductDao extends JpaRepository<Product,Long> {
 
-    List<Product> findByNameIgnoreCaseOrUser_IdUser(String name, Long userId);
+    List<Product> findByNameIgnoreCaseAndUser_IdUser(String name, Long userId);
 
     @Query("SELECT t FROM Product t WHERE t.idProduct = :id")
     Product findProductById(@Param("id") Long id);

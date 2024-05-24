@@ -39,8 +39,8 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests((request) -> {
 
                     request.requestMatchers("/api/**").permitAll(); //Aca debemos poner todas las rutas o metodos que vamos a permitir para todos
-                    request.requestMatchers("/admin/**").hasRole("ADMIN");
-                    request.requestMatchers("/user/**").hasRole("USER");
+                    //request.requestMatchers("/admin/**").hasRole("ADMIN");
+                    //request.requestMatchers("/user/**").hasRole("USER");
                     request.anyRequest().authenticated();
                 }).userDetailsService(userService)
                 .exceptionHandling(e -> e

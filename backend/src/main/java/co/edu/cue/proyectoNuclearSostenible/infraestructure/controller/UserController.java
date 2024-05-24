@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     @Autowired
@@ -38,7 +38,6 @@ public class UserController {
     /**
      * Obtiene un usuario del sistema.
      *
-     * @param user El DTO del usuario a obtener (en formato JSON en el cuerpo de la solicitud).
      * @return ResponseEntity con el resultado de la obtención del usuario.
      *         Si la obtención es exitosa, devuelve un ResponseEntity con el cuerpo de la respuesta conteniendo el usuario obtenido y el código de estado HTTP 200 (OK).
      *         Si ocurre un error durante la obtención, devuelve un ResponseEntity con el código de estado HTTP 409 (Conflict).

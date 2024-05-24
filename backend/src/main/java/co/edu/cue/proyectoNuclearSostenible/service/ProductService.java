@@ -5,6 +5,8 @@ import co.edu.cue.proyectoNuclearSostenible.domain.entities.Product;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.ProductCategory;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ProductDto;
 
+import java.util.List;
+
 public interface ProductService {
     ProductCategory createCategory(ProductCategory category);
 
@@ -13,5 +15,7 @@ public interface ProductService {
     Product getProduct(ProductDto product);
 
     Product getById(Long id);
+
+    List<Product> getAllProducts();
 
 }

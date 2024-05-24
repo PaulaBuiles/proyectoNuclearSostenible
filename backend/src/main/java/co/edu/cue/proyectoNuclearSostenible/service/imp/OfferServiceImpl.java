@@ -1,29 +1,31 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.Offer;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.Publication;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.Transaction;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
-import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.OfferDao;
-import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.PublicationDao;
-import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.StateDao;
-import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.TransactionDao;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.*;
+import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.*;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.OfferDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.OfferMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.OfferService;
+import co.edu.cue.proyectoNuclearSostenible.service.PublicationService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
+@AllArgsConstructor
 public class OfferServiceImpl implements OfferService {
 
 
     private OfferDao offerDao;
     private PublicationDao publicationDao;
+    private ProductDao productDao;
+    private PublicationService publicationService;
     private TransactionDao transactionDao;
     private OfferMapper offerMapper;
     private StateDao stateDao;
+    private UserServiceImp userService;
 
     /**
      * Crea una nueva oferta.
@@ -34,9 +36,35 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public OfferDto createOffer(OfferDto offerDto) {
         Offer offer = offerMapper.mapToEntity(offerDto);
+
+        // Verificar y asignar la entidad User
+        User offerer = userService.getById(offerDto.offererId());
+        if (offerer == null) {
+            throw new IllegalArgumentException("Offerer no encontrado con el ID: " + offerDto.offererId());
+        }
+        offer.setOfferer(offerer);
+
+        // Verificar y asignar la entidad Publication
+        Publication publication = publicationDao.getById(offerDto.publicationId());
+        if (publication == null) {
+            throw new IllegalArgumentException("Publicación no encontrada con el ID: " + offerDto.publicationId());
+        }
+        offer.setPublication(publication);
+
+        // Verificar y asignar la entidad Product, si está presente
+        if (offerDto.exchangedProductId() != null) {
+            Product exchangedProduct = productDao.getById(offerDto.exchangedProductId());
+            if (exchangedProduct == null) {
+                throw new IllegalArgumentException("Producto intercambiado no encontrado con el ID: " + offerDto.exchangedProductId());
+            }
+            offer.setExchangedProduct(exchangedProduct);
+        }
+
+        // Guardar la oferta y devolver el DTO
         Offer savedOffer = offerDao.save(offer);
         return offerMapper.mapToDTO(savedOffer);
     }
+
 
     /**
      * Acepta una oferta creando una transacción asociada y actualizando el estado de la publicación.

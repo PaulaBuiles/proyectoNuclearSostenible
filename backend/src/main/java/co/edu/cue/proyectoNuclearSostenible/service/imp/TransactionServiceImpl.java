@@ -7,6 +7,7 @@ import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.TransactionDao;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.AssessmentDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.AssessmentMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.TransactionService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
