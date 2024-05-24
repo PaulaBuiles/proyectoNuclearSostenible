@@ -1,0 +1,27 @@
+<div>
+    <h2>Create New Publication</h2>
+    <form (ngSubmit)="createPublication()">
+      <div>
+        <label for="ownerId">Owner ID:</label>
+        <input type="number" id="ownerId" [(ngModel)]="publication.ownerId" name="ownerId" required>
+      </div>
+      <div>
+        <label for="productId">Product ID:</label>
+        <input type="number" id="productId" [(ngModel)]="publication.productId" name="productId" required>
+      </div>
+      <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" [(ngModel)]="publication.title" name="title" required>
+      </div>
+      <div>
+        <label for="dateCreated">Date Created:</label>
+        <input type="date" id="dateCreated" [(ngModel)]="publication.dateCreated" name="dateCreated" required>
+      </div>
+      <div>
+        <label for="stateId">State ID:</label>
+        <input type="number" id="stateId" [(ngModel)]="publication.stateId" name="stateId" required>
+      </div>
+      <button type="submit">Create Publication</button>
+    </form>
+  </div>
+  
