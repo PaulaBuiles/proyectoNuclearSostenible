@@ -37,16 +37,13 @@ public class UserServiceImp implements UserService, UserDetailsService {
      * @throws IllegalArgumentException Si se encuentran usuarios con las mismas credenciales o si ya existe un usuario con alguno de los datos proporcionados.
      */
     public UserDto createUser(UserDto userDto) {
-        // Validar la información del usuario
+
         validateUserInfo(userDto);
 
-        // Mapear DTO a entidad
         User user = mapper.mapToEntity(userDto);
 
-        // Obtener y configurar el tipo de identificación del usuario
         user.setTypeIdUser(typeIdService.getById(userDto.typeIdUserId()));
 
-        // Guardar el usuario en la base de datos y mapear el resultado a un DTO
         return mapper.mapToDTO(userDao.save(user));
     }
 
@@ -63,15 +60,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
         String identification = userDto.identification().toLowerCase();
         String phone = userDto.phone().toLowerCase();
 
-        // Buscar usuarios existentes con las mismas credenciales
         List<User> existingUsers = userDao.findByUserNameIgnoreCaseOrEmailIgnoreCaseOrIdentificationIgnoreCaseOrPhoneIgnoreCase(username, email, identification, phone);
 
-        // Verificar si se encontraron múltiples usuarios con las mismas credenciales
         if (existingUsers.size() > 1) {
             throw new IllegalArgumentException("Se encontraron múltiples usuarios con las mismas credenciales.");
         }
 
-        // Verificar si ya existe un usuario con alguno de los datos proporcionados
         if (!existingUsers.isEmpty()) {
             User existingUser = existingUsers.get(0);
             if (existingUser.getUsername().equalsIgnoreCase(username)) {

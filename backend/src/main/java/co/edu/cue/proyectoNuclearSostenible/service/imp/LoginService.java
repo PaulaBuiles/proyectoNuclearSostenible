@@ -31,6 +31,9 @@ public class LoginService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private UserDao userDao;
 
     @Autowired
@@ -48,15 +51,24 @@ public class LoginService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
+    /**
+     * Crea un nuevo usuario en el sistema.
+     *
+     * @param userDto DTO del usuario que se desea crear.
+     * @return Un DTO de salida que contiene la información del usuario creado, el token de autenticación y el estado de la operación.
+     * @throws ResponseStatusException si el usuario ya existe o si no se pudo crear el usuario.
+     */
     public UserOutDto createUser(UserDto userDto) {
         log.info("Iniciando crearUser");
-        User userToCreate = mapearObjeto(userDto);
+        User userToCreate = mapearObjeto(userDto); // Mapea el DTO a la entidad User.
         UserOutDto userOutDto = new UserOutDto();
 
+        // Verifica si el usuario ya existe por su identificación.
         if (userDao.findByIdentification(userToCreate.getIdentification()).isEmpty()) {
-            User userNew = userDao.save(userToCreate);
+            User userNew = userDao.save(userToCreate); // Guarda el nuevo usuario en la base de datos.
+
             if (userNew != null) {
-                String token = jwtService.generateToken(userNew);
+                String token = jwtService.generateToken(userNew); // Genera un token de autenticación para el nuevo usuario.
                 userOutDto.setAuthenticationResponseDto(new AuthenticationResponseDTO(token));
                 userOutDto.setUser(userNew);
                 userOutDto.setStatusDto(new StatusDto(CodeMessageEnum.SUCCESSFUL.getCode(), CodeMessageEnum.SUCCESSFUL.getMessage()));
@@ -73,28 +85,50 @@ public class LoginService {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User con número de identificación repetido");
     }
 
+
+    /**
+     * Mapea un objeto UserDto a una entidad User y realiza configuraciones adicionales.
+     *
+     * @param userDto DTO del usuario que se desea mapear.
+     * @return La entidad User mapeada y configurada.
+     * @throws ResponseStatusException si el tipo de identificación no se encuentra.
+     */
     private User mapearObjeto(UserDto userDto) {
-        UserMapper userMapper = new UserMapperImpl();
-        User user = userMapper.mapToEntity(userDto);
-        user.setIsAdmin(userDto.isAdmin());
-        user.setPassword(passwordEncoder.encode(userDto.password()));
-        user.setTypeIdUser(typeIdDao.findById(userDto.typeIdUserId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de identificación no encontrado")));
+        User user = userMapper.mapToEntity(userDto); // Mapea el DTO a la entidad User.
+        user.setIsAdmin(userDto.isAdmin()); // Configura si el usuario es administrador.
+        user.setPassword(passwordEncoder.encode(userDto.password())); // Codifica y configura la contraseña del usuario.
+        user.setTypeIdUser(typeIdDao.findById(userDto.typeIdUserId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de identificación no encontrado"))); // Busca y configura el tipo de identificación del usuario.
         return user;
     }
 
+
+    /**
+     * Autentica un usuario basado en su nombre de usuario y contraseña.
+     *
+     * @param userDto DTO del usuario que contiene las credenciales de autenticación.
+     * @return UserOutDto que contiene la información del usuario y el token de autenticación.
+     * @throws ResponseStatusException si el usuario no es encontrado o las credenciales son inválidas.
+     */
     public UserOutDto autenticar(UserDto userDto) {
         log.info("Iniciando autenticar");
+
         UserOutDto userOutDto = new UserOutDto();
+
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.userName(), userDto.password()));
+
         User user = userDao.findByUserName(userDto.userName());
+
         if (user != null) {
             String jwt = jwtService.generateToken(user);
+
             deleteUserToken(user);
             saveUserToken(jwt, user);
 
             userOutDto.setAuthenticationResponseDto(new AuthenticationResponseDTO(jwt));
             userOutDto.setUser(user);
             userOutDto.setStatusDto(new StatusDto(CodeMessageEnum.SUCCESSFUL.getCode(), CodeMessageEnum.SUCCESSFUL.getMessage()));
+
             log.info("Finalizando autenticar");
             return userOutDto;
         } else {
@@ -104,23 +138,37 @@ public class LoginService {
         }
     }
 
-    private void deleteUserToken(User user){
+
+    /**
+     * Invalida los tokens activos de un usuario, marcándolos como cerrados.
+     *
+     * @param user El usuario cuyos tokens deben ser invalidados.
+     */
+    private void deleteUserToken(User user) {
         List<Token> lstValidToken = tokenRepository.findByUserAndIsLogOut(user, false);
 
         if (!lstValidToken.isEmpty()) {
-            lstValidToken.forEach(t -> {
-                t.setIsLogOut(true);
-            });
+            // Marcar cada token como cerrado
+            lstValidToken.forEach(t -> t.setIsLogOut(true));
         }
+
         tokenRepository.saveAll(lstValidToken);
     }
 
-    private void saveUserToken(String jwt, User user){
+
+    /**
+     * Guarda un nuevo token JWT para un usuario específico.
+     *
+     * @param jwt  El token JWT a guardar.
+     * @param user El usuario al que se asignará el token.
+     */
+    private void saveUserToken(String jwt, User user) {
         Token token = new Token();
         token.setToken(jwt);
         token.setUser(user);
         token.setIsLogOut(false);
         tokenRepository.save(token);
     }
+
 
 }

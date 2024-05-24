@@ -44,19 +44,16 @@ public class TypeIdServiceImpl implements TypeIdService {
      * descripción, o si ya existe un tipo de identificación con el mismo código y descripción, código o descripción.
      */
     public TypeId validateInfo(TypeId typeId) {
-        // Convertir el código y la descripción a minúsculas para la comparación insensible a mayúsculas y minúsculas
+
         String lowercaseCode = typeId.getCode().toLowerCase();
         String lowercaseDescription = typeId.getDescription().toLowerCase();
 
-        // Buscar tipos de identificación existentes con el mismo código o descripción
         List<TypeId> existingTypes = typeIdDao.findByCodeIgnoreCaseOrDescriptionIgnoreCase(lowercaseCode, lowercaseDescription);
 
-        // Verificar si se encontraron múltiples tipos de identificación con el mismo código o descripción
         if (existingTypes.size() > 1) {
             throw new IllegalArgumentException("Se encontraron múltiples tipos de identificación con el mismo código o descripción.");
         }
 
-        // Verificar si ya existe un tipo de identificación con el mismo código y descripción, código o descripción
         if (!existingTypes.isEmpty()) {
             TypeId existingType = existingTypes.get(0);
             if (existingType.getCode().equalsIgnoreCase(lowercaseCode) && existingType.getDescription().equalsIgnoreCase(lowercaseDescription)) {
@@ -68,7 +65,6 @@ public class TypeIdServiceImpl implements TypeIdService {
             }
         }
 
-        // Crear y devolver el tipo de identificación validado
         return createType(typeId);
     }
 }

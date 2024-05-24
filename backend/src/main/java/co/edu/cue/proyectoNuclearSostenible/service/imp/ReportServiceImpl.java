@@ -22,8 +22,16 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private UserDao userDao;
 
+    /**
+     * Crea un nuevo reporte y actualiza las relaciones de usuarios involucrados.
+     *
+     * @param report El reporte a crear.
+     * @return El reporte creado.
+     */
     public Report createReport(Report report) {
+
         Report savedReport = reportDao.save(report);
+
         User denounced = savedReport.getDenounced();
         denounced.getOwnComplaints().add(savedReport);
         userDao.save(denounced);
@@ -37,6 +45,11 @@ public class ReportServiceImpl implements ReportService {
         return savedReport;
     }
 
+    /**
+     * Verifica el número de quejas de un usuario y lo bloquea si es necesario.
+     *
+     * @param user El usuario a verificar.
+     */
     private void checkAndBlockUser(User user) {
         if (user.getOwnComplaints().size() >= 7) {
             user.setStatus(false);
@@ -44,16 +57,34 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    /**
+     * Encuentra un reporte por su ID.
+     *
+     * @param id El ID del reporte a buscar.
+     * @return Un Optional que contiene el reporte si se encuentra.
+     */
     public Optional<Report> findReportById(Long id) {
         return reportDao.findById(id);
     }
 
+    /**
+     * Encuentra todos los reportes.
+     *
+     * @return Una lista de todos los reportes.
+     */
     public List<Report> findAllReports() {
         return reportDao.findAll();
     }
 
+    /**
+     * Actualiza un reporte existente.
+     *
+     * @param report El reporte a actualizar.
+     * @return El reporte actualizado.
+     */
     public Report updateReport(Report report) {
         return reportDao.save(report);
     }
+
 
 }

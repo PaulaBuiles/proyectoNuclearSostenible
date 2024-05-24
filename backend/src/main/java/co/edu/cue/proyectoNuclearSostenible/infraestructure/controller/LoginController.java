@@ -17,6 +17,12 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    /**
+     * Endpoint para registrar un nuevo usuario.
+     *
+     * @param userDto DTO del usuario a registrar.
+     * @return ResponseEntity con el DTO de salida del usuario registrado y el estado HTTP correspondiente.
+     */
     @PostMapping("/crearUsuario")
     public ResponseEntity<UserOutDto> register(@RequestBody UserDto userDto) {
         UserOutDto userOutDto = loginService.createUser(userDto);
@@ -27,6 +33,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * Endpoint para autenticar a un usuario.
+     *
+     * @param userDto DTO del usuario a autenticar.
+     * @return ResponseEntity con el DTO de salida del usuario autenticado y el estado HTTP correspondiente.
+     */
     @PostMapping("/autenticar")
     public ResponseEntity<UserOutDto> login(@RequestBody UserDto userDto) {
         UserOutDto userOutDto = loginService.autenticar(userDto);
@@ -36,5 +48,6 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userOutDto);
         }
     }
+
 
 }

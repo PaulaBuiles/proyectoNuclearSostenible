@@ -40,22 +40,17 @@ public class PublicationServiceImp implements PublicationService {
      */
     @Override
     public PublicationDto createPublication(PublicationDto publicationDto) {
-        // Validar la información de la publicación
+
         validatePublicationInfo(publicationDto);
 
-        // Mapear DTO a entidad
         Publication publication = mapper.mapToEntity(publicationDto);
 
-        // Obtener y configurar el estado de la publicación
         publication.setState(stateService.getById(publicationDto.stateId()));
 
-        // Obtener y configurar el usuario propietario de la publicación
         publication.setOwner(userService.getById(publicationDto.ownerId()));
 
-        // Obtener y configurar el producto asociado a la publicación
         publication.setProduct(productService.getById(publicationDto.productId()));
 
-        // Guardar la publicación en la base de datos y mapear el resultado a un DTO
         return mapper.mapToDTO(publicationDao.save(publication));
     }
 
@@ -66,16 +61,13 @@ public class PublicationServiceImp implements PublicationService {
      * @throws IllegalArgumentException Si ya existe una publicación para el mismo título y usuario propietario.
      */
     private void validatePublicationInfo(PublicationDto publicationDto) {
-        // Convertir el título a minúsculas para la comparación insensible a mayúsculas y minúsculas
+
         String title = publicationDto.title().toLowerCase();
 
-        // Obtener la ID del usuario propietario
         Long ownerId = publicationDto.ownerId();
 
-        // Buscar publicaciones existentes con el mismo título y usuario propietario
         List<Publication> existingPublications = publicationDao.findByTitleIgnoreCaseAndOwner_IdUser(title, ownerId);
 
-        // Verificar si ya existe una publicación para el mismo título y usuario propietario
         if (!existingPublications.isEmpty()) {
             throw new IllegalArgumentException("Ya existe una publicación para este título y este usuario.");
         }
@@ -87,27 +79,22 @@ public class PublicationServiceImp implements PublicationService {
     }
 
     public void purchasePublication(Long publicationId, UserDto buyerDto, Long state) {
-        // Obtener la publicación por su ID
+
         Publication publication = publicationDao.findById(publicationId)
                 .orElseThrow(() -> new IllegalArgumentException("La publicación con ID " + publicationId + " no fue encontrada."));
 
-        // Validar si la publicación ya fue comprada
         if (publication.getState().getStatus() == false) {
             throw new IllegalStateException("La publicación no esta disponible.");
         }
 
-        // Guardar la publicación con el estado inicial (no vendido)
         publication = publicationDao.save(publication);
 
-        // Obtener el comprador (buyer) a partir del DTO
         User buyer = userService.getUser(buyerDto);
 
-        // Actualizar la publicación con el comprador y el nuevo estado (Vendido)
         publication.setOwner(buyer);
         State soldState = stateService.getById(state);
         publication.setState(soldState);
 
-        // Guardar los cambios en la base de datos
         publicationDao.save(publication);
     }
 
