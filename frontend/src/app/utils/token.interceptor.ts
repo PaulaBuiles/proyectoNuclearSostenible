@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './service/auth.service'; // Ajusta la ruta según tu estructura de proyecto
+import { AuthService } from '../service/auth.service'; // Ajusta la ruta según tu estructura de proyecto
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

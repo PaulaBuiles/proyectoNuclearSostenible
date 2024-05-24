@@ -28,11 +28,10 @@ export class AuthService {
   login(userDto: { username: string; password: string }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/persona/autenticar`, userDto).pipe(
       tap(response => {
-        console.log(response);
-        // Accede al token dentro de authenticationResponseDto
         const token = response.authenticationResponseDto?.token;
         if (token) {
-          localStorage.setItem('authToken', token); // Guardar el token en localStorage
+          localStorage.setItem('authToken', token);
+          localStorage.setItem('userId', response.user?.idUser.toString());
           this.loggedIn.next(true);
         }
       })
@@ -41,7 +40,8 @@ export class AuthService {
 
   // Método para cerrar sesión
   logout() {
-    localStorage.removeItem('authToken'); // Eliminar el token del almacenamiento local
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
     this.loggedIn.next(false);
   }
 }

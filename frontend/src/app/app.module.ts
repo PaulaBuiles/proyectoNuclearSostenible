@@ -9,7 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './views/products/products.component';
 import { NavbarComponent } from './utils/navbar/navbar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './token.interceptor'; // Ajusta la ruta según tu estructura de proyecto
+import { TokenInterceptor } from './utils/token.interceptor';
+import { NewProductComponent } from './views/new-product/new-product.component';
+import { NewPublicationComponent } from './views/new-publication/new-publication.component'; // Ajusta la ruta según tu estructura de proyecto
 
 
 
@@ -20,6 +22,8 @@ import { TokenInterceptor } from './token.interceptor'; // Ajusta la ruta según
     LoginComponent,
     ProductsComponent,
     NavbarComponent,
+    NewProductComponent,
+    NewPublicationComponent,
   ],
   imports: [
     BrowserModule,
