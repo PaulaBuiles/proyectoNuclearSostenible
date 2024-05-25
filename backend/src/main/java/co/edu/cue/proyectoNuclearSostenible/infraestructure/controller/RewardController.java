@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/rewards")
+@CrossOrigin(origins = "http://localhost:4200")
 public class RewardController {
     private final RewardService rewardService;
 
