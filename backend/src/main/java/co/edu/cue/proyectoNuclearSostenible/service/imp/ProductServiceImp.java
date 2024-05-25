@@ -29,6 +29,7 @@ public class ProductServiceImp implements ProductService {
 
     private UserServiceImp userService;
 
+
     /**
      * Crea una nueva categoría de producto en el sistema.
      *
@@ -48,6 +49,14 @@ public class ProductServiceImp implements ProductService {
     }
 
     /**
+     * Obtiene una categoria a partir de su ID.
+     *
+     * @param id El ID del producto a obtener.
+     * @return El producto correspondiente al ID proporcionado.
+     */
+    public ProductCategory getCategoryById(Long id){return productCategoryDao.findProductCategoryById(id);}
+
+    /**
      * Crea un nuevo producto en el sistema.
      *
      * @param productDto Los datos del producto a crear.
@@ -58,6 +67,8 @@ public class ProductServiceImp implements ProductService {
         validateProductInfo(productDto);
 
         Product product = mapper.mapToEntity(productDto);
+
+        product.setProductCategory(getCategoryById(productDto.categoryId()));
 
         product.setUser(userService.getById(productDto.userId()));
 
@@ -101,6 +112,8 @@ public class ProductServiceImp implements ProductService {
     public Product getById(Long id){
         return productDao.findProductById(id);
     }
+
+
 
 
     /**

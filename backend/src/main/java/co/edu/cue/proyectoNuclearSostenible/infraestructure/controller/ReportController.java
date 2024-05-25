@@ -1,8 +1,11 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Report;
+import co.edu.cue.proyectoNuclearSostenible.mapping.dto.PublicationDto;
+import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ReportDto;
 import co.edu.cue.proyectoNuclearSostenible.service.imp.ReportServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,14 +23,18 @@ public class ReportController {
     /**
      * Crea un nuevo reporte.
      *
-     * @param report Datos del reporte a crear.
+     * @param reportDto Datos del reporte a crear.
      * @return ResponseEntity con el reporte creado.
      */
-    @PostMapping
-    public ResponseEntity<Report> createReport(@RequestBody Report report) {
-        Report createdReport = reportService.createReport(report);
-        return ResponseEntity.ok(createdReport);
+    @PostMapping(headers = "Accept=application/json")
+    public ResponseEntity<?> createReport (@RequestBody ReportDto reportDto) {
+        try {
+            return new ResponseEntity<>(reportService.createReport(reportDto), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
+
 
     /**
      * Obtiene un reporte por su ID.

@@ -18,4 +18,6 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
+    ProductCategory getCategoryById(Long id);
+
 }

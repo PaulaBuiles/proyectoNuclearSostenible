@@ -4,6 +4,8 @@ import co.edu.cue.proyectoNuclearSostenible.domain.entities.Report;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.ReportDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
+import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ReportDto;
+import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.ReportMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.ReportService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,17 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private ReportMapper reportMapper;
+
     /**
      * Crea un nuevo reporte y actualiza las relaciones de usuarios involucrados.
      *
-     * @param report El reporte a crear.
+     * @param reportDto El reporte a crear.
      * @return El reporte creado.
      */
-    public Report createReport(Report report) {
+    public ReportDto createReport(ReportDto reportDto) {
+        Report report = reportMapper.mapToEntity(reportDto);
 
         Report savedReport = reportDao.save(report);
 
@@ -42,7 +48,7 @@ public class ReportServiceImpl implements ReportService {
 
         checkAndBlockUser(denounced);
 
-        return savedReport;
+        return reportMapper.mapToDTO(savedReport);
     }
 
     /**
