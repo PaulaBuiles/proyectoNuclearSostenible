@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { ProductDto } from '../model/product-dto.model';
 import { AuthService } from './auth.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,5 +19,13 @@ export class ProductService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.post<any>(this.apiUrl, product, { headers });
+  }
+
+  getAllProducts(): Observable<ProductDto[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<ProductDto[]>(this.apiUrl, { headers });
   }
 }

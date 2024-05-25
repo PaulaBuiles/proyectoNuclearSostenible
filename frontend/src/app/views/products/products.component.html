@@ -51,9 +51,9 @@
   <div class="products-grid">
     <div *ngFor="let product of filteredProducts" class="card">
       <div class="card-img">
-        <img [src]="product.imageUrl" alt="{{ product.title }}" class="img">
+        <img [src]="product.imageUrl" alt="{{ product.name }}" class="img">
       </div>
-      <div class="card-title">{{ product.title }}
+      <div class="card-title">{{ product.name }}
         <div class="card-subtitle">{{ product.description }}</div>
         <hr class="card-divider">
         <div class="card-footer">
