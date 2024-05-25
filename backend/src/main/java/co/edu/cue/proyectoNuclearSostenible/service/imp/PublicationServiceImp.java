@@ -117,4 +117,12 @@ public class PublicationServiceImp implements PublicationService {
         return publicationRepository.searchPublications(title, productName, productDescription, categoryTitle, stateDescription);
     }
 
+    public List<Publication> getPublicationByUserId(Long id) {
+        return publicationDao.findByOwner_IdUser(id);
+    }
+
+    public List<Publication> getPublicationByProductId(Long id) {
+        return publicationDao.findPublicationByProduct_IdProduct(id);
+    }
+
 }

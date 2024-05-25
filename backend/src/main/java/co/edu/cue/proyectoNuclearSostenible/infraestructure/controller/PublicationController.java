@@ -57,4 +57,23 @@ public class PublicationController {
 
         return publicationService.searchPublications(title, productName, productDescription, categoryTitle, stateDescription);
     }
+
+    @GetMapping("/list-user/{id}")
+    public ResponseEntity<?> getPublicationByUserId(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(publicationService.getPublicationByUserId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping("/search-by-product/{id}")
+    public ResponseEntity<?> getPublicationByProductId(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(publicationService.getPublicationByProductId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+
 }

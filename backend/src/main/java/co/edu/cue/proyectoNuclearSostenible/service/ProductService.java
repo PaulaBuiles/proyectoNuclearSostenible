@@ -20,4 +20,5 @@ public interface ProductService {
 
     ProductCategory getCategoryById(Long id);
 
+    List<Product> getProductByUserId(Long id);
 }

@@ -14,4 +14,6 @@ public interface ReportService {
     List<Report> findAllReports();
 
     Report updateReport(Report report);
+
+    List<Report> getReportByUserId(Long id);
 }

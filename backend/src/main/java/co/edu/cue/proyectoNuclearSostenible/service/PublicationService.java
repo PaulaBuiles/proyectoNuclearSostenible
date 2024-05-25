@@ -20,4 +20,7 @@ public interface PublicationService {
             String categoryTitle,
             String stateDescription);
 
+    List<Publication> getPublicationByUserId(Long id);
+
+    List<Publication> getPublicationByProductId(Long id);
 }

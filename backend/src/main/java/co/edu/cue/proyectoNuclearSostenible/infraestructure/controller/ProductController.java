@@ -1,6 +1,7 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Product;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.Report;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ProductDto;
 import co.edu.cue.proyectoNuclearSostenible.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/product")
@@ -41,6 +43,24 @@ public class ProductController {
     public ResponseEntity<?> getAllProducts() {
         try {
             return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping("/list-user/{id}")
+    public ResponseEntity<?> getProductsByUserId(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(productService.getProductByUserId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(productService.getById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }

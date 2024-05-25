@@ -77,4 +77,13 @@ public class ReportController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/list-user/{id}")
+    public ResponseEntity<?> getComplainantByUserId(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(reportService.getReportByUserId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
 }

@@ -94,5 +94,9 @@ public class ReportServiceImpl implements ReportService {
         return reportDao.save(report);
     }
 
+    public List<Report> getReportByUserId(Long id) {
+        return reportDao.findByComplainant_IdUserOrDenounced_IdUser(id, id);
+    }
+
 
 }

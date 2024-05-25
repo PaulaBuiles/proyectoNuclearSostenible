@@ -8,4 +8,8 @@ import java.util.List;
 
 public interface PublicationDao extends JpaRepository<Publication, Long> {
     List<Publication> findByTitleIgnoreCaseAndOwner_IdUser(String title, Long ownerId);
+
+    List<Publication> findByOwner_IdUser(Long id);
+
+    List<Publication> findPublicationByProduct_IdProduct(Long id);
 }

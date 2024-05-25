@@ -56,6 +56,10 @@ public class ProductServiceImp implements ProductService {
      */
     public ProductCategory getCategoryById(Long id){return productCategoryDao.findProductCategoryById(id);}
 
+    public List<Product> getProductByUserId(Long id) {
+        return productDao.findByUser_IdUser(id);
+    }
+
     /**
      * Crea un nuevo producto en el sistema.
      *
