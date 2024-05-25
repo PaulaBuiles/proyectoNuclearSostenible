@@ -36,9 +36,11 @@ public class ReportServiceImpl implements ReportService {
     public ReportDto createReport(ReportDto reportDto) {
         Report report = reportMapper.mapToEntity(reportDto);
 
+        report.setComplainant(userDao.findById(reportDto.complainantId()).get());
+        report.setDenounced(userDao.findById(reportDto.denouncedId()).get());
         Report savedReport = reportDao.save(report);
 
-        User denounced = savedReport.getDenounced();
+        User denounced = report.getDenounced();
         denounced.getOwnComplaints().add(savedReport);
         userDao.save(denounced);
 
