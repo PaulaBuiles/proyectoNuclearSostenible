@@ -9,6 +9,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -45,7 +46,7 @@ public class Product implements Serializable {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Publication> listPublications = new HashSet<>();
+    private List<Publication> listPublications;
 
     @ManyToOne
     @JoinColumn(name="idCategory")
@@ -53,7 +54,7 @@ public class Product implements Serializable {
     private ProductCategory productCategory;
 
     @OneToMany(mappedBy = "exchangedProduct", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Offer> lstOffer = new HashSet<>();
+    private List<Offer> lstOffer;
 
 
 }

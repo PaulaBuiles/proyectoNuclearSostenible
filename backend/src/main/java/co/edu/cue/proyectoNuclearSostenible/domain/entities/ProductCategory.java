@@ -7,6 +7,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -29,7 +30,7 @@ public class ProductCategory implements Serializable {
 
     @OneToMany(mappedBy = "productCategory", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Product> listProducts = new HashSet<>();
+    private List<Product> listProducts;
 
 
 

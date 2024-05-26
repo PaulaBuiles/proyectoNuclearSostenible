@@ -11,6 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -63,23 +64,23 @@ public class User implements Serializable, UserDetails {
     @Column(name = "isAdmin", nullable = false)
     private Boolean isAdmin;
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Product> listProducts = new HashSet<>();
+    private List<Product> listProducts;
 
     @OneToMany(mappedBy = "complainant", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Report> complaintsMade = new HashSet<>();
+    private List<Report> complaintsMade;
 
     @OneToMany(mappedBy = "denounced", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Report> ownComplaints = new HashSet<>();
+    private List<Report> ownComplaints;
 
     @ManyToMany
     @JoinTable(name = "user_rewards", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "id_reward"))
-    private Set<Reward> rewards = new HashSet<>();
+    private List<Reward> rewards;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Token> lstToken = new HashSet<>();
+    private List<Token> lstToken;
 
     @OneToMany(mappedBy = "offerer", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Offer> lstOffer = new HashSet<>();
+    private List<Offer> lstOffer;
 
 
     @Override
@@ -89,6 +90,10 @@ public class User implements Serializable, UserDetails {
 
     public String getRol() {
         return (Boolean.TRUE.equals(this.isAdmin) ? "ADMIN" : "USER");
+    }
+
+    public void updatePoints(int points) {
+        this.points += points;
     }
 
     @Override

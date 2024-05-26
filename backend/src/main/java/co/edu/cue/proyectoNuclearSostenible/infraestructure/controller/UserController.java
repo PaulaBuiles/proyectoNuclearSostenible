@@ -50,4 +50,16 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
+
+    /**
+     * Endpoint para obtener los puntos de un usuario.
+     *
+     * @param userDto DTO del usuario.
+     * @return Cantidad de puntos del usuario.
+     */
+    @PostMapping("/getPoints")
+    public int getPoints(@RequestBody UserDto userDto) {
+        return userService.getPoints(userDto);
+    }
+
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -26,5 +27,5 @@ public class Reward implements Serializable {
     private Integer points_value;
 
     @ManyToMany(mappedBy = "rewards")
-    private Set<User> userRewards = new HashSet<>();
+    private List<User> userRewards;
 }

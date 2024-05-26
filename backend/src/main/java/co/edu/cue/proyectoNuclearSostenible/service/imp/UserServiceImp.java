@@ -115,6 +115,17 @@ public class UserServiceImp implements UserService, UserDetailsService {
         }
     }
 
+    /**
+     * Obtiene los puntos de un usuario.
+     *
+     * @param userDto DTO del usuario.
+     * @return La cantidad de puntos del usuario.
+     */
+    @Override
+    public int getPoints(UserDto userDto) {
+        User user = mapper.mapToEntity(userDto);
+        return user.getPoints();
+    }
 
 
 }

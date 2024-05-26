@@ -8,7 +8,8 @@ import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.PublicationRepos
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.PublicationDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.PublicationMapper;
-import co.edu.cue.proyectoNuclearSostenible.service.PublicationService;
+import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapper;
+import co.edu.cue.proyectoNuclearSostenible.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,16 +24,25 @@ public class PublicationServiceImp implements PublicationService {
     @Qualifier("publicationMapper")
     private PublicationMapper mapper;
 
+    @Qualifier("userMapper")
+    private UserMapper userMapper;
+
     @Autowired
     private PublicationRepository publicationRepository;
+    @Autowired
     private PublicationDao publicationDao;
 
-    private UserServiceImp userService;
-    private ProductServiceImp productService;
-    private StateServiceImpl stateService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private StateService stateService;
+    @Autowired
+    private RewardService rewardService;
 
     /**
-     * Crea una nueva publicación en el sistema.
+     * Crea una nueva publicación en el sistema y otorga puntos al usuario propietario por la creación de la publicación.
      *
      * @param publicationDto Los datos de la publicación a crear.
      * @return El DTO de la publicación creada.
@@ -47,11 +57,23 @@ public class PublicationServiceImp implements PublicationService {
 
         publication.setState(stateService.getById(publicationDto.stateId()));
 
-        publication.setOwner(userService.getById(publicationDto.ownerId()));
+        User owner = userService.getById(publicationDto.ownerId());
+        publication.setOwner(owner);
 
         publication.setProduct(productService.getById(publicationDto.productId()));
 
-        return mapper.mapToDTO(publicationDao.save(publication));
+        Publication savedPublication = publicationDao.save(publication);
+
+        rewardService.addPoints(
+                userMapper.mapToDTO(owner),
+                10,
+                "Puntos otorgados por crear una publicación con el título: "
+                        + publication.getTitle()
+                        + ". Usuario: " + owner.getUsername()
+                        + ", ID de Publicación: " + savedPublication.getIdPublication()
+        );
+
+        return mapper.mapToDTO(savedPublication);
     }
 
     /**
@@ -83,7 +105,7 @@ public class PublicationServiceImp implements PublicationService {
         Publication publication = publicationDao.findById(publicationId)
                 .orElseThrow(() -> new IllegalArgumentException("La publicación con ID " + publicationId + " no fue encontrada."));
 
-        if (publication.getState().getStatus() == false) {
+        if (!publication.getState().getStatus()) {
             throw new IllegalStateException("La publicación no esta disponible.");
         }
 

@@ -3,14 +3,20 @@ package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Offer;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.OfferDto;
 import co.edu.cue.proyectoNuclearSostenible.service.OfferService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/offers")
 @CrossOrigin(origins = "http://localhost:4200")
 public class OfferController {
+
+    @Autowired
     private final OfferService offerService;
 
 
@@ -25,8 +31,12 @@ public class OfferController {
      * @return DTO de la oferta creada.
      */
     @PostMapping
-    public OfferDto createOffer(@RequestBody OfferDto offerDto) {
-        return offerService.createOffer(offerDto);
+    public ResponseEntity<?> createOffer(@RequestBody OfferDto offerDto) {
+        try {
+            return new ResponseEntity<>(offerService.createOffer(offerDto), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     /**
@@ -36,8 +46,12 @@ public class OfferController {
      * @return DTO de la oferta aceptada.
      */
     @PostMapping("/{offerId}/accept")
-    public OfferDto acceptOffer(@PathVariable Long offerId) {
-        return offerService.acceptOffer(offerId);
+    public ResponseEntity<?> acceptOffer(@PathVariable Long offerId) {
+        try {
+            return new ResponseEntity<>(offerService.acceptOffer(offerId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     /**
@@ -47,8 +61,12 @@ public class OfferController {
      * @return DTO de la oferta rechazada.
      */
     @PostMapping("/{offerId}/reject")
-    public OfferDto rejectOffer(@PathVariable Long offerId) {
-        return offerService.rejectOffer(offerId);
+    public ResponseEntity<?> rejectOffer(@PathVariable Long offerId) {
+        try {
+            return new ResponseEntity<>(offerService.rejectOffer(offerId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     /**
@@ -58,10 +76,13 @@ public class OfferController {
      * @return Lista de ofertas.
      */
     @GetMapping("/publication/{publicationId}")
-    public List<Offer> getOffersByPublication(@PathVariable Long publicationId) {
-        return offerService.getOffersByPublication(publicationId);
+    public ResponseEntity<?> getOffersByPublication(@PathVariable Long publicationId) {
+        try {
+            return new ResponseEntity<>(offerService.getOffersByPublication(publicationId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
-
     /**
      * Endpoint para obtener todas las ofertas realizadas por un usuario.
      *
@@ -69,8 +90,12 @@ public class OfferController {
      * @return Lista de ofertas.
      */
     @GetMapping("/user/{userId}")
-    public List<Offer> getOffersByUser(@PathVariable Long userId) {
-        return offerService.getOffersByUser(userId);
+    public ResponseEntity<?> getOffersByUser(@PathVariable Long userId) {
+        try {
+            return new ResponseEntity<>(offerService.getOffersByUser(userId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
 }

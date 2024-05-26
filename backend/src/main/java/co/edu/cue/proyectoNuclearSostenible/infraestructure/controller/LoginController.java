@@ -25,14 +25,25 @@ public class LoginController {
      */
     @PostMapping("/crearUsuario")
     public ResponseEntity<UserOutDto> register(@RequestBody UserDto userDto) {
-        UserOutDto userOutDto = loginService.createUser(userDto);
-        if (CodeMessageEnum.SUCCESSFUL.getCode().equals(userOutDto.getStatusDto().getCode())) {
-            return ResponseEntity.ok(userOutDto);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userOutDto);
+        try {
+            UserOutDto userOutDto = loginService.createUser(userDto);
+            if (CodeMessageEnum.SUCCESSFUL.getCode().equals(userOutDto.getStatusDto().getCode())) {
+                return ResponseEntity.ok(userOutDto);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userOutDto);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
+
+    /**
+     * Endpoint para autenticar a un usuario.
+     *
+     * @param userDto DTO del usuario a autenticar.
+     * @return ResponseEntity con el DTO de salida del usuario autenticado y el estado HTTP correspondiente.
+     */
     /**
      * Endpoint para autenticar a un usuario.
      *
@@ -41,13 +52,18 @@ public class LoginController {
      */
     @PostMapping("/autenticar")
     public ResponseEntity<UserOutDto> login(@RequestBody UserDto userDto) {
-        UserOutDto userOutDto = loginService.autenticar(userDto);
-        if (CodeMessageEnum.SUCCESSFUL.getCode().equals(userOutDto.getStatusDto().getCode())) {
-            return ResponseEntity.ok(userOutDto);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userOutDto);
+        try {
+            UserOutDto userOutDto = loginService.autenticar(userDto);
+            if (CodeMessageEnum.SUCCESSFUL.getCode().equals(userOutDto.getStatusDto().getCode())) {
+                return ResponseEntity.ok(userOutDto);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userOutDto);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
 
 
 }

@@ -9,5 +9,4 @@ public interface RewardService {
 
     void redeemPoints(UserDto userDto, int points);
 
-    int getPoints(UserDto userDto);
 }

@@ -48,14 +48,18 @@ public class PublicationController {
      * @return Lista de publicaciones que cumplen con los criterios de búsqueda.
      */
     @GetMapping("/searchPublications")
-    public List<Publication> searchPublications(
+    public ResponseEntity<?> searchPublications(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String productName,
             @RequestParam(required = false) String productDescription,
             @RequestParam(required = false) String categoryTitle,
             @RequestParam(required = false) String stateDescription) {
-
-        return publicationService.searchPublications(title, productName, productDescription, categoryTitle, stateDescription);
+        try {
+            List<Publication> publications = publicationService.searchPublications(title, productName, productDescription, categoryTitle, stateDescription);
+            return new ResponseEntity<>(publications, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     @GetMapping("/list-user/{id}")

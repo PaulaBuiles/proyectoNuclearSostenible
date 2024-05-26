@@ -3,12 +3,16 @@ package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.service.RewardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/rewards")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RewardController {
+
+    @Autowired
     private final RewardService rewardService;
 
     @Autowired
@@ -24,8 +28,13 @@ public class RewardController {
      * @param description Descripción de la recompensa.
      */
     @PostMapping("/addPoints")
-    public void addPoints(@RequestBody UserDto userDto, @RequestParam int points, @RequestParam String description) {
-        rewardService.addPoints(userDto, points, description);
+    public ResponseEntity<?> addPoints(@RequestBody UserDto userDto, @RequestParam int points, @RequestParam String description) {
+        try {
+            rewardService.addPoints(userDto, points, description);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     /**
@@ -35,18 +44,12 @@ public class RewardController {
      * @param points Puntos a canjear.
      */
     @PostMapping("/redeemPoints")
-    public void redeemPoints(@RequestBody UserDto userDto, @RequestParam int points) {
-        rewardService.redeemPoints(userDto, points);
-    }
-
-    /**
-     * Endpoint para obtener los puntos de un usuario.
-     *
-     * @param userDto DTO del usuario.
-     * @return Cantidad de puntos del usuario.
-     */
-    @PostMapping("/getPoints")
-    public int getPoints(@RequestBody UserDto userDto) {
-        return rewardService.getPoints(userDto);
+    public ResponseEntity<?> redeemPoints(@RequestBody UserDto userDto, @RequestParam int points) {
+        try {
+            rewardService.redeemPoints(userDto, points);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 }

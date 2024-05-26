@@ -3,6 +3,7 @@ package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Report;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.PublicationDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ReportDto;
+import co.edu.cue.proyectoNuclearSostenible.service.ReportService;
 import co.edu.cue.proyectoNuclearSostenible.service.imp.ReportServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.util.Optional;
 public class ReportController {
 
     @Autowired
-    private ReportServiceImpl reportService;
+    private ReportService reportService;
 
     /**
      * Crea un nuevo reporte.
@@ -43,9 +44,13 @@ public class ReportController {
      * @return ResponseEntity con el reporte encontrado o not found.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Report> getReportById(@PathVariable Long id) {
-        Optional<Report> report = reportService.findReportById(id);
-        return report.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<?> getReportById(@PathVariable Long id) {
+        try {
+            Optional<Report> report = reportService.findReportById(id);
+            return report.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     /**
@@ -54,9 +59,13 @@ public class ReportController {
      * @return ResponseEntity con la lista de todos los reportes.
      */
     @GetMapping
-    public ResponseEntity<List<Report>> getAllReports() {
-        List<Report> reports = reportService.findAllReports();
-        return ResponseEntity.ok(reports);
+    public ResponseEntity<?> getAllReports() {
+        try {
+            List<Report> reports = reportService.findAllReports();
+            return ResponseEntity.ok(reports);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     /**
@@ -67,14 +76,18 @@ public class ReportController {
      * @return ResponseEntity con el reporte actualizado o not found.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Report> updateReport(@PathVariable Long id, @RequestBody Report updatedReport) {
-        Optional<Report> report = reportService.findReportById(id);
-        if (report.isPresent()) {
-            updatedReport.setIdReport(id);
-            Report savedReport = reportService.updateReport(updatedReport);
-            return ResponseEntity.ok(savedReport);
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> updateReport(@PathVariable Long id, @RequestBody Report updatedReport) {
+        try {
+            Optional<Report> report = reportService.findReportById(id);
+            if (report.isPresent()) {
+                updatedReport.setIdReport(id);
+                Report savedReport = reportService.updateReport(updatedReport);
+                return ResponseEntity.ok(savedReport);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
 

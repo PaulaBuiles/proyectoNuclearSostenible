@@ -3,6 +3,7 @@ package co.edu.cue.proyectoNuclearSostenible.service.imp;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Assessment;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Offer;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Transaction;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.AssessmentDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.OfferDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.TransactionDao;
@@ -10,7 +11,9 @@ import co.edu.cue.proyectoNuclearSostenible.mapping.dto.AssessmentDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.TransactionDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.AssessmentMapper;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.TransactionMapper;
+import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.AssesmentService;
+import co.edu.cue.proyectoNuclearSostenible.service.RewardService;
 import co.edu.cue.proyectoNuclearSostenible.service.TransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +37,22 @@ public class TransactionServiceImpl  implements TransactionService {
     private AssessmentDao assessmentDao;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private AssesmentService assesmentService;
 
     @Autowired
     private TransactionMapper transactionMapper;
 
+    @Autowired
+    private RewardService rewardService;
+
 
     @Override
     /**
-     * Crea una nueva transacción para una oferta específica y añade una calificación (Assessment) asociada.
+     * Crea una nueva transacción para una oferta específica, añade una calificación (Assessment) asociada y otorga puntos
+     * tanto al propietario de la publicación como al ofertante.
      *
      * @param offerId ID de la oferta para la cual se creará la transacción.
      * @param assessmentDto DTO de la calificación que se añadirá a la transacción.
@@ -59,8 +69,30 @@ public class TransactionServiceImpl  implements TransactionService {
 
         assesmentService.addAssessment(savedTransaction.getIdTransaction(), assessmentDto);
 
+        User owner = offer.getPublication().getOwner();
+        User offerer = offer.getOfferer();
+
+        // Añadir puntos al que realizo la publicación
+        rewardService.addPoints(
+                userMapper.mapToDTO(owner),
+                20,
+                "Puntos otorgados por completar una transacción como propietario de la publicación. " +
+                        "ID de Publicación: " + offer.getPublication().getIdPublication() +
+                        ", ID de Transacción: " + savedTransaction.getIdTransaction()
+        );
+
+        // Añadir puntos al ofertante
+        rewardService.addPoints(
+                userMapper.mapToDTO(offerer),
+                20,
+                "Puntos otorgados por completar una transacción como ofertante. " +
+                        "ID de Publicación: " + offer.getPublication().getIdPublication() +
+                        ", ID de Transacción: " + savedTransaction.getIdTransaction()
+        );
+
         return transactionMapper.mapToDTO(savedTransaction);
     }
+
 
     /**
      * Obtiene una transacción por su ID o lanza una excepción si no se encuentra.

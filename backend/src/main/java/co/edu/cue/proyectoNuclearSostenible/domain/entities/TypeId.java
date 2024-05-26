@@ -8,6 +8,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -30,7 +31,7 @@ public class TypeId implements Serializable {
 
     @OneToMany(mappedBy = "typeIdUser", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<User> listUsers = new HashSet<User>();
+    private List<User> listUsers;
 
     @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;

@@ -38,7 +38,7 @@ public class RewardServiceImpl implements RewardService {
         reward.getUserRewards().add(user);
         user.getRewards().add(reward);
 
-        user.setPoints(user.getPoints() + points);
+        user.updatePoints(points);
 
         rewardDao.save(reward);
         userDao.save(user);
@@ -57,23 +57,11 @@ public class RewardServiceImpl implements RewardService {
         User user = userMapper.mapToEntity(userDto);
 
         if (user.getPoints() >= points) {
-            user.setPoints(user.getPoints() - points);
+            user.updatePoints(-points);
             userDao.save(user);
         } else {
-            throw new IllegalArgumentException("Insufficient points");
+            throw new IllegalArgumentException("Puntos Insuficientes");
         }
-    }
-
-    /**
-     * Obtiene los puntos de un usuario.
-     *
-     * @param userDto DTO del usuario.
-     * @return La cantidad de puntos del usuario.
-     */
-    @Override
-    public int getPoints(UserDto userDto) {
-        User user = userMapper.mapToEntity(userDto);
-        return user.getPoints();
     }
 
 }

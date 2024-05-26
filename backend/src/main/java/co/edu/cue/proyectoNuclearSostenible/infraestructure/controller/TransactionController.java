@@ -4,6 +4,8 @@ import co.edu.cue.proyectoNuclearSostenible.mapping.dto.AssessmentDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.TransactionDto;
 import co.edu.cue.proyectoNuclearSostenible.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,12 +14,10 @@ import java.util.List;
 @RequestMapping("/api/transactions")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TransactionController {
-    private final TransactionService transactionService;
 
     @Autowired
-    public TransactionController(TransactionService transactionService) {
-        this.transactionService = transactionService;
-    }
+    private TransactionService transactionService;
+
 
     /**
      * Endpoint para crear una nueva transacción.
@@ -27,8 +27,13 @@ public class TransactionController {
      * @return DTO de la transacción creada.
      */
     @PostMapping("/create")
-    public TransactionDto createTransaction(@RequestParam Long offerId, @RequestBody AssessmentDto assessmentDto) {
-        return transactionService.createTransaction(offerId, assessmentDto);
+    public ResponseEntity<?> createTransaction(@RequestParam Long offerId, @RequestBody AssessmentDto assessmentDto) {
+        try {
+            TransactionDto transactionDto = transactionService.createTransaction(offerId, assessmentDto);
+            return new ResponseEntity<>(transactionDto, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     /**
@@ -38,8 +43,13 @@ public class TransactionController {
      * @return Lista de DTOs de transacciones.
      */
     @GetMapping("/user/{userId}")
-    public List<TransactionDto> getTransactionsByUserId(@PathVariable Long userId) {
-        return transactionService.getTransactionsByUserId(userId);
+    public ResponseEntity<?> getTransactionsByUserId(@PathVariable Long userId) {
+        try {
+            List<TransactionDto> transactions = transactionService.getTransactionsByUserId(userId);
+            return new ResponseEntity<>(transactions, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     /**
@@ -49,7 +59,12 @@ public class TransactionController {
      * @return DTO de la transacción encontrada.
      */
     @GetMapping("/{transactionId}")
-    public TransactionDto getTransactionById(@PathVariable Long transactionId) {
-        return transactionService.getTransactionOrThrow(transactionId);
+    public ResponseEntity<?> getTransactionById(@PathVariable Long transactionId) {
+        try {
+            TransactionDto transactionDto = transactionService.getTransactionOrThrow(transactionId);
+            return new ResponseEntity<>(transactionDto, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 }
