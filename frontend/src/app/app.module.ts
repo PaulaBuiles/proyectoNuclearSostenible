@@ -11,7 +11,10 @@ import { NavbarComponent } from './utils/navbar/navbar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './utils/token.interceptor';
 import { NewProductComponent } from './views/new-product/new-product.component';
-import { NewPublicationComponent } from './views/new-publication/new-publication.component'; // Ajusta la ruta según tu estructura de proyecto
+import { NewPublicationComponent } from './views/new-publication/new-publication.component';
+import { CreateReportComponent } from './views/create-report/create-report.component';
+import { EditProductComponent } from './views/edit-product/edit-product.component';
+import { PublicationsComponent } from './views/publications/publications.component'; // Ajusta la ruta según tu estructura de proyecto
 
 
 
@@ -24,6 +27,9 @@ import { NewPublicationComponent } from './views/new-publication/new-publication
     NavbarComponent,
     NewProductComponent,
     NewPublicationComponent,
+    CreateReportComponent,
+    EditProductComponent,
+    PublicationsComponent,
   ],
   imports: [
     BrowserModule,

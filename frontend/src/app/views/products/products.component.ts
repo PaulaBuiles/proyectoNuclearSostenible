@@ -21,6 +21,7 @@ export class ProductsComponent implements OnInit {
   loadProducts(): void {
     this.productService.getAllProducts().subscribe(
       (data: ProductDto[]) => {
+        console.log(data);
         this.products = data;
         this.filteredProducts = data;
       },

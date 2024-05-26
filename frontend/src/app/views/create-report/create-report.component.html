@@ -1,0 +1,22 @@
+<div class="create-report">
+    <h2>Create Report</h2>
+    <form (ngSubmit)="createReport()">
+      <div>
+        <label for="description">Description:</label>
+        <input type="text" id="description" [(ngModel)]="report.description" name="description" required>
+      </div>
+      <div>
+        <label for="denouncedId">Denounced ID:</label>
+        <input type="number" id="denouncedId" [(ngModel)]="report.denouncedId" name="denouncedId" required>
+      </div>
+      <div>
+        <label for="complainantId">Complainant ID:</label>
+        <input type="number" id="complainantId" [(ngModel)]="report.complainantId" name="complainantId" required>
+      </div>
+      <button type="submit">Create Report</button>
+    </form>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+  

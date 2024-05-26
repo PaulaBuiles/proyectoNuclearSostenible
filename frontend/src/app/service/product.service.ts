@@ -28,4 +28,20 @@ export class ProductService {
     });
     return this.http.get<ProductDto[]>(this.apiUrl, { headers });
   }
+  getProductsByUserId(userId: number): Observable<ProductDto[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const url = `${this.apiUrl}/list-user/${userId}`;
+    return this.http.get<ProductDto[]>(url, { headers });
+  }
+  getProductById(id: number): Observable<ProductDto> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<ProductDto>(url, { headers });
+  }
 }
