@@ -14,9 +14,8 @@ import { NewProductComponent } from './views/new-product/new-product.component';
 import { NewPublicationComponent } from './views/new-publication/new-publication.component';
 import { CreateReportComponent } from './views/create-report/create-report.component';
 import { EditProductComponent } from './views/edit-product/edit-product.component';
-import { PublicationsComponent } from './views/publications/publications.component';
-import { LandingCircularEconomyComponent } from './utils/landing-circular-economy/landing-circular-economy.component'; // Ajusta la ruta según tu estructura de proyecto
-import { LandingCircularEconomyModule } from './utils/landing-circular-economy/landing-circular-economy.module'; // Asegúrate de ajustar la ruta
+import { LandingCircularEconomyModule } from './utils/landing-circular-economy/landing-circular-economy.module';
+import { PublicationComponent } from './views/publication/publication.component'; // Asegúrate de ajustar la ruta
 
 
 
@@ -30,7 +29,7 @@ import { LandingCircularEconomyModule } from './utils/landing-circular-economy/l
     NewPublicationComponent,
     CreateReportComponent,
     EditProductComponent,
-    PublicationsComponent,
+    PublicationComponent,
   ],
   imports: [
     BrowserModule,

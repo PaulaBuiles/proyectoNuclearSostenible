@@ -7,5 +7,12 @@ export interface ProductDto {
     userId: number;
     categoryId: number;
     status: boolean;
+    user?: UserDto;
   }
+
+export interface UserDto {
+  idUser: number;
+  userName: string;
+
+}
   
