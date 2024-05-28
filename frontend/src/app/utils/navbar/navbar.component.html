@@ -1,12 +1,40 @@
-<nav class="navbar">
-  <div class="logo">
-    <a routerLink="/home">MiApp</a>
-  </div>
-  <ul class="nav-links">
-    <li><a routerLink="/home">Inicio</a></li>
-    <li><a routerLink="/products">Productos</a></li>
-    <li><a routerLink="/user/profile">Yo</a></li>
-    <li *ngIf="!isLoggedIn"><a routerLink="/login">Iniciar sesión</a></li>
-    <li *ngIf="isLoggedIn"><a routerLink="/profile"><i class="fa fa-user"></i></a></li>
-  </ul>
-</nav>
+<div class="body">
+  <nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn" (click)="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <label class="logo">
+      <label class="logo">The swap</label>
+    </label>
+    <ul [class.open]="menuOpen">
+      <li><a routerLink="/home">Inicio</a></li>
+      
+      <li *ngIf="isLoggedIn" class="product-menu" [class.active]="productMenuOpen" (click)="toggleProductMenu($event)">
+        <a><i class="fa fa-box"></i> Productos</a>
+        <ul class="dropdown">
+          <li><a routerLink="/products">Ver todos los productos</a></li>
+          <li><a routerLink="/products/new">Crear nuevo producto</a></li>
+        </ul>
+      </li>
+
+      <li *ngIf="isLoggedIn" class="publication-menu" [class.active]="publicationMenuOpen" (click)="togglePublicationMenu($event)">
+        <a><i class="fa fa-newspaper"></i> Publicaciones</a>
+        <ul class="dropdown">
+          <li><a routerLink="/publications">Ver todas las publicaciones</a></li>
+          <li><a routerLink="/publications/new">Crear nueva publicación</a></li>
+        </ul>
+      </li>
+
+      <li *ngIf="isLoggedIn" class="profile-menu" [class.active]="profileMenuOpen" (click)="toggleProfileMenu($event)">
+        <a routerLink="/profile"><i class="fa fa-user"></i> {{ getUsername() }}</a>
+        <ul class="dropdown">
+          <li><a routerLink="/profile">Mi perfil</a></li>
+          <li><a routerLink="/reports">Mis denuncias</a></li>
+          <li><a (click)="logout()">Cerrar sesión</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <div class="main"></div>
+</div>
