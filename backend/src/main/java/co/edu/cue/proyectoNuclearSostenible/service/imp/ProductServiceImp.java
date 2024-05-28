@@ -2,6 +2,7 @@ package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Product;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.ProductCategory;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.Publication;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.ProductCategoryDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.ProductDao;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.ProductDto;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -118,13 +120,57 @@ public class ProductServiceImp implements ProductService {
     }
 
 
-
-
     /**
      * Obtiene una lista de productos.
      */
     public List<Product> getAllProducts() {
         return productDao.findAll();
     }
+
+    /**
+     * Obtiene la última publicación de un producto.
+     *
+     * @param productId El ID del producto.
+     * @return La última publicación del producto.
+     * @throws NoSuchElementException Si el producto no tiene publicaciones.
+     */
+    public Publication getLastPublication(Long productId) {
+        Product product = productDao.findProductById(productId);
+        if (product == null) {
+            throw new NoSuchElementException("Producto no encontrado con el ID proporcionado.");
+        }
+
+        List<Publication> publications = product.getListPublications();
+        if (publications.isEmpty()) {
+            throw new NoSuchElementException("El producto no tiene publicaciones.");
+        }
+
+        publications.sort((p1, p2) -> p2.getDateCreated().compareTo(p1.getDateCreated()));
+
+        return publications.get(0);
+    }
+
+    /**
+     * Edita un producto existente en el sistema.
+     *
+     * @param productId El ID del producto a editar.
+     * @param productDto Los datos actualizados del producto.
+     * @return El DTO del producto editado.
+     * @throws NoSuchElementException Si el producto con el ID proporcionado no se encuentra.
+     */
+    public ProductDto editProduct(Long productId, ProductDto productDto) {
+        Product existingProduct = productDao.findById(productId)
+                .orElseThrow(() -> new NoSuchElementException("Producto no encontrado con el ID " + productId));
+
+        existingProduct.setName(productDto.name());
+        existingProduct.setPrice(productDto.price());
+        existingProduct.setImageUrl(productDto.imageUrl());
+        existingProduct.setDescription(productDto.description());
+        existingProduct.setProductCategory(getCategoryById(productDto.categoryId()));
+        existingProduct.setUser(userService.getById(productDto.userId()));
+
+        return mapper.mapToDTO(productDao.save(existingProduct));
+    }
+
 
 }

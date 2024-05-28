@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -81,6 +80,10 @@ public class User implements Serializable, UserDetails {
 
     @OneToMany(mappedBy = "offerer", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Offer> lstOffer;
+
+    @ManyToMany
+    @JoinTable(name = "user_coupons", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "id_coupon"))
+    private List<Coupon> coupons;
 
 
     @Override

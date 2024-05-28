@@ -65,4 +65,40 @@ public class ProductController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
+
+    /**
+     * Obtiene la última publicación de un producto.
+     *
+     * @param id El ID del producto.
+     * @return ResponseEntity con el resultado de la consulta de la última publicación del producto.
+     *         Si la consulta es exitosa, devuelve un ResponseEntity con el cuerpo de la respuesta conteniendo la última publicación y el código de estado HTTP 200 (OK).
+     *         Si ocurre un error durante la consulta, devuelve un ResponseEntity con el mensaje de error correspondiente y el código de estado HTTP 404 (Not Found).
+     */
+    @GetMapping("/{id}/last-publication")
+    public ResponseEntity<?> getLastPublication(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(productService.getLastPublication(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * Edita un producto existente en el sistema.
+     *
+     * @param productId El ID del producto a editar.
+     * @param productDto Los datos actualizados del producto.
+     * @return ResponseEntity con el producto editado y el código de estado HTTP 200 (OK).
+     *         Si ocurre un error, devuelve un ResponseEntity con el mensaje de error correspondiente y el código de estado HTTP 404 (Not Found).
+     */
+    @PutMapping("/{productId}")
+    public ResponseEntity<?> editProduct(@PathVariable Long productId, @RequestBody ProductDto productDto) {
+        try {
+            ProductDto updatedProduct = productService.editProduct(productId, productDto);
+            return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

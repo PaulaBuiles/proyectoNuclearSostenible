@@ -1,8 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.Publication;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
-import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.*;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.PublicationDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.PublicationRepository;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.PublicationDto;
@@ -16,6 +14,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -146,5 +146,58 @@ public class PublicationServiceImp implements PublicationService {
     public List<Publication> getPublicationByProductId(Long id) {
         return publicationDao.findPublicationByProduct_IdProduct(id);
     }
+
+    /**
+     * Obtiene todas las ofertas para una publicación específica.
+     *
+     * @param publicationId El ID de la publicación.
+     * @return Lista de ofertas para la publicación.
+     */
+    public List<Offer> getOffersByPublicationId(Long publicationId) {
+        Publication publication = publicationDao.findById(publicationId)
+                .orElseThrow(() -> new IllegalArgumentException("La publicación con ID " + publicationId + " no fue encontrada."));
+
+        return publication.getOffers();
+    }
+
+    /**
+     * Obtiene la transacción de una oferta asociada a una publicación específica.
+     *
+     * @param publicationId El ID de la publicación.
+     * @return La transacción de la oferta.
+     * @throws NoSuchElementException Si no se encuentra una oferta con una transacción no nula.
+     */
+    public Transaction getTransactionByPublicationId(Long publicationId) {
+        Publication publication = publicationDao.findById(publicationId)
+                .orElseThrow(() -> new NoSuchElementException("La publicación con ID " + publicationId + " no fue encontrada."));
+
+        return publication.getOffers().stream()
+                .map(Offer::getTransaction)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("No se encontró una oferta con una transacción no nula."));
+    }
+
+    /**
+     * Edita una publicación existente en el sistema.
+     *
+     * @param publicationId El ID de la publicación a editar.
+     * @param publicationDto Los datos actualizados de la publicación.
+     * @return El DTO de la publicación editada.
+     * @throws NoSuchElementException Si la publicación con el ID proporcionado no se encuentra.
+     */
+    public PublicationDto editPublication(Long publicationId, PublicationDto publicationDto) {
+        Publication existingPublication = publicationDao.findById(publicationId)
+                .orElseThrow(() -> new NoSuchElementException("Publicación no encontrada con el ID " + publicationId));
+
+        existingPublication.setTitle(publicationDto.title());
+        existingPublication.setDateCreated(publicationDto.dateCreated());
+        existingPublication.setState(stateService.getById(publicationDto.stateId()));
+        existingPublication.setOwner(userService.getById(publicationDto.ownerId()));
+        existingPublication.setProduct(productService.getById(publicationDto.productId()));
+
+        return mapper.mapToDTO(publicationDao.save(existingPublication));
+    }
+
 
 }

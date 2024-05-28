@@ -1,6 +1,8 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.Offer;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Publication;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.Transaction;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.PublicationDto;
 import co.edu.cue.proyectoNuclearSostenible.service.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +79,62 @@ public class PublicationController {
             return new ResponseEntity<>(publicationService.getPublicationByProductId(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+
+    /**
+     * Obtiene todas las ofertas para una publicación específica.
+     *
+     * @param publicationId El ID de la publicación.
+     * @return ResponseEntity con la lista de ofertas y el código de estado HTTP 200 (OK).
+     *         Si ocurre un error, devuelve un ResponseEntity con el mensaje de error correspondiente y el código de estado HTTP 404 (Not Found).
+     */
+    @GetMapping("/{publicationId}/offers")
+    public ResponseEntity<?> getOffersByPublicationId(@PathVariable Long publicationId) {
+        try {
+            List<Offer> offers = publicationService.getOffersByPublicationId(publicationId);
+            return new ResponseEntity<>(offers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * Endpoint para obtener la transacción de una oferta asociada a una publicación específica.
+     *
+     * Este método maneja las solicitudes GET para obtener la transacción correspondiente a una oferta de una
+     * publicación dada. Se busca la primera oferta asociada a la publicación que tenga una transacción no nula.
+     *
+     * @param publicationId El ID de la publicación para la cual se desea obtener la transacción.
+     * @return ResponseEntity con la transacción encontrada y el código de estado HTTP 200 (OK).
+     *         Si ocurre un error (por ejemplo, si no se encuentra la publicación o ninguna oferta con una transacción no nula),
+     *         devuelve un ResponseEntity con el mensaje de error correspondiente y el código de estado HTTP 404 (Not Found).
+     */
+    @GetMapping("/{publicationId}/transaction")
+    public ResponseEntity<?> getTransactionByPublicationId(@PathVariable Long publicationId) {
+        try {
+            Transaction transaction = publicationService.getTransactionByPublicationId(publicationId);
+            return new ResponseEntity<>(transaction, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /**
+     * Edita una publicación existente en el sistema.
+     *
+     * @param publicationId El ID de la publicación a editar.
+     * @param publicationDto Los datos actualizados de la publicación.
+     * @return ResponseEntity con la publicación editada y el código de estado HTTP 200 (OK).
+     *         Si ocurre un error, devuelve un ResponseEntity con el mensaje de error correspondiente y el código de estado HTTP 404 (Not Found).
+     */
+    @PutMapping("/{publicationId}")
+    public ResponseEntity<?> editPublication(@PathVariable Long publicationId, @RequestBody PublicationDto publicationDto) {
+        try {
+            PublicationDto updatedPublication = publicationService.editPublication(publicationId, publicationDto);
+            return new ResponseEntity<>(updatedPublication, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
