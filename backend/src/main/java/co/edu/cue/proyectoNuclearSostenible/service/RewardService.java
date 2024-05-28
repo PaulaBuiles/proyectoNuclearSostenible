@@ -1,7 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.service;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Reward;
-import co.edu.cue.proyectoNuclearSostenible.mapping.dto.RewardDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 
 import java.util.List;

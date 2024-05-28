@@ -4,9 +4,7 @@ import co.edu.cue.proyectoNuclearSostenible.domain.entities.Reward;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.RewardDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
-import co.edu.cue.proyectoNuclearSostenible.mapping.dto.RewardDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
-import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.RewardMapper;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.UserMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.RewardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +21,6 @@ public class RewardServiceImpl implements RewardService {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private RewardMapper rewardMapper;
 
     @Autowired
     private UserMapper userMapper;
