@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -115,11 +116,23 @@ public class LoginService {
 
         UserOutDto userOutDto = new UserOutDto();
 
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.userName(), userDto.password()));
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.userName(), userDto.password()));
+        } catch (AuthenticationException e) {
+            userOutDto.setStatusDto(new StatusDto(CodeMessageEnum.ERROR_INVALID_RESULT.getCode(), "Credenciales inválidas"));
+            log.error("Credenciales inválidas: " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
+        }
 
         User user = userDao.findByUserName(userDto.userName());
 
         if (user != null) {
+            if (Boolean.FALSE.equals(user.getStatus())) {
+                userOutDto.setStatusDto(new StatusDto(CodeMessageEnum.ERROR_INVALID_RESULT.getCode(), "Tu usuario ha sido desactivado por alta cantidad de reportes"));
+                log.error("Usuario desactivado por alta cantidad de reportes");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Tu usuario ha sido desactivado por alta cantidad de reportes");
+            }
+
             String jwt = jwtService.generateToken(user);
 
             deleteUserToken(user);
@@ -132,11 +145,12 @@ public class LoginService {
             log.info("Finalizando autenticar");
             return userOutDto;
         } else {
-            userOutDto.setStatusDto(new StatusDto(CodeMessageEnum.ERROR_INVALID_RESULT.getCode(), "User no encontrado"));
+            userOutDto.setStatusDto(new StatusDto(CodeMessageEnum.ERROR_INVALID_RESULT.getCode(), "Usuario no encontrado"));
             log.error(CodeMessageEnum.ERROR_INVALID_RESULT.getMessage() + " autenticar");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User no encontrado");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario no encontrado");
         }
     }
+
 
 
     /**

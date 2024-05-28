@@ -1,5 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.TypeId;
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
@@ -13,8 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -29,56 +29,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     private TypeIdServiceImpl typeIdService;
 
-    /**
-     * Crea un nuevo usuario en el sistema.
-     *
-     * @param userDto Los datos del usuario a crear.
-     * @return El DTO del usuario creado.
-     * @throws IllegalArgumentException Si se encuentran usuarios con las mismas credenciales o si ya existe un usuario con alguno de los datos proporcionados.
-     */
-    public UserDto createUser(UserDto userDto) {
-
-        validateUserInfo(userDto);
-
-        User user = mapper.mapToEntity(userDto);
-
-        user.setTypeIdUser(typeIdService.getById(userDto.typeIdUserId()));
-
-        return mapper.mapToDTO(userDao.save(user));
-    }
-
-    /**
-     * Valida la información del usuario antes de crearlo.
-     *
-     * @param userDto Los datos del usuario a validar.
-     * @throws IllegalArgumentException Si se encuentran múltiples usuarios con las mismas credenciales o si ya existe un usuario con alguno de los datos proporcionados.
-     */
-    private void validateUserInfo(UserDto userDto) {
-
-        String username = userDto.userName().toLowerCase();
-        String email = userDto.email().toLowerCase();
-        String identification = userDto.identification().toLowerCase();
-        String phone = userDto.phone().toLowerCase();
-
-        List<User> existingUsers = userDao.findByUserNameIgnoreCaseOrEmailIgnoreCaseOrIdentificationIgnoreCaseOrPhoneIgnoreCase(username, email, identification, phone);
-
-        if (existingUsers.size() > 1) {
-            throw new IllegalArgumentException("Se encontraron múltiples usuarios con las mismas credenciales.");
-        }
-
-        if (!existingUsers.isEmpty()) {
-            User existingUser = existingUsers.get(0);
-            if (existingUser.getUsername().equalsIgnoreCase(username)) {
-                throw new IllegalArgumentException("Ya existe un usuario con ese nombre de usuario.");
-            } else if (existingUser.getEmail().equalsIgnoreCase(email)) {
-                throw new IllegalArgumentException("Ya existe un usuario con ese correo electrónico.");
-            } else if (existingUser.getIdentification().equalsIgnoreCase(identification)) {
-                throw new IllegalArgumentException("Ya existe un usuario con esa identificación.");
-            } else if (existingUser.getPhone().equalsIgnoreCase(phone)) {
-                throw new IllegalArgumentException("Ya existe un usuario con ese número de teléfono.");
-            }
-        }
-    }
 
     /**
      * Obtiene un usuario a partir de su DTO.
@@ -125,6 +75,37 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public int getPoints(UserDto userDto) {
         User user = mapper.mapToEntity(userDto);
         return user.getPoints();
+    }
+
+    /**
+     * Edita un producto existente en el sistema.
+     *
+     * @param userId El ID del producto a editar.
+     * @param userDto Los datos actualizados del producto.
+     * @return El DTO del producto editado.
+     * @throws NoSuchElementException Si el producto con el ID proporcionado no se encuentra.
+     */
+    public UserDto editUser(Long userId, UserDto userDto) {
+        User existingUser = userDao.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado con el ID " + userId));
+
+        existingUser.setUserName(userDto.userName());
+        existingUser.setPassword(userDto.password());
+        existingUser.setFullName(userDto.fullName());
+        existingUser.setEmail(userDto.email());
+        existingUser.setPhone(userDto.phone());
+
+        TypeId typeId = typeIdService.getById(userDto.typeIdUserId());
+        existingUser.setTypeIdUser(typeId);
+
+        existingUser.setIdentification(userDto.identification());
+        existingUser.setImage(userDto.image());
+        existingUser.setDescription(userDto.description());
+        existingUser.setStatus(userDto.status());
+        existingUser.setPoints(userDto.points());
+        existingUser.setIsAdmin(userDto.isAdmin());
+
+        return mapper.mapToDTO(userDao.save(existingUser));
     }
 
 

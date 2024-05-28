@@ -5,7 +5,6 @@ import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 
 
 public interface UserService {
-    UserDto createUser(UserDto user);
 
     User getUser(UserDto user);
 
@@ -14,4 +13,6 @@ public interface UserService {
     User getUserById(Long id);
 
     int getPoints(UserDto userDto);
+
+    UserDto editUser(Long userId, UserDto userDto);
 }

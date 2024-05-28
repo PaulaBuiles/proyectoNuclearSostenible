@@ -19,23 +19,6 @@ public class UserController {
 
 
     /**
-     * Crea un nuevo usuario en el sistema.
-     *
-     * @param user El DTO del usuario a crear (en formato JSON en el cuerpo de la solicitud).
-     * @return ResponseEntity con el resultado de la creación del usuario.
-     *         Si la creación es exitosa, devuelve un ResponseEntity con el cuerpo de la respuesta conteniendo el usuario creado y el código de estado HTTP 200 (OK).
-     *         Si ocurre un error durante la creación, devuelve un ResponseEntity con el mensaje de error correspondiente y el código de estado HTTP 409 (Conflict).
-     */
-    @PostMapping(headers = "Accept=application/json")
-    public ResponseEntity<?> createUser (@RequestBody UserDto user) {
-        try {
-            return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-    }
-
-    /**
      * Obtiene un usuario del sistema.
      *
      * @return ResponseEntity con el resultado de la obtención del usuario.
@@ -60,6 +43,20 @@ public class UserController {
     @PostMapping("/getPoints")
     public int getPoints(@RequestBody UserDto userDto) {
         return userService.getPoints(userDto);
+    }
+
+
+    /**
+     * Edita un usuario existente en el sistema.
+     *
+     * @param id El ID del usuario a editar.
+     * @param userDTO Los datos actualizados del usuario.
+     * @return ResponseEntity con el usuario editado y el código de estado HTTP 200 (OK).
+     *         Si ocurre un error, devuelve un ResponseEntity con el mensaje de error correspondiente y el código de estado HTTP 404 (Not Found).
+     */
+    @PutMapping("/{id}")
+    public UserDto editUser(@PathVariable Long id, @RequestBody UserDto userDTO) {
+        return userService.editUser(id, userDTO);
     }
 
 }

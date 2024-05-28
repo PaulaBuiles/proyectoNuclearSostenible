@@ -49,4 +49,15 @@ public class CouponController {
         }
     }
 
+    /**
+     * Obtiene todos los cupones disponibles para el usuario según su id.
+     *
+     * @param userId El ID del usuario que buscamos.
+     * @return ResponseEntity con la lista de todos los cupones y el código de estado HTTP 200 (OK).
+     */
+    @GetMapping("/user/{userId}")
+    public List<Coupon> getCouponsByUserId(@PathVariable Long userId) {
+        return couponService.getCouponsByUserId(userId);
+    }
+
 }

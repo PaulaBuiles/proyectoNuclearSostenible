@@ -10,4 +10,6 @@ public interface CouponService {
 
     List<Coupon> getAllCoupons();
 
+    List<Coupon> getCouponsByUserId(Long userId);
+
 }

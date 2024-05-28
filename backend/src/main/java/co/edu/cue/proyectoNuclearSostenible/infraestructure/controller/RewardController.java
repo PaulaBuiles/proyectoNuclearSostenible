@@ -1,11 +1,14 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.Reward;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.UserDto;
 import co.edu.cue.proyectoNuclearSostenible.service.RewardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/rewards")
@@ -51,5 +54,15 @@ public class RewardController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Reward> getRewardsByUserId(@PathVariable Long userId) {
+        return rewardService.getRewardsByUserId(userId);
+    }
+
+    @GetMapping("/user/{userId}/total-points")
+    public Integer getTotalPointsByUserId(@PathVariable Long userId) {
+        return rewardService.getTotalPointsByUserId(userId);
     }
 }

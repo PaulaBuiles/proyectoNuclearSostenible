@@ -12,6 +12,8 @@ import co.edu.cue.proyectoNuclearSostenible.service.RewardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RewardServiceImpl implements RewardService {
 
@@ -63,5 +65,20 @@ public class RewardServiceImpl implements RewardService {
             throw new IllegalArgumentException("Puntos Insuficientes");
         }
     }
+
+    public List<Reward> getRewardsByUserId(Long userId) {
+        return rewardDao.findRewardsByUserId(userId);
+    }
+
+    /**
+     * Obtiene el total de puntos de recompensa acumulados por un usuario específico.
+     *
+     * @param userId el ID del usuario cuyos puntos se desean consultar.
+     * @return el total de puntos acumulados por el usuario.
+     */
+    public Integer getTotalPointsByUserId(Long userId) {
+        return rewardDao.findTotalPointsByUserId(userId);
+    }
+
 
 }

@@ -5,11 +5,15 @@ import co.edu.cue.proyectoNuclearSostenible.domain.entities.User;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.CouponDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.UserDao;
 import co.edu.cue.proyectoNuclearSostenible.service.CouponService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@Service
+@AllArgsConstructor
 public class CouponServiceImpl implements CouponService {
 
     @Autowired
@@ -48,6 +52,17 @@ public class CouponServiceImpl implements CouponService {
      */
     public List<Coupon> getAllCoupons() {
         return couponDao.findAll();
+    }
+
+
+    /**
+     * Obtiene todos los cupones disponibles para el id del usuario.
+     *
+     * @param userId El ID del usuario que buscamos.
+     * @return Lista de todos los cupones.
+     */
+    public List<Coupon> getCouponsByUserId(Long userId) {
+        return couponDao.findCouponsByUserId(userId);
     }
 
 }
