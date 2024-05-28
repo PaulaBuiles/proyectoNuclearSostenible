@@ -7,6 +7,7 @@ import { NewPublicationComponent } from './views/new-publication/new-publication
 import { CreateReportComponent } from './views/create-report/create-report.component';
 import { EditProductComponent } from './views/edit-product/edit-product.component';
 import { PublicationsComponent } from './views/publications/publications.component';
+import { LandingCircularEconomyComponent } from './utils/landing-circular-economy/landing-circular-economy.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'new-report', component: CreateReportComponent },
   { path: 'edit-product/:id', component: EditProductComponent},
   { path: 'publications', component: PublicationsComponent},
+  { path: 'landing', component: LandingCircularEconomyComponent},
 
   // Agrega más rutas aquí si es necesario
   { path: '', redirectTo: '/login', pathMatch: 'full' },

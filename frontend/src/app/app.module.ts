@@ -14,8 +14,9 @@ import { NewProductComponent } from './views/new-product/new-product.component';
 import { NewPublicationComponent } from './views/new-publication/new-publication.component';
 import { CreateReportComponent } from './views/create-report/create-report.component';
 import { EditProductComponent } from './views/edit-product/edit-product.component';
-import { PublicationsComponent } from './views/publications/publications.component'; // Ajusta la ruta según tu estructura de proyecto
-
+import { PublicationsComponent } from './views/publications/publications.component';
+import { LandingCircularEconomyComponent } from './utils/landing-circular-economy/landing-circular-economy.component'; // Ajusta la ruta según tu estructura de proyecto
+import { LandingCircularEconomyModule } from './utils/landing-circular-economy/landing-circular-economy.module'; // Asegúrate de ajustar la ruta
 
 
 
@@ -36,7 +37,8 @@ import { PublicationsComponent } from './views/publications/publications.compone
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    LandingCircularEconomyModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

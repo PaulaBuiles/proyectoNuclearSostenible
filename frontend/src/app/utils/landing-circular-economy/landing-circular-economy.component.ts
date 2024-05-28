@@ -1,0 +1,29 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-landing-circular-economy',
+  templateUrl: './landing-circular-economy.component.html',
+  styleUrls: ['./landing-circular-economy.component.css']
+})
+export class LandingCircularEconomyComponent implements OnInit {
+  images: string[] = [
+    'https://private-user-images.githubusercontent.com/102967338/333899274-6e32cf43-54ac-4e06-b1de-d83378c2180a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTY5MDk5ODgsIm5iZiI6MTcxNjkwOTY4OCwicGF0aCI6Ii8xMDI5NjczMzgvMzMzODk5Mjc0LTZlMzJjZjQzLTU0YWMtNGUwNi1iMWRlLWQ4MzM3OGMyMTgwYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDUyOFQxNTIxMjhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lODQ4ZWZkMDA5YmI3YzBmNDAzOWVhMGE4MmI1NDJkOWE3NjNlY2Y2NDNkNGNjNzAwZTc5MDFmY2ViZjYyMzE1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.XUf-SfpiBZKhbvmef0BBTnDqRjFcbEYhaLc1Qz9rr_k',
+    'https://private-user-images.githubusercontent.com/102967338/333899275-de7e38e0-e31f-47bd-a63c-5c557d976a12.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTY5MDk5ODgsIm5iZiI6MTcxNjkwOTY4OCwicGF0aCI6Ii8xMDI5NjczMzgvMzMzODk5Mjc1LWRlN2UzOGUwLWUzMWYtNDdiZC1hNjNjLTVjNTU3ZDk3NmExMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDUyOFQxNTIxMjhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xNWJjZDBhMzQ5NGIyZWEzNjNiOWExNjc5NTRjMTgyOWViYTk5Nzc5Y2RhOWEyNTliMWE4ZGQ0MmU2N2RjZTZkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.71ABprxBLDUO5pzSlSIrnm8rAbV1aBCOkqeWXSTAlLg',
+    'https://private-user-images.githubusercontent.com/102967338/333899276-ca1220c5-7f56-4aca-806a-18277679c698.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTY5MDk5ODgsIm5iZiI6MTcxNjkwOTY4OCwicGF0aCI6Ii8xMDI5NjczMzgvMzMzODk5Mjc2LWNhMTIyMGM1LTdmNTYtNGFjYS04MDZhLTE4Mjc3Njc5YzY5OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDUyOFQxNTIxMjhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00M2FjZDRkN2RjMDIyMjY0NTYyY2JhY2VjMzYxZDA3ZDY0MjJhOWYwZmY2OWE5NTlkZGZhNjk3NmNlYThhMTliJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.8lFchUHIZy61cLfAjPZj3Iip-NBrDkHmgFkc6fYtkmk'
+    // Agrega más rutas aquí
+  ];
+  currentIndex = 0;
+  imageWidth = 1200; // Ancho de la imagen en píxeles
+
+  constructor() { }
+
+  ngOnInit(): void {
+    setInterval(() => {
+      this.moveCarousel();
+    }, 3000); // Cambia la imagen cada 3 segundos (3000 milisegundos)
+  }
+
+  moveCarousel(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  }
+}

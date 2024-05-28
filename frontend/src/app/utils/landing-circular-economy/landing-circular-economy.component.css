@@ -1,0 +1,28 @@
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.carousel {
+  width: 90%; /* Ajusta el ancho del carrusel según sea necesario */
+  max-width: 1200px;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid #ccc; /* Borde del carrusel */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-inner img {
+  width: 100%; /* Ajusta el tamaño de las imágenes */
+  height: auto;
+  object-fit: cover;
+}
