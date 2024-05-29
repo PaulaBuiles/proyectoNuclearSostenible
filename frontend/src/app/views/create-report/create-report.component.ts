@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ReportService } from '../../service/report.service';
 import { ReportDto } from '../../model/report-dto.model';
 
@@ -10,12 +11,26 @@ import { ReportDto } from '../../model/report-dto.model';
 export class CreateReportComponent {
   report: ReportDto = {
     description: '',
-    denouncedId: 0,
-    complainantId: 0
+    denouncedId: 0, // Se establecerá con el valor de la URL
+    complainantId: 0 // Se establecerá con el valor del almacenamiento local
   };
   errorMessage: string | null = null;
 
-  constructor(private reportService: ReportService) {}
+  constructor(private route: ActivatedRoute, private reportService: ReportService) {
+    // Obtener el ID del usuario denunciado de la URL
+    this.route.paramMap.subscribe(params => {
+      const denouncedId = localStorage.getItem('denoucedId');;
+      if (denouncedId) {
+        this.report.denouncedId = +denouncedId; // Convierte a número
+      }
+    });
+
+    // Obtener el ID del usuario denunciante del almacenamiento local
+    const complainantId = localStorage.getItem('userId');
+    if (complainantId) {
+      this.report.complainantId = +complainantId; // Convierte a número
+    }
+  }
 
   createReport() {
     this.reportService.createReport(this.report).subscribe({

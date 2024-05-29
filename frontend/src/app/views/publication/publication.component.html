@@ -1,26 +1,31 @@
 <div *ngIf="publication && product && user" class="publication-container">
-    <div class="publication-card">
-      <div class="product-image">
-        <img [src]="product.imageUrl" alt="Product Image">
-      </div>
-      <div class="product-details">
-        <h2>{{ product.name }}</h2>
-        <p>{{ product.description }}</p>
-        <p>Precio: {{ product.price | currency }}</p>
-      </div>
+  <div class="publication-card">
+    <div class="product-image">
+      <img [src]="product.imageUrl" alt="Product Image">
     </div>
-  
-    <div class="user-card">
-      <h3>Usuario</h3>
-      <p>{{ user.fullName }}</p>
-      <p>{{ user.email }}</p>
-      <p>{{ user.phone }}</p>
-    </div>
-  
-    <div class="publication-details">
-      <h3>Publicación</h3>
-      <p>{{ publication.title }}</p>
-      <p>Fecha: {{ publication.dateCreated | date }}</p>
+    <div class="product-details">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <p>Precio: {{ product.price | currency }}</p>
     </div>
   </div>
-  
+
+  <div class="user-card">
+    <h3>Usuario</h3>
+    <p>{{ user.fullName }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.phone }}</p>
+    <!-- Botón para mostrar/ocultar el formulario de reporte -->
+    <button (click)="toggleReportForm()" class="btn btn-danger">Reportar</button>
+    <!-- Componente del formulario de reporte -->
+    <app-create-report *ngIf="showReportForm"></app-create-report>
+  </div>
+
+  <div class="publication-details">
+    <h3>Publicación</h3>
+    <p>{{ publication.title }}</p>
+    <p>Fecha: {{ publication.dateCreated | date }}</p>
+  </div>
+
+  <button (click)="viewOffers(publication.idPublication)" class="btn btn-primary">Ver Ofertas</button>
+</div>

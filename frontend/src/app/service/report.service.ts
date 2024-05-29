@@ -28,7 +28,7 @@ export class ReportService {
       'Authorization': `Bearer ${token}`
     });
     const url = `${this.apiUrl}/list-user/${userId}`;
-    return this.http.get<ReportEntity[]>(url, { headers });
+    return this.http.get<any>(url, { headers });
   }
 
 }

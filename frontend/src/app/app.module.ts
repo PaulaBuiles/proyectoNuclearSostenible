@@ -15,7 +15,9 @@ import { NewPublicationComponent } from './views/new-publication/new-publication
 import { CreateReportComponent } from './views/create-report/create-report.component';
 import { EditProductComponent } from './views/edit-product/edit-product.component';
 import { LandingCircularEconomyModule } from './utils/landing-circular-economy/landing-circular-economy.module';
-import { PublicationComponent } from './views/publication/publication.component'; // Asegúrate de ajustar la ruta
+import { PublicationComponent } from './views/publication/publication.component';
+import { OffersComponent } from './views/offers/offers.component'; // Asegúrate de ajustar la ruta
+import { CreateReportModule } from './views/create-report/create-report.module';
 
 
 
@@ -30,6 +32,7 @@ import { PublicationComponent } from './views/publication/publication.component'
     CreateReportComponent,
     EditProductComponent,
     PublicationComponent,
+    OffersComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { PublicationComponent } from './views/publication/publication.component'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LandingCircularEconomyModule
+    LandingCircularEconomyModule,
+    CreateReportModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

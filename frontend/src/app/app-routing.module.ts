@@ -8,6 +8,8 @@ import { CreateReportComponent } from './views/create-report/create-report.compo
 import { EditProductComponent } from './views/edit-product/edit-product.component';
 import { LandingCircularEconomyComponent } from './utils/landing-circular-economy/landing-circular-economy.component';
 import { PublicationComponent } from './views/publication/publication.component';
+import { OffersComponent } from './views/offers/offers.component';
+
 
 
 const routes: Routes = [
@@ -16,10 +18,11 @@ const routes: Routes = [
   { path: 'user', loadChildren: () => import('./views/user/user.module').then(m => m.UserModule)},
   { path: 'new-product', component: NewProductComponent},
   { path: 'new-publication', component: NewPublicationComponent },
-  { path: 'new-report', component: CreateReportComponent },
+  { path: 'new-report/:id', component: CreateReportComponent },
   { path: 'edit-product/:id', component: EditProductComponent},
   { path: 'landing', component: LandingCircularEconomyComponent},
   { path: 'publication/:id', component: PublicationComponent },
+  { path: 'offers/:publicationId', component: OffersComponent },
 
 
   // Agrega más rutas aquí si es necesario

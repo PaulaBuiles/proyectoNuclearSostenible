@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router} from '@angular/router';
 import { ProductService } from '../../service/product.service';
 import { ProductDto } from '../../model/product-dto.model';
 
@@ -11,8 +12,9 @@ export class ProductsComponent implements OnInit {
   products: ProductDto[] = [];
   filteredProducts: ProductDto[] = [];
   searchQuery: string = '';
+  
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -41,5 +43,9 @@ export class ProductsComponent implements OnInit {
   onFilterChange(filterType: string, value: string): void {
     // Implementa lógica para filtrar los productos según el tipo de filtro y el valor seleccionado
     console.log(`Filter Type: ${filterType}, Value: ${value}`);
+  }
+
+  viewPublication(productId: number): void {
+    this.router.navigate(['/publication', productId]);
   }
 }

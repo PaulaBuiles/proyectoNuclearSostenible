@@ -26,6 +26,7 @@ export class AuthService {
 
   // Método para realizar el inicio de sesión
   login(userDto: { username: string; password: string }): Observable<AuthResponse> {
+    localStorage.clear();
     return this.http.post<AuthResponse>(`${this.baseUrl}/persona/autenticar`, userDto).pipe(
       tap(response => {
         const token = response.authenticationResponseDto?.token;
@@ -40,8 +41,7 @@ export class AuthService {
 
   // Método para cerrar sesión
   logout() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userId');
+    localStorage.clear();
     this.loggedIn.next(false);
   }
 }
