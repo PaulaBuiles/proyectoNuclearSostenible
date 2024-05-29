@@ -1,5 +1,8 @@
 package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -62,25 +65,33 @@ public class User implements Serializable, UserDetails {
 
     @Column(name = "isAdmin", nullable = false)
     private Boolean isAdmin;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Product> listProducts;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "complainant", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Report> complaintsMade;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "denounced", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Report> ownComplaints;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "user_rewards", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "id_reward"))
     private List<Reward> rewards;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Token> lstToken;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "offerer", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Offer> lstOffer;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "user_coupons", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "id_coupon"))
     private List<Coupon> coupons;

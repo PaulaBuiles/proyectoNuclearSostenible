@@ -10,7 +10,7 @@ public interface OfferService {
     OfferDto createOffer(OfferDto offerDto);
     OfferDto acceptOffer(Long offerId);
     OfferDto rejectOffer(Long offerId);
-    List<Offer> getOffersByPublication(Long publicationId);
+    List<OfferDto> getOffersByPublication(Long publicationId);
     List<Offer> getOffersByUser(Long userId);
 
 }

@@ -1,5 +1,7 @@
 package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "offer", indexes = @Index(columnList = "idOffer"))
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idOffer")
 public class Offer implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
