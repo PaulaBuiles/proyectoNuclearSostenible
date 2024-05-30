@@ -151,7 +151,7 @@ public class OfferServiceImpl implements OfferService {
         List<Offer> offers = offerDao.findOffersByPublicationId(publicationId);
         List<OfferDto> offerDtos = new ArrayList<>();
         for (Offer offer : offers) {
-            offerDtos.add(new OfferDto(offer.getIdOffer(), publicationId, publicationId, offer.getOfferer().getIdUser(),offer.getMonetaryValue(),offer.getOfferDate(),null));
+            offerDtos.add(new OfferDto(offer.getIdOffer(), publicationId, publicationId, offer.getOfferer().getIdUser(),offer.getMonetaryValue(),offer.getOfferDate(),offer.getState().getDescription(), null));
         }
         return offerDtos;
     }
