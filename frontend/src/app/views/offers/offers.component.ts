@@ -9,7 +9,7 @@ import { OfferDto } from '../../model/offer-dto.model';
   styleUrls: ['./offers.component.css']
 })
 export class OffersComponent implements OnInit {
-
+  showOfferForm = false;
   offers: OfferDto[] | null = null;
   newOffer: Partial<OfferDto> = {};
   window: any;
@@ -45,5 +45,8 @@ export class OffersComponent implements OnInit {
       }
     );
     window.location.reload();
+  }
+  toggleOfferForm() {
+    this.showOfferForm = !this.showOfferForm;
   }
 }

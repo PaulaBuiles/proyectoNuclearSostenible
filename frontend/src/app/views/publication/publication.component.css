@@ -1,46 +1,172 @@
+h1{
+  font-size: 30px;
+}
 .publication-container {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .publication-card {
-    display: flex;
-    flex-direction: row;
-    width: 60%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-  }
-  
-  .product-image {
-    width: 150px;
-    margin-right: 20px;
-  }
-  
-  .product-image img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .product-details {
-    flex-grow: 1;
-  }
-  
-  .user-card {
-    width: 30%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-  }
-  
-  .publication-details {
-    width: 30%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-  }
-  
-  h2, h3 {
-    margin-top: 0;
-  }
-  
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: 20px auto;
+  font-family: 'Arial, sans-serif';
+  position: relative;
+}
+
+.publication-details {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.product-section {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.product-details {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.user-card {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  background: linear-gradient(135deg, #6b64f3, #3405a3);
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: auto;
+}
+
+.card-border-top {
+  width: 50%;
+  height: 4px;
+  background: #fff;
+  margin-bottom: 10px;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.img img {
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.user-card span {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.job {
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.user-card button {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: none;
+  background: #fff;
+  color: #3405a3;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.user-card button:hover {
+  background: #ececec;
+}
+
+button.btn {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+button.btn:hover {
+  background-color: #2980b9;
+}
+
+/* Estilos de la ventana modal */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'user', loadChildren: () => import('./views/user/user.module').then(m => m.UserModule)},
   { path: 'new-product', component: NewProductComponent},
-  { path: 'new-publication', component: NewPublicationComponent },
+  { path: 'new-publication/:id', component: NewPublicationComponent },
   { path: 'new-report/:id', component: CreateReportComponent },
   { path: 'edit-product/:id', component: EditProductComponent},
   { path: 'landing', component: LandingCircularEconomyComponent},

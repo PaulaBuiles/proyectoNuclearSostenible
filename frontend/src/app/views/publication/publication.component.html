@@ -1,32 +1,39 @@
 <div *ngIf="publication && product && user" class="publication-container">
-  <div class="publication-card">
+  <div class="publication-details">
+    <h1>{{ publication.title }}</h1>
+    <p>Fecha: {{ publication.dateCreated | date }}</p>
+    <p>{{ publication.state.description }}</p>
+  </div>
+
+  <div class="product-section">
     <div class="product-image">
       <img [src]="product.imageUrl" alt="Product Image">
     </div>
     <div class="product-details">
-      <h2>{{ product.name }}</h2>
+      <h1>{{ product.name }}</h1>
       <p>{{ product.description }}</p>
       <p>Precio: {{ product.price | currency }}</p>
     </div>
   </div>
 
-  <div class="user-card">
-    <h3>Usuario</h3>
-    <p>{{ user.fullName }}</p>
-    <p>{{ user.email }}</p>
-    <p>{{ user.phone }}</p>
-    <!-- Botón para mostrar/ocultar el formulario de reporte -->
-    <button (click)="toggleReportForm()" class="btn btn-danger">Reportar</button>
-    <!-- Componente del formulario de reporte -->
-    <app-create-report *ngIf="showReportForm"></app-create-report>
-  </div>
-
-  <div class="publication-details">
-    <h3>Publicación</h3>
-    <p>{{ publication.title }}</p>
-    <p>Fecha: {{ publication.dateCreated | date }}</p>
-    <p>{{ publication.state.description }}</p>
+  <div class="user-card card">
+    <span>Dueño</span>
+    <div class="card-border-top"></div>
+    <div class="img">
+      <img [src]="user.image" alt="Profile Picture" class="profile-img">
+    </div>
+    <span>{{ user.fullName }}</span>
+    <p class="job">{{ user.description }}</p><br>
+    <button (click)="toggleReportForm()">Reportar</button>
   </div>
 
   <button (click)="viewOffers(publication.idPublication)" class="btn btn-primary">Ver Ofertas</button>
+
+  <!-- Ventana modal para reportar -->
+  <div *ngIf="showReportForm" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="toggleReportForm()">&times;</span>
+      <app-create-report></app-create-report>
+    </div>
+  </div>
 </div>

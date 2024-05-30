@@ -1,30 +1,35 @@
-<div *ngIf="reportsMade.length > 0 || reportsReceived.length > 0">
-    <h2>My Reports</h2>
-    
-    <div *ngIf="reportsMade.length > 0">
-      <h3>Reports que he hecho</h3>
-      <ul>
-        <li *ngFor="let report of reportsMade">
+<div *ngIf="reportsMade.length > 0 || reportsReceived.length > 0" class="reports-container">
+  <h2>My Reports</h2>
+  
+  <div *ngIf="reportsMade.length > 0" class="report-section">
+    <h3>Reports que he hecho</h3>
+    <ul>
+      <li *ngFor="let report of reportsMade" class="report-card">
+        <div class="report-header">
           <h4>Report ID: {{ report.idReport }}</h4>
-          <p>Description: {{ report.description }}</p>
-          <p>Denunciado: {{ report.denounced.fullName }}</p>
-        </li>
-      </ul>
-    </div>
-    
-    <div *ngIf="reportsReceived.length > 0">
-      <h3>Reportes en mi contra</h3>
-      <ul>
-        <li *ngFor="let report of reportsReceived">
-          <h4>Report ID: {{ report.idReport }}</h4>
-          <p>Description: {{ report.description }}</p>
-          <p>Demandante: {{ report.complainant.fullName }}</p>
-        </li>
-      </ul>
-    </div>
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <p><strong>Description:</strong> {{ report.description }}</p>
+        <p><strong>Denunciado:</strong> {{ report.denounced.fullName }}</p>
+      </li>
+    </ul>
   </div>
   
-  <div *ngIf="reportsMade.length === 0 && reportsReceived.length === 0">
-    <p>No reports found for this user.</p>
+  <div *ngIf="reportsReceived.length > 0" class="report-section">
+    <h3>Reportes en mi contra</h3>
+    <ul>
+      <li *ngFor="let report of reportsReceived" class="report-card">
+        <div class="report-header">
+          <h4>Report ID: {{ report.idReport }}</h4>
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <p><strong>Description:</strong> {{ report.description }}</p>
+        <p><strong>Demandante:</strong> {{ report.complainant.fullName }}</p>
+      </li>
+    </ul>
   </div>
-  
+</div>
+
+<div *ngIf="reportsMade.length === 0 && reportsReceived.length === 0" class="no-reports">
+  <p>No reports found for this user.</p>
+</div>
