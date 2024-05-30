@@ -10,13 +10,12 @@ import { ReportEntity } from '../../../model/report-entity.model';
 })
 export class MyReportsComponent implements OnInit {
   reportsMade: ReportEntity[] = [];
-  reportsReceived: ReportEntity[] = [];
-  userId: number = 1; // Supón que obtienes esto del servicio de autenticación
+  reportsReceived: ReportEntity[] = [];// Supón que obtienes esto del servicio de autenticación
 
   constructor(private reportService: ReportService) {}
 
   ngOnInit(): void {
-    this.getReportsByUserId(this.userId);
+    this.getReportsByUserId(Number(localStorage.getItem('userId')));
   }
 
   getReportsByUserId(userId: number): void {

@@ -1,12 +1,29 @@
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+.body {
+  margin: 5%;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
 .title {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #3498db;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  padding: 20px;
+}
+
+.filters-container {
+  width: 20%;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .filters {
@@ -15,86 +32,114 @@
 
 .searchBox {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
+.searchBox h3 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #2980b9;
+}
+
+.searchInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
 .searchInput {
-  width: 300px;
+  width: 100%;
   padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  border: 2px solid #3498db;
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  border-color: #2980b9;
 }
 
 .searchButton {
-  background: none;
+  margin-top: 10px;
+  background: #3498db;
   border: none;
+  outline: none;
   cursor: pointer;
-  margin-left: 10px;
+  padding: 10px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.searchButton:hover {
+  background: #2980b9;
 }
 
 .products-grid {
+  width: 80%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  padding: 0 20px;
 }
 
 .card {
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .card-img {
-  margin-bottom: 15px;
+  height: 200px;
+  overflow: hidden;
 }
 
 .card-img img {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card-title {
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0 5px;
+  text-align: center;
 }
 
 .card-subtitle {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 10px;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
 }
 
 .card-divider {
-  width: 100%;
-  margin: 10px 0;
-  border: none;
-  border-top: 1px solid #eee;
+  width: 80%;
+  margin: 15px auto;
+  border: 0;
+  height: 1px;
+  background: #ddd;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  padding: 10px 15px;
 }
 
 .card-price {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  font-size: 20px;
+  color: #e74c3c;
 }
 
 .card-btn {
@@ -111,4 +156,22 @@
 
 .card-btn:hover svg {
   fill: #2980b9;
+}
+
+.publication-details {
+  background: #f7f7f7;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.publication-details h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.publication-details p {
+  font-size: 14px;
+  color: #555;
 }

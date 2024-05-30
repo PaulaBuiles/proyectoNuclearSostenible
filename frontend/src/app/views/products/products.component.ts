@@ -11,8 +11,13 @@ import { ProductDto } from '../../model/product-dto.model';
 export class ProductsComponent implements OnInit {
   products: ProductDto[] = [];
   filteredProducts: ProductDto[] = [];
-  searchQuery: string = '';
-  
+  searchParams: any = {
+    title: '',
+    productName: '',
+    productDescription: '',
+    categoryTitle: '',
+    stateDescription: ''
+  };
 
   constructor(private productService: ProductService, private router: Router) {}
 
@@ -23,26 +28,39 @@ export class ProductsComponent implements OnInit {
   loadProducts(): void {
     this.productService.getAllProducts().subscribe(
       (data: ProductDto[]) => {
-        console.log(data);
         this.products = data;
         this.filteredProducts = data;
+        
+
+        // Cargar publicaciones para cada producto
+        this.products.forEach(product => {
+          this.productService.getPublicationByProductId(product.idProduct).subscribe(
+            publication => {
+              console.log(product.productCategory);
+              product.publication = publication;
+            },
+            error => {
+              console.error('Error fetching publication', error);
+            }
+          );
+        });
       },
-      (error: any) => {
+      error => {
         console.error('Error fetching products', error);
       }
     );
   }
 
   onSearch(): void {
-    this.filteredProducts = this.products.filter(product =>
-      product.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
-  }
+    this.filteredProducts = this.products.filter(product => {
+      const matchesTitle = this.searchParams.title ? product.publication?.title.toLowerCase().includes(this.searchParams.title.toLowerCase()) : true;
+      const matchesProductName = this.searchParams.productName ? product.name.toLowerCase().includes(this.searchParams.productName.toLowerCase()) : true;
+      const matchesProductDescription = this.searchParams.productDescription ? product.description.toLowerCase().includes(this.searchParams.productDescription.toLowerCase()) : true;
+      const matchesCategoryTitle = this.searchParams.categoryTitle ? product.productCategory?.title.toLowerCase().includes(this.searchParams.categoryTitle.toLowerCase()) : true;
+      const matchesStateDescription = this.searchParams.stateDescription ? product.publication?.state.description.toLowerCase().includes(this.searchParams.stateDescription.toLowerCase()) : true;
 
-  onFilterChange(filterType: string, value: string): void {
-    // Implementa lógica para filtrar los productos según el tipo de filtro y el valor seleccionado
-    console.log(`Filter Type: ${filterType}, Value: ${value}`);
+      return matchesTitle && matchesProductName && matchesProductDescription && matchesCategoryTitle && matchesStateDescription;
+    });
   }
 
   viewPublication(productId: number): void {

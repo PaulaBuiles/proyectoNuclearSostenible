@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProductDto } from '../model/product-dto.model';
 import { AuthService } from './auth.service';
+import { PublicationDto } from '../model/publication-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,13 @@ export class ProductService {
     });
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<ProductDto>(url, { headers });
+  }
+
+  getPublicationByProductId(productId: number): Observable<PublicationDto> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<PublicationDto>(`${this.apiUrl}/${productId}/last-publication`, { headers });
   }
 }

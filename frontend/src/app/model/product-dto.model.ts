@@ -1,3 +1,5 @@
+import { PublicationDto } from "./publication-dto.model";
+
 export interface ProductDto {
     idProduct: number;
     name: string;
@@ -8,6 +10,11 @@ export interface ProductDto {
     categoryId: number;
     status: boolean;
     user?: UserDto;
+    publication?: PublicationDto;
+    productCategory?: {
+      idCategory: number;
+      title: string;
+    };
   }
 
 export interface UserDto {
