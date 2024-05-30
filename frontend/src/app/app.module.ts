@@ -18,6 +18,7 @@ import { LandingCircularEconomyModule } from './utils/landing-circular-economy/l
 import { PublicationComponent } from './views/publication/publication.component';
 import { OffersComponent } from './views/offers/offers.component'; // Asegúrate de ajustar la ruta
 import { CreateReportModule } from './views/create-report/create-report.module';
+import { CircularEconomyComponent } from './views/circular-economy/circular-economy.component';
 
 
 
@@ -33,6 +34,7 @@ import { CreateReportModule } from './views/create-report/create-report.module';
     EditProductComponent,
     PublicationComponent,
     OffersComponent,
+    CircularEconomyComponent,
   ],
   imports: [
     BrowserModule,

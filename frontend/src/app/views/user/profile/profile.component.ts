@@ -48,6 +48,6 @@ export class ProfileComponent implements OnInit {
   }
 
   editProduct(productId: number): void {
-    this.router.navigate(['/edit-product', productId]);
+    this.router.navigate(['/user/my-product', productId]);
   }
 }

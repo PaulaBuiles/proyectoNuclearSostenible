@@ -9,6 +9,7 @@
     </label>
     <ul [class.open]="menuOpen">
       <li><a routerLink="/home">Inicio</a></li>
+      <li><a routerLink="/circularEconomy">Economía Circular</a></li>
       
       <li *ngIf="isLoggedIn" class="product-menu" [class.active]="productMenuOpen" (click)="toggleProductMenu($event)">
         <a><i class="fa fa-box"></i> Productos</a>

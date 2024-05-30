@@ -1,40 +1,30 @@
 .offer-form-container {
   text-align: center;
-  margin: 20px auto;
-}
-
-.offers-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.offer-card {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
 }
 
 .btn {
   padding: 10px 20px;
+  border-radius: 5px;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
-  background-color: #3498db;
+  font-size: 16px;
+  font-weight: bold;
   color: #fff;
   text-align: center;
-  font-size: 14px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.btn:hover {
+.btn-primary {
+  background-color: #3498db;
+}
+
+.btn-primary:hover {
   background-color: #2980b9;
+  transform: translateY(-2px);
 }
 
-/* Estilos de la ventana modal */
+/* Modal */
 .modal {
   display: flex;
   justify-content: center;
@@ -51,12 +41,14 @@
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  border-radius: 8px;
+  border-radius: 10px;
   width: 80%;
-  max-width: 600px;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .close {
@@ -68,7 +60,74 @@
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.offers-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f7f9fc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.offer-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.offer-card h3 {
+  margin-top: 0;
+  font-size: 22px;
+  color: #333;
+  font-weight: bold;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.offer-card p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #666;
 }

@@ -20,7 +20,7 @@ export class LandingCircularEconomyComponent implements OnInit {
   ngOnInit(): void {
     setInterval(() => {
       this.moveCarousel();
-    }, 3000); // Cambia la imagen cada 3 segundos (3000 milisegundos)
+    }, 10000); // Cambia la imagen cada 3 segundos (3000 milisegundos)
   }
 
   moveCarousel(): void {

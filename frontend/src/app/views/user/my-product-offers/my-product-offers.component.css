@@ -1,52 +1,75 @@
 .offers-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
-  
-  .offer-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin: 10px;
-    flex: 1 1 calc(33.333% - 20px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .offer-form-container {
-    margin-top: 20px;
-  }
-  
-  .offer-form-container form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .offer-form-container form div {
-    margin-bottom: 10px;
-  }
-  
-  .offer-form-container form label {
-    font-weight: bold;
-  }
-  
-  .offer-form-container form input {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .btn {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f7f9fc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.offer-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.offer-card h3 {
+  margin-top: 0;
+  font-size: 22px;
+  color: #333;
+  font-weight: bold;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.offer-card p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.offer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}

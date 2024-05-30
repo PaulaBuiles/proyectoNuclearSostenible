@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PublicationService } from '../../service/publication.service';
 import { PublicationDto } from '../../model/publication-dto.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-publication',
@@ -8,30 +9,39 @@ import { PublicationDto } from '../../model/publication-dto.model';
   styleUrls: ['./new-publication.component.css']
 })
 export class NewPublicationComponent {
-
-  publication: PublicationDto = {
-    idPublication: 0,
-    ownerId: 0,
-    productId: 0,
+  publication: any = {
+    ownerId: null,
+    productId: null,
     title: '',
-    dateCreated: new Date(),
-    state:{
-      idState: 0,
-      description: ''
+    dateCreated: '',
+    state: {
+      idState: null
     }
   };
 
-  constructor(private publicationService: PublicationService) { }
+  constructor(private route: ActivatedRoute, private publicationService: PublicationService) {}
+
+  ngOnInit(): void {
+    // Obtener el ownerId del localStorage
+    this.publication.ownerId = localStorage.getItem('userId');
+
+    // Obtener el productId de la URL
+    this.route.paramMap.subscribe(params => {
+      this.publication.productId = params.get('id');
+    });
+  }
 
   createPublication(): void {
-    console.log(this.publication)
-    this.publicationService.createPublication(this.publication).subscribe(
-      response => {
+    if (this.publication.ownerId && this.publication.productId) {
+      this.publicationService.createPublication(this.publication).subscribe(response => {
         console.log('Publication created successfully', response);
-      },
-      error => {
+        // Manejar la respuesta, redirigir al usuario, etc.
+      }, error => {
         console.error('Error creating publication', error);
-      }
-    );
+        // Manejar el error
+      });
+    } else {
+      console.error('Owner ID or Product ID is missing');
+    }
   }
 }

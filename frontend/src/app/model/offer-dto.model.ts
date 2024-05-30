@@ -7,5 +7,6 @@ export interface OfferDto {
     offerDate: Date;
     transactionId: number;
     state: string;
+    offererName: string;
   }
   

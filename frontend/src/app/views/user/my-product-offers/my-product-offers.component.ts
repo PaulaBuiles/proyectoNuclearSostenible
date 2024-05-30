@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OfferDto } from '../../../model/offer-dto.model';
 import { PublicationInfoService } from '../../../service/publication-info.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-my-product-offers',
@@ -29,22 +30,18 @@ export class MyProductOffersComponent implements OnInit {
 
   loadOffers(publicationId: number): void {
     this.publicationInfoService.getOffersByPublication(publicationId).subscribe(offers => {
-      this.offers = offers;
+      const userRequests = offers.map(offer => 
+        this.publicationInfoService.getUserById(offer.offererId)
+      );
+      forkJoin(userRequests).subscribe(users => {
+        this.offers = offers.map((offer, index) => {
+          return {
+            ...offer,
+            offererName: users[index].fullName
+          };
+        });
+      });
     });
-  }
-
-  onSubmit(): void {
-    this.newOffer.offerDate = new Date();
-    this.publicationInfoService.createOffer(this.newOffer as OfferDto).subscribe(
-      response => {
-        this.offers?.push(response); // Agregar la nueva oferta a la lista existente
-        this.newOffer = {}; // Limpiar el formulario
-      },
-      error => {
-        console.error('Error creating offer:', error);
-      }
-    );
-    window.location.reload();
   }
 
   acceptOffer(offerId: number): void {
@@ -54,7 +51,7 @@ export class MyProductOffersComponent implements OnInit {
     }, error => {
       console.error('Error al aceptar la oferta:', error);
     });
-    
+    window.location.reload();
   }
 
   rejectOffer(offerId: number): void {
@@ -63,7 +60,6 @@ export class MyProductOffersComponent implements OnInit {
     }, error => {
       console.error('Error al rechazar la oferta:', error);
     });
-    
+    window.location.reload();
   }
-  
 }

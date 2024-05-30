@@ -48,7 +48,7 @@ export class MyProductComponent implements OnInit {
   }
 
   viewOffers(productId: number): void {
-    this.router.navigate(['/offers', productId]);
+    this.router.navigate(['/user/my-product-offers', productId]);
   }
 
   createPublication(productId: number): void {
