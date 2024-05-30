@@ -124,7 +124,9 @@ public class ProductServiceImp implements ProductService {
      * Obtiene una lista de productos.
      */
     public List<Product> getAllProducts() {
-        return productDao.findAll();
+        List<Product> products = productDao.findAll();
+        products.removeIf(product -> product.getListPublications() == null || product.getListPublications().isEmpty());
+        return products;
     }
 
     /**
