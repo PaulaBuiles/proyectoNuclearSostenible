@@ -3,6 +3,7 @@ package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serial;
@@ -41,5 +42,9 @@ public class Offer implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "offer")
     private Transaction transaction;
+
+    @ManyToOne
+    @JoinColumn(name="id_state")
+    private State state;
 
 }

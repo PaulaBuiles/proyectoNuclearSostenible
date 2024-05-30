@@ -55,7 +55,8 @@ public class PublicationServiceImp implements PublicationService {
 
         Publication publication = mapper.mapToEntity(publicationDto);
 
-        publication.setState(stateService.getById(publicationDto.stateId()));
+        State pendingState = stateService.getById(3L);
+        publication.setState(pendingState);
 
         User owner = userService.getById(publicationDto.ownerId());
         publication.setOwner(owner);

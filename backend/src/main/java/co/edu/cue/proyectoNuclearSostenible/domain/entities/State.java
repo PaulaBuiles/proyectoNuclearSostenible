@@ -29,6 +29,10 @@ public class State implements Serializable {
     @JsonIgnore
     private List<Publication> listShopping;
 
+    @OneToMany(mappedBy = "state", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Offer> listOffers;
+
     @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
 

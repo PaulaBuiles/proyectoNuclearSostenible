@@ -1,6 +1,7 @@
 package co.edu.cue.proyectoNuclearSostenible.infraestructure.controller;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.Offer;
+import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.OfferDto;
 import co.edu.cue.proyectoNuclearSostenible.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,7 @@ public class OfferController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
+
     /**
      * Endpoint para obtener todas las ofertas realizadas por un usuario.
      *
@@ -93,6 +95,22 @@ public class OfferController {
     public ResponseEntity<?> getOffersByUser(@PathVariable Long userId) {
         try {
             return new ResponseEntity<>(offerService.getOffersByUser(userId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+
+    /**
+     * Endpoint para obtener el estado de una oferta por su ID.
+     *
+     * @param offerId ID de la oferta.
+     * @return Estado de la oferta.
+     */
+    @GetMapping("/{offerId}/state")
+    public ResponseEntity<?> getStateByOfferId(@PathVariable Long offerId) {
+        try {
+            State state = offerService.getStateByOfferId(offerId);
+            return new ResponseEntity<>(state, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }

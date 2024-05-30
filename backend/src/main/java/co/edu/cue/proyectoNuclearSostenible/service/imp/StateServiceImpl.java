@@ -1,6 +1,7 @@
 package co.edu.cue.proyectoNuclearSostenible.service.imp;
 
 import co.edu.cue.proyectoNuclearSostenible.domain.entities.State;
+import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.OfferDao;
 import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.StateDao;
 import co.edu.cue.proyectoNuclearSostenible.service.StateService;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,8 @@ public class StateServiceImpl implements StateService {
 
     @Autowired
     private StateDao stateDao;
+
+
 
     /**
      * Crea un nuevo estado en el sistema.
@@ -44,4 +47,6 @@ public class StateServiceImpl implements StateService {
     public State getById(Long id){
         return stateDao.findStateById(id);
     }
+
+
 }

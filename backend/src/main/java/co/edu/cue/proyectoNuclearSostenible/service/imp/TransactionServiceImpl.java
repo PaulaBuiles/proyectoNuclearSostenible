@@ -33,8 +33,6 @@ public class TransactionServiceImpl  implements TransactionService {
     @Autowired
     private OfferDao offerDao;
 
-    @Autowired
-    private AssessmentDao assessmentDao;
 
     @Autowired
     private UserMapper userMapper;
@@ -47,6 +45,8 @@ public class TransactionServiceImpl  implements TransactionService {
 
     @Autowired
     private RewardService rewardService;
+
+    private EmailService emailService;
 
 
     @Override
@@ -89,6 +89,11 @@ public class TransactionServiceImpl  implements TransactionService {
                         "ID de Publicación: " + offer.getPublication().getIdPublication() +
                         ", ID de Transacción: " + savedTransaction.getIdTransaction()
         );
+
+        /*String email = offer.getPublication().getOwner().getEmail();
+        String subject = "Transacción realizada";
+        String text = "Se ha realizado una transacción para tu publicación con título '" + offer.getPublication().getTitle() + "'.";
+        emailService.sendEmail(email, subject, text);*/
 
         return transactionMapper.mapToDTO(savedTransaction);
     }

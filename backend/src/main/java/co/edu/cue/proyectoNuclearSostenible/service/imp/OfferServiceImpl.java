@@ -5,14 +5,13 @@ import co.edu.cue.proyectoNuclearSostenible.infraestructure.dao.*;
 import co.edu.cue.proyectoNuclearSostenible.mapping.dto.OfferDto;
 import co.edu.cue.proyectoNuclearSostenible.mapping.mapper.OfferMapper;
 import co.edu.cue.proyectoNuclearSostenible.service.OfferService;
-import co.edu.cue.proyectoNuclearSostenible.service.PublicationService;
+import co.edu.cue.proyectoNuclearSostenible.service.StateService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,11 +21,12 @@ public class OfferServiceImpl implements OfferService {
     private OfferDao offerDao;
     private PublicationDao publicationDao;
     private ProductDao productDao;
-    private PublicationService publicationService;
     private TransactionDao transactionDao;
     private OfferMapper offerMapper;
     private StateDao stateDao;
     private UserServiceImp userService;
+    private EmailService emailService;
+    private StateService stateService;
 
     /**
      * Crea una nueva oferta.
@@ -61,8 +61,18 @@ public class OfferServiceImpl implements OfferService {
             offer.setExchangedProduct(exchangedProduct);
         }
 
-        // Guardar la oferta y devolver el DTO
+        State pendingState = stateService.getById(4L);
+        offer.setState(pendingState);
+
+
         Offer savedOffer = offerDao.save(offer);
+
+
+        /*String email = publication.getOwner().getEmail();
+        String subject = "Nueva oferta recibida";
+        String text = "Has recibido una nueva oferta para tu publicación con título '" + publication.getTitle() + "'.";
+        emailService.sendEmail(email, subject, text);*/
+
         return offerMapper.mapToDTO(savedOffer);
     }
 
@@ -79,27 +89,57 @@ public class OfferServiceImpl implements OfferService {
 
         Transaction transaction = createTransactionForOffer(offer);
         offer.setTransaction(transaction);
+
+        State acceptedState = stateService.getById(5L);
+        offer.setState(acceptedState);
+
         offerDao.save(offer);
 
-        //Se supone que 1L es el State que esta en "Vendido"
-        updatePublicationStatus(offer.getPublication(), 1L);
+        Long stateId;
+        if (offer.getExchangedProduct() != null) {
+            // Estado "Intercambiado" (ID 2)
+            stateId = 2L;
+        } else {
+            // Estado "Vendido" (ID 1)
+            stateId = 1L;
+        }
+
+        updatePublicationStatus(offer.getPublication(), stateId);
+        /*String email = offer.getOfferer().getEmail();
+        String subject = "Oferta aceptada";
+        String text = "Tu oferta para la publicación con título '" + offer.getPublication().getTitle() + "' ha sido aceptada.";
+        emailService.sendEmail(email, subject, text);*/
 
         return offerMapper.mapToDTO(offer);
     }
 
     /**
-     * Rechaza una oferta.
+     * Rechaza una oferta y actualiza su estado a "Rechazada".
      *
-     * @param offerId ID de la oferta a rechazar.
-     * @return DTO de la oferta rechazada.
+     * Envía un correo electrónico al ofertante notificando que su oferta ha sido rechazada.
+     *
+     * @param offerId El ID de la oferta a rechazar.
+     * @return El DTO de la oferta rechazada.
      */
     @Override
     public OfferDto rejectOffer(Long offerId) {
         Offer offer = getOfferOrThrow(offerId);
+
+        State rejectedState = stateService.getById(6L);
+        offer.setState(rejectedState);
+
         offer.setTransaction(null);
         Offer savedOffer = offerDao.save(offer);
+
+
+        /*String email = offer.getOfferer().getEmail();
+        String subject = "Oferta rechazada";
+        String text = "Tu oferta para la publicación con título '" + offer.getPublication().getTitle() + "' ha sido rechazada.";
+        emailService.sendEmail(email, subject, text);*/
+
         return offerMapper.mapToDTO(savedOffer);
     }
+
 
     /**
      * Obtiene todas las ofertas asociadas a una publicación.
@@ -148,8 +188,17 @@ public class OfferServiceImpl implements OfferService {
         Transaction transaction = new Transaction();
         transaction.setOffer(offer);
         transaction.setTransactionDate(new Date());
-        return transactionDao.save(transaction);
+        Transaction savedTransaction = transactionDao.save(transaction);
+
+
+        String email = offer.getPublication().getOwner().getEmail();
+        String subject = "Transacción realizada";
+        String text = "Se ha realizado una transacción para tu publicación con título '" + offer.getPublication().getTitle() + "'.";
+        emailService.sendEmail(email, subject, text);
+
+        return savedTransaction;
     }
+
 
     /**
      * Actualiza el estado de una publicación.
@@ -161,4 +210,16 @@ public class OfferServiceImpl implements OfferService {
         publication.setState(stateDao.findStateById(status));
         publicationDao.save(publication);
     }
+
+    /**
+     * Obtiene los estados de las ofertas a partir de su ID.
+     *
+     * @param offerId El ID de la oferta para el estado a obtener.
+     * @return El estado correspondiente al ID proporcionado.
+     */
+    public State getStateByOfferId(Long offerId) {
+        return offerDao.findStateByOfferId(offerId);
+    }
+
+
 }

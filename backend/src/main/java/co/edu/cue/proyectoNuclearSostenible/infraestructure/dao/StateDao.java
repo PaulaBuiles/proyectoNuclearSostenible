@@ -10,4 +10,5 @@ public interface StateDao extends JpaRepository<State, Long> {
 
     @Query("SELECT t FROM State t WHERE t.idState = :id")
     State findStateById(@Param("id") Long id);
+
 }
