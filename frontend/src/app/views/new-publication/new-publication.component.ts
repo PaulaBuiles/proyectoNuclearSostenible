@@ -15,7 +15,10 @@ export class NewPublicationComponent {
     productId: 0,
     title: '',
     dateCreated: new Date(),
-    stateId: 0
+    state:{
+      idState: 0,
+      description: ''
+    }
   };
 
   constructor(private publicationService: PublicationService) { }

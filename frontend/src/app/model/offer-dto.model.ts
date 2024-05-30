@@ -6,5 +6,6 @@ export interface OfferDto {
     monetaryValue: number;
     offerDate: Date;
     transactionId: number;
+    state: string;
   }
   

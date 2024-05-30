@@ -25,6 +25,7 @@
     <h3>Publicación</h3>
     <p>{{ publication.title }}</p>
     <p>Fecha: {{ publication.dateCreated | date }}</p>
+    <p>{{ publication.state.description }}</p>
   </div>
 
   <button (click)="viewOffers(publication.idPublication)" class="btn btn-primary">Ver Ofertas</button>

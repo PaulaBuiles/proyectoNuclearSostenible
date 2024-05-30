@@ -4,6 +4,9 @@ export interface PublicationDto {
     productId: number;
     title: string;
     dateCreated: Date;
-    stateId: number;
+    state: {
+      idState: number,
+      description: string
+  };
   }
   
