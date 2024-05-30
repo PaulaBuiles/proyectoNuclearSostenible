@@ -7,5 +7,6 @@ export interface AuthResponse {
   };
   user: {
     idUser: number;
+    username: string;
   };
 }

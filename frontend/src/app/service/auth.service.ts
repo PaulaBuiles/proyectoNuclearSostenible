@@ -16,7 +16,8 @@ export class AuthService {
 
   // Método para verificar el estado de inicio de sesión
   isLoggedIn(): Observable<boolean> {
-    return this.loggedIn.asObservable();
+    return localStorage.getItem('authToken') ? new BehaviorSubject(true) : new BehaviorSubject(false);
+    ;
   }
 
   // Método para obtener el token
@@ -32,6 +33,7 @@ export class AuthService {
         const token = response.authenticationResponseDto?.token;
         if (token) {
           localStorage.setItem('authToken', token);
+          localStorage.setItem('username', response.user?.username);
           localStorage.setItem('userId', response.user?.idUser.toString());
           this.loggedIn.next(true);
         }
