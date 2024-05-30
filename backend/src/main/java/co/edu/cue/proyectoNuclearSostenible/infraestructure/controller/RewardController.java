@@ -56,13 +56,33 @@ public class RewardController {
         }
     }
 
+    /**
+     * Obtiene todas las recompensas asociadas a un usuario específico.
+     *
+     * Este método maneja las solicitudes GET para obtener una lista de recompensas
+     * asociadas a un usuario identificado por su ID.
+     *
+     * @param userId El ID del usuario cuyas recompensas se desean obtener.
+     * @return Una lista de recompensas asociadas al usuario.
+     */
     @GetMapping("/user/{userId}")
     public List<Reward> getRewardsByUserId(@PathVariable Long userId) {
         return rewardService.getRewardsByUserId(userId);
     }
 
+
+    /**
+     * Obtiene el total de puntos acumulados por un usuario específico.
+     *
+     * Este método maneja las solicitudes GET para obtener el total de puntos
+     * acumulados por un usuario identificado por su ID.
+     *
+     * @param userId El ID del usuario cuyos puntos totales se desean obtener.
+     * @return El total de puntos acumulados por el usuario.
+     */
     @GetMapping("/user/{userId}/total-points")
     public Integer getTotalPointsByUserId(@PathVariable Long userId) {
         return rewardService.getTotalPointsByUserId(userId);
     }
+
 }

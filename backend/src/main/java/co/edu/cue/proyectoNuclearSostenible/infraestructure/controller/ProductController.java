@@ -39,6 +39,14 @@ public class ProductController {
         }
     }
 
+    /**
+     * Obtiene todos los productos disponibles.
+     *
+     * Este método maneja las solicitudes GET para obtener una lista de todos los productos.
+     *
+     * @return Una ResponseEntity que contiene la lista de todos los productos y el código de estado HTTP 200 (OK)
+     *         si la operación es exitosa, o un mensaje de error y el código de estado HTTP 409 (Conflict) si ocurre un error.
+     */
     @GetMapping
     public ResponseEntity<?> getAllProducts() {
         try {
@@ -48,6 +56,18 @@ public class ProductController {
         }
     }
 
+
+    /**
+     * Obtiene todos los productos asociados a un usuario específico.
+     *
+     * Este método maneja las solicitudes GET para obtener una lista de productos
+     * asociados a un usuario identificado por su ID.
+     *
+     * @param id El ID del usuario cuyos productos se desean obtener.
+     * @return Una ResponseEntity que contiene la lista de productos asociados al usuario
+     *         y el código de estado HTTP 200 (OK) si la operación es exitosa,
+     *         o un mensaje de error y el código de estado HTTP 409 (Conflict) si ocurre un error.
+     */
     @GetMapping("/list-user/{id}")
     public ResponseEntity<?> getProductsByUserId(@PathVariable Long id) {
         try {
@@ -57,6 +77,17 @@ public class ProductController {
         }
     }
 
+
+    /**
+     * Obtiene un producto específico por su ID.
+     *
+     * Este método maneja las solicitudes GET para obtener un producto identificado por su ID.
+     *
+     * @param id El ID del producto que se desea obtener.
+     * @return Una ResponseEntity que contiene el producto correspondiente al ID proporcionado
+     *         y el código de estado HTTP 200 (OK) si la operación es exitosa,
+     *         o un mensaje de error y el código de estado HTTP 409 (Conflict) si ocurre un error.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         try {
@@ -65,6 +96,7 @@ public class ProductController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
+
 
     /**
      * Obtiene la última publicación de un producto.
