@@ -68,10 +68,10 @@ public class OfferServiceImpl implements OfferService {
         Offer savedOffer = offerDao.save(offer);
 
 
-        /*String email = publication.getOwner().getEmail();
+        String email = publication.getOwner().getEmail();
         String subject = "Nueva oferta recibida";
         String text = "Has recibido una nueva oferta para tu publicación con título '" + publication.getTitle() + "'.";
-        emailService.sendEmail(email, subject, text);*/
+        emailService.sendEmail(email, subject, text);
 
         return offerMapper.mapToDTO(savedOffer);
     }
@@ -105,10 +105,10 @@ public class OfferServiceImpl implements OfferService {
         }
 
         updatePublicationStatus(offer.getPublication(), stateId);
-        /*String email = offer.getOfferer().getEmail();
+        String email = offer.getOfferer().getEmail();
         String subject = "Oferta aceptada";
         String text = "Tu oferta para la publicación con título '" + offer.getPublication().getTitle() + "' ha sido aceptada.";
-        emailService.sendEmail(email, subject, text);*/
+        emailService.sendEmail(email, subject, text);
 
         return offerMapper.mapToDTO(offer);
     }
@@ -132,10 +132,10 @@ public class OfferServiceImpl implements OfferService {
         Offer savedOffer = offerDao.save(offer);
 
 
-        /*String email = offer.getOfferer().getEmail();
+        String email = offer.getOfferer().getEmail();
         String subject = "Oferta rechazada";
         String text = "Tu oferta para la publicación con título '" + offer.getPublication().getTitle() + "' ha sido rechazada.";
-        emailService.sendEmail(email, subject, text);*/
+        emailService.sendEmail(email, subject, text);
 
         return offerMapper.mapToDTO(savedOffer);
     }

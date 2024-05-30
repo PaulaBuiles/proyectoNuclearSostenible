@@ -90,10 +90,10 @@ public class TransactionServiceImpl  implements TransactionService {
                         ", ID de Transacción: " + savedTransaction.getIdTransaction()
         );
 
-        /*String email = offer.getPublication().getOwner().getEmail();
+        String email = offer.getPublication().getOwner().getEmail();
         String subject = "Transacción realizada";
         String text = "Se ha realizado una transacción para tu publicación con título '" + offer.getPublication().getTitle() + "'.";
-        emailService.sendEmail(email, subject, text);*/
+        emailService.sendEmail(email, subject, text);
 
         return transactionMapper.mapToDTO(savedTransaction);
     }
