@@ -10,6 +10,7 @@ import co.edu.cue.proyectoNuclearSostenible.service.RewardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +34,9 @@ public class RewardServiceImpl implements RewardService {
         Reward reward = new Reward();
         reward.setDescription(description);
         reward.setPoints_value(points);
+        reward.setUserRewards(new ArrayList<>());
         reward.getUserRewards().add(user);
+        user.setRewards(new ArrayList<>());
         user.getRewards().add(reward);
 
         user.updatePoints(points);
