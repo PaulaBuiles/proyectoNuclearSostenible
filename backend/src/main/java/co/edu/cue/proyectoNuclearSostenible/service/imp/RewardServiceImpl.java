@@ -26,17 +26,31 @@ public class RewardServiceImpl implements RewardService {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * Añade puntos a un usuario y crea una recompensa asociada.
+     *
+     * Este método actualiza los puntos de un usuario existente y crea una nueva recompensa
+     * que se asocia al usuario. La recompensa también se guarda en la base de datos.
+     *
+     * @param userDto El DTO del usuario que recibirá los puntos.
+     * @param points La cantidad de puntos a añadir al usuario.
+     * @param description La descripción de la recompensa asociada.
+     * @throws IllegalArgumentException Si no se encuentra el usuario con el ID proporcionado en el DTO.
+     */
     @Override
     public void addPoints(UserDto userDto, int points, String description) {
-
-        User user = userMapper.mapToEntity(userDto);
+        User user = userDao.findById(userDto.idUser())
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con el ID: " + userDto.idUser()));
 
         Reward reward = new Reward();
         reward.setDescription(description);
         reward.setPoints_value(points);
         reward.setUserRewards(new ArrayList<>());
         reward.getUserRewards().add(user);
-        user.setRewards(new ArrayList<>());
+
+        if (user.getRewards() == null) {
+            user.setRewards(new ArrayList<>());
+        }
         user.getRewards().add(reward);
 
         user.updatePoints(points);
@@ -44,6 +58,7 @@ public class RewardServiceImpl implements RewardService {
         rewardDao.save(reward);
         userDao.save(user);
     }
+
 
     /**
      * Redime puntos de un usuario.

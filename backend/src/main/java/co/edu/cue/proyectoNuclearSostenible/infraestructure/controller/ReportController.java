@@ -91,6 +91,17 @@ public class ReportController {
         }
     }
 
+    /**
+     * Obtiene todos los reportes asociados a un usuario específico.
+     *
+     * Este método maneja las solicitudes GET para obtener una lista de reportes
+     * asociados a un usuario identificado por su ID.
+     *
+     * @param id El ID del usuario cuyas reportes se desean obtener.
+     * @return Una ResponseEntity que contiene la lista de reportes asociados al usuario
+     *         y el código de estado HTTP 200 (OK) si la operación es exitosa,
+     *         o un mensaje de error y el código de estado HTTP 409 (Conflict) si ocurre un error.
+     */
     @GetMapping("/list-user/{id}")
     public ResponseEntity<?> getComplainantByUserId(@PathVariable Long id) {
         try {
@@ -99,4 +110,5 @@ public class ReportController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
+
 }

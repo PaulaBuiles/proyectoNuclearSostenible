@@ -64,6 +64,17 @@ public class PublicationController {
         }
     }
 
+    /**
+     * Obtiene todas las publicaciones asociadas a un usuario específico.
+     *
+     * Este método maneja las solicitudes GET para obtener una lista de publicaciones
+     * asociadas a un usuario identificado por su ID.
+     *
+     * @param id El ID del usuario cuyas publicaciones se desean obtener.
+     * @return Una ResponseEntity que contiene la lista de publicaciones asociadas al usuario
+     *         y el código de estado HTTP 200 (OK) si la operación es exitosa,
+     *         o un mensaje de error y el código de estado HTTP 409 (Conflict) si ocurre un error.
+     */
     @GetMapping("/list-user/{id}")
     public ResponseEntity<?> getPublicationByUserId(@PathVariable Long id) {
         try {
@@ -73,6 +84,18 @@ public class PublicationController {
         }
     }
 
+
+    /**
+     * Obtiene todas las publicaciones asociadas a un producto específico.
+     *
+     * Este método maneja las solicitudes GET para obtener una lista de publicaciones
+     * asociadas a un producto identificado por su ID.
+     *
+     * @param id El ID del producto cuyas publicaciones se desean obtener.
+     * @return Una ResponseEntity que contiene la lista de publicaciones asociadas al producto
+     *         y el código de estado HTTP 200 (OK) si la operación es exitosa,
+     *         o un mensaje de error y el código de estado HTTP 409 (Conflict) si ocurre un error.
+     */
     @GetMapping("/search-by-product/{id}")
     public ResponseEntity<?> getPublicationByProductId(@PathVariable Long id) {
         try {
@@ -81,6 +104,7 @@ public class PublicationController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
     }
+
 
     /**
      * Obtiene todas las ofertas para una publicación específica.

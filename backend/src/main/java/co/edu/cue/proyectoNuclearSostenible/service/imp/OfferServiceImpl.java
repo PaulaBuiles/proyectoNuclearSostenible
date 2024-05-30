@@ -153,10 +153,21 @@ public class OfferServiceImpl implements OfferService {
         for (Offer offer : offers) {
             Long idTransaction = (offer.getTransaction() != null && offer.getTransaction().getIdTransaction() != null) ? offer.getTransaction().getIdTransaction() : null;
             Long idExchanged = (offer.getExchangedProduct() != null && offer.getExchangedProduct().getIdProduct() != null) ? offer.getExchangedProduct().getIdProduct() : null;
-            offerDtos.add(new OfferDto(offer.getIdOffer(), publicationId, idExchanged, offer.getOfferer().getIdUser(),offer.getMonetaryValue(),offer.getOfferDate(),offer.getState().getDescription(), idTransaction));
+            Long idState = (offer.getState() != null && offer.getState().getIdState() != null) ? offer.getState().getIdState() : null;
+            offerDtos.add(new OfferDto(
+                    offer.getIdOffer(),
+                    publicationId,
+                    idExchanged,
+                    offer.getOfferer().getIdUser(),
+                    offer.getMonetaryValue(),
+                    offer.getOfferDate(),
+                    idState,
+                    idTransaction
+            ));
         }
         return offerDtos;
     }
+
 
     /**
      * Obtiene todas las ofertas realizadas por un usuario.
