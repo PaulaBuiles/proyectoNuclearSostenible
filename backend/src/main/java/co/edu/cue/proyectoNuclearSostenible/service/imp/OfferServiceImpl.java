@@ -154,6 +154,7 @@ public class OfferServiceImpl implements OfferService {
             Long idTransaction = (offer.getTransaction() != null && offer.getTransaction().getIdTransaction() != null) ? offer.getTransaction().getIdTransaction() : null;
             Long idExchanged = (offer.getExchangedProduct() != null && offer.getExchangedProduct().getIdProduct() != null) ? offer.getExchangedProduct().getIdProduct() : null;
             Long idState = (offer.getState() != null && offer.getState().getIdState() != null) ? offer.getState().getIdState() : null;
+            assert offer.getState() != null;
             offerDtos.add(new OfferDto(
                     offer.getIdOffer(),
                     publicationId,
@@ -162,7 +163,8 @@ public class OfferServiceImpl implements OfferService {
                     offer.getMonetaryValue(),
                     offer.getOfferDate(),
                     idState,
-                    idTransaction
+                    idTransaction,
+                    offer.getState().getDescription()
             ));
         }
         return offerDtos;

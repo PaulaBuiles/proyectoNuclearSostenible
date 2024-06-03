@@ -14,11 +14,12 @@
         <h3>Publicación</h3>
         <p>{{ publication.title }}</p>
         <p>Fecha: {{ publication.dateCreated | date }}</p>
+        <p>Estado: {{ publication.state.description }}</p>
       </div>
   
     <div class="product-actions">
       <!-- Botón para ver las ofertas relacionadas con el producto -->
-      <button (click)="viewOffers(product.idProduct)" class="btn btn-primary">Ver Ofertas</button>
+      <button [routerLink]="['/user/my-product-offers', publication?.idPublication]" class="btn btn-primary">Ver Ofertas</button>
       <!-- Enlace para crear una nueva publicación si el usuario no tiene ninguna asociada al producto -->
       <a *ngIf="!hasPublications()" [routerLink]="['/new-publication', product.idProduct]" class="btn btn-success">Crear Publicación</a>
     </div>

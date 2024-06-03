@@ -10,5 +10,6 @@ public record OfferDto(
         Double monetaryValue,
         Date offerDate,
         Long stateId,
-        Long transactionId // Agregar para mantener la referencia a la transacción si existe
+        Long transactionId,// Agregar para mantener la referencia a la transacción si existe
+        String state
 ) {}
