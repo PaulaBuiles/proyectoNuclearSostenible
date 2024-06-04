@@ -26,11 +26,23 @@ export class ProfileComponent implements OnInit {
       this.userService.getUserById(userId).subscribe(
         (user: UserDto) => {
           this.user1 = user;
-          console.log(this.user1);
           this.loadProducts(user.idUser); // Cargar productos del usuario
         },
         error => {
           console.error('Error fetching user', error);
+        }
+      );
+      this.userService.getRatingByUserId(userId).subscribe(
+        (rating: Number) => {
+          if (rating){
+            if (this.user1) {
+              this.user1.rating = rating.valueOf();
+              console.log(this.user1.rating);
+            }
+          }
+        },
+        error => {
+          console.error('Error fetching rating', error);
         }
       );
     }

@@ -9,13 +9,13 @@
     </label>
     <ul [class.open]="menuOpen">
       <li>
-        <a routerLink="/home">Inicio</a>
-      </li>
-      <li>
         <a routerLink="/circularEconomy">Economía Circular</a>
       </li>
       <li>
         <a routerLink="/rewards">¿Como ganar puntos?</a>
+      </li>
+      <li>
+        <a routerLink="/coupon">Cupones</a>
       </li>
       <li *ngIf="isLoggedIn" class="product-menu" [class.active]="productMenuOpen" (click)="toggleProductMenu($event)">
         <a><i class="fa fa-box"></i> Productos</a>
@@ -29,6 +29,7 @@
         <a><i class="fa fa-user"></i> {{ getUsername() }}</a>
         <ul class="dropdown">
           <li><a routerLink="user/profile">Mi perfil</a></li>
+          <li><a routerLink="user/my-coupons">Mis cupones</a></li>
           <li><a routerLink="user/offers-by-user">Mis ofertas</a></li>
           <li><a routerLink="user/transactions">Mis transacciones</a></li>
           <li><a routerLink="user/my-reports">Mis reportes</a></li>

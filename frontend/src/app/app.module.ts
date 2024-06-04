@@ -21,6 +21,7 @@ import { CreateReportModule } from './views/create-report/create-report.module';
 import { CircularEconomyComponent } from './views/circular-economy/circular-economy.component';
 import { AssessmentModule } from './views/assessment/assessment.module';
 import { RewardsComponent } from './views/rewards/rewards.component';
+import { CouponComponent } from './views/coupon/coupon.component';
 
 
 
@@ -38,6 +39,7 @@ import { RewardsComponent } from './views/rewards/rewards.component';
     OffersComponent,
     CircularEconomyComponent,
     RewardsComponent,
+    CouponComponent,
   ],
   imports: [
     BrowserModule,

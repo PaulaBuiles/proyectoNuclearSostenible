@@ -1,0 +1,16 @@
+<div class="coupon-container">
+    <h1>Cupones Disponibles</h1>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div class="coupon-grid">
+      <div *ngFor="let coupon of coupon" class="coupon-card">
+        <div class="card-content">
+          <h2>{{ coupon.description }}</h2>
+          <p>Puntos necesarios: {{ coupon.pointsValue }}</p>
+        </div>
+        <button class="btn-redeem" (click)="redeemCoupon(coupon.idCoupon)">Canjear</button>
+      </div>
+    </div>
+  </div>
+  

@@ -11,6 +11,7 @@ import { PublicationComponent } from './views/publication/publication.component'
 import { OffersComponent } from './views/offers/offers.component';
 import { CircularEconomyComponent } from './views/circular-economy/circular-economy.component';
 import { RewardsComponent } from './views/rewards/rewards.component';
+import { CouponComponent } from './views/coupon/coupon.component';
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'offers/:publicationId', component: OffersComponent },
   { path: 'circularEconomy', component: CircularEconomyComponent},
   { path: 'rewards', component: RewardsComponent},
+  { path: 'coupon', component: CouponComponent},
 
 
   // Agrega más rutas aquí si es necesario

@@ -11,20 +11,68 @@
   font-size: 2.5em;
   color: rgb(17, 17, 51);
 }
-.title-1{
-  background-image: url("https://i.makeagif.com/media/6-10-2017/8In3Oc.gif");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+.title-1 {
   display: flex;
-  justify-content: center;
   align-items: center;
-  color: rgb(255, 255, 255);
-  height: auto;
-  font-size: 24px; /* Cambia el tamaño del texto según sea necesario */
-  font-family: 'Arial', sans-serif; /* Cambia el tipo de letra según desees */
-  text-align: center; /* Centra el texto */
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #3498db, #8e44ad);
+  color: white;
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+
+.title-1:before, .title-1:after {
+  content: '';
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.title-1:hover:before, .title-1:hover:after {
+  opacity: 1;
+}
+
+.title-1:before {
+  animation: animateBg 1.5s linear infinite;
+}
+
+.title-1:after {
+  animation: animateBg 1.5s linear infinite reverse;
+}
+
+@keyframes animateBg {
+  0% { transform: translate(-50%, -50%) rotate(45deg); }
+  100% { transform: translate(-50%, -50%) rotate(405deg); }
+}
+
+.title-1:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.title-1 h2 {
+  margin: 0;
+  padding: 0;
+}
+
 
 .container {
   width: 100%;

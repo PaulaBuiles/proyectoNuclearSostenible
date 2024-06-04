@@ -13,6 +13,7 @@ export interface UserDto {
   isAdmin: boolean;
   points: number;
   listProducts: ProductDto[]; // Agrega la lista de productos
+  rating: number;
 }
 
 export interface ProductDto {

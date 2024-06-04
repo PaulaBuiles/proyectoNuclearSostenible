@@ -5,9 +5,9 @@
     <p class="description">{{ user1.description }}</p>
     <div class="rating-container">
       <div class="stars-outer">
-        <div class="stars-inner" [style.width.%]="(user1.points / 5) * 100"></div>
+        <div class="stars-inner" [style.width.%]="(user1.rating / 5) * 100"></div>
       </div>
-      <span class="rating-number">{{ user1.points }}</span>
+      <span class="rating-number">{{ user1.rating }}</span>
     </div>
   </div>
 </div>
