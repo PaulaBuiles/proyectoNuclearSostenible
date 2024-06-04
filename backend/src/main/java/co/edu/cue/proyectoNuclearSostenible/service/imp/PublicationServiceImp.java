@@ -96,25 +96,6 @@ public class PublicationServiceImp implements PublicationService {
         }
     }
 
-    public void purchasePublication(Long publicationId, UserDto buyerDto, Long state) {
-
-        Publication publication = publicationDao.findById(publicationId)
-                .orElseThrow(() -> new IllegalArgumentException("La publicación con ID " + publicationId + " no fue encontrada."));
-
-        if (!publication.getState().getStatus()) {
-            throw new IllegalStateException("La publicación no esta disponible.");
-        }
-
-        publication = publicationDao.save(publication);
-
-        User buyer = userService.getUser(buyerDto);
-
-        publication.setOwner(buyer);
-        State soldState = stateService.getById(state);
-        publication.setState(soldState);
-
-        publicationDao.save(publication);
-    }
 
     /**
      * Busca publicaciones en el sistema según los parámetros especificados.
