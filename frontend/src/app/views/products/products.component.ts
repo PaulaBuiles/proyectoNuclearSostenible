@@ -66,4 +66,7 @@ export class ProductsComponent implements OnInit {
   viewPublication(productId: number): void {
     this.router.navigate(['/publication', productId]);
   }
+  goToMoreInfo(): void {
+    this.router.navigate(['/rewards']);
+  }
 }

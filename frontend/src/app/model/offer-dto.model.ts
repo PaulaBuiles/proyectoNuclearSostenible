@@ -8,5 +8,6 @@ export interface OfferDto {
     transactionId: number;
     state: string;
     offererName: string;
+    offererPhone: string;
   }
   

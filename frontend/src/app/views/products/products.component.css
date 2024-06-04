@@ -9,7 +9,21 @@
   text-align: center;
   margin-bottom: 20px;
   font-size: 2.5em;
-  color: #3498db;
+  color: rgb(17, 17, 51);
+}
+.title-1{
+  background-image: url("https://i.makeagif.com/media/6-10-2017/8In3Oc.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  height: auto;
+  font-size: 24px; /* Cambia el tamaño del texto según sea necesario */
+  font-family: 'Arial', sans-serif; /* Cambia el tipo de letra según desees */
+  text-align: center; /* Centra el texto */
 }
 
 .container {
@@ -39,7 +53,7 @@
 .searchBox h3 {
   margin-bottom: 20px;
   font-size: 1.5em;
-  color: #2980b9;
+  color: rgb(17, 17, 51);
 }
 
 .searchInputs {
@@ -52,19 +66,19 @@
 .searchInput {
   width: 100%;
   padding: 10px;
-  border: 2px solid #3498db;
+  border: 2px solid rgb(17, 17, 51);
   border-radius: 25px;
   outline: none;
   transition: all 0.3s ease;
 }
 
 .searchInput:focus {
-  border-color: #2980b9;
+  border-color: rgb(17, 17, 51);
 }
 
 .searchButton {
   margin-top: 10px;
-  background: #3498db;
+  background: rgb(17, 17, 51);
   border: none;
   outline: none;
   cursor: pointer;
@@ -74,7 +88,7 @@
 }
 
 .searchButton:hover {
-  background: #2980b9;
+  background: rgb(17, 17, 51);
 }
 
 .products-grid {
@@ -151,11 +165,11 @@
 .card-btn svg {
   width: 24px;
   height: 24px;
-  fill: #3498db;
+  fill: rgb(17, 17, 51);
 }
 
 .card-btn:hover svg {
-  fill: #2980b9;
+  fill: rgb(17, 17, 51);
 }
 
 .publication-details {

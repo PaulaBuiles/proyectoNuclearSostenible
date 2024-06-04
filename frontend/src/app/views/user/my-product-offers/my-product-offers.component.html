@@ -6,10 +6,11 @@
     <p>Valor Monetario: {{ offer.monetaryValue | currency }}</p>
     <p>Fecha de Oferta: {{ offer.offerDate | date }}</p>
     <p>Estado: {{ offer.state }}</p>
-    <p>ID Transacción: {{ offer.transactionId }}</p>
+    <p *ngIf="offer.transactionId">ID Transacción: {{ offer.transactionId }}</p>
     <div class="offer-actions">
-      <button (click)="acceptOffer(offer.idOffer)" class="btn btn-success">Aceptar</button>
-      <button (click)="rejectOffer(offer.idOffer)" class="btn btn-danger">Rechazar</button>
+      <button *ngIf="!offer.transactionId" (click)="acceptOffer(offer.idOffer)" class="btn btn-success">Aceptar</button>
+      <button *ngIf="!offer.transactionId" (click)="rejectOffer(offer.idOffer)" class="btn btn-danger">Rechazar</button>
+      <a *ngIf="offer.transactionId" [href]="getWhatsAppLink(offer.offererPhone)" class="btn btn-whatsapp" target="_blank">Coordinar Entrega</a>
     </div>
   </div>
 </div>

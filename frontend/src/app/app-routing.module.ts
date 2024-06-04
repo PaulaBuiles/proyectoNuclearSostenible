@@ -10,6 +10,7 @@ import { LandingCircularEconomyComponent } from './utils/landing-circular-econom
 import { PublicationComponent } from './views/publication/publication.component';
 import { OffersComponent } from './views/offers/offers.component';
 import { CircularEconomyComponent } from './views/circular-economy/circular-economy.component';
+import { RewardsComponent } from './views/rewards/rewards.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'publication/:id', component: PublicationComponent },
   { path: 'offers/:publicationId', component: OffersComponent },
   { path: 'circularEconomy', component: CircularEconomyComponent},
+  { path: 'rewards', component: RewardsComponent},
 
 
   // Agrega más rutas aquí si es necesario

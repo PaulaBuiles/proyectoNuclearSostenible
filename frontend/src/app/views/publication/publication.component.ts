@@ -31,7 +31,6 @@ export class PublicationComponent implements OnInit {
   }
 
   loadPublicationDetails(productId: number): void {
-  console.log(productId);
     this.publicationInfoService.getPublicationByProductId(productId).subscribe(publication => {
       this.publication = publication;
       if (publication) {
@@ -40,7 +39,7 @@ export class PublicationComponent implements OnInit {
           if (product) {
             const userId = product.user ? product.user.idUser : undefined;
             if (userId) {
-              localStorage.setItem('denoucedId', userId.toString());
+              localStorage.setItem('denouncedId', userId.toString());
               this.publicationInfoService.getUserById(userId).subscribe(user => {
                 this.user = user;
               });
@@ -61,5 +60,10 @@ export class PublicationComponent implements OnInit {
 
   reportUser(userId: number): void {
     this.toggleReportForm(); // Mostrar el formulario de reporte al hacer clic en el botón "Reportar"
+  }
+
+  getWhatsAppLink(phoneNumber: string): string {
+    const message = `Hola, vi que estás ofertando un producto que se llama "${this.product?.name}" y me gustaría recibir más detalles del artículo.`;
+    return `https://wa.me/57${phoneNumber}?text=${encodeURIComponent(message)}`;
   }
 }

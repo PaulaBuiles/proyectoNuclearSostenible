@@ -25,6 +25,7 @@
     <span>{{ user.fullName }}</span>
     <p class="job">{{ user.description }}</p><br>
     <button (click)="toggleReportForm()">Reportar</button>
+    <a [href]="getWhatsAppLink(user.phone)" class="btn btn-whatsapp" target="_blank">Chat via WhatsApp</a>
   </div>
 
   <button (click)="viewOffers(publication.idPublication)" class="btn btn-primary">Ver Ofertas</button>

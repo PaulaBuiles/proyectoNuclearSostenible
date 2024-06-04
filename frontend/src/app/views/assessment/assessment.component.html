@@ -1,0 +1,19 @@
+<div class="create-assessment">
+    <h2>Add Assessment</h2>
+    <form (ngSubmit)="addAssessment()">
+      <div class="form-group">
+        <label for="transactionId">Transaction ID:</label>
+        <input type="number" id="transactionId" [(ngModel)]="assessment.transactionId" name="transactionId" required>
+      </div>
+      <div class="form-group">
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" [(ngModel)]="assessment.rating" name="rating" min="1" max="5" required>
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea id="comment" [(ngModel)]="assessment.comment" name="comment" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Assessment</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,11 @@
+<div *ngIf="offers && offers.length > 0" class="offers-container">
+    <div *ngFor="let offer of offers" class="offer-card">
+      <h3>Oferta</h3>
+      <p>ID Oferta: {{ offer.idOffer }}</p>
+      <p>ID Ofertante: {{ offer.offererId }}</p>
+      <p>ID Producto Intercambiado: {{ offer.exchangedProductId }}</p>
+      <p>Valor Monetario: {{ offer.monetaryValue | currency }}</p>
+      <p>Fecha de Oferta: {{ offer.offerDate | date }}</p>
+      <p>Estado: {{ offer.state }}</p>
+    </div>
+  </div>

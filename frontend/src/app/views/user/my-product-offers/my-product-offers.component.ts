@@ -37,7 +37,8 @@ export class MyProductOffersComponent implements OnInit {
         this.offers = offers.map((offer, index) => {
           return {
             ...offer,
-            offererName: users[index].fullName
+            offererName: users[index].fullName,
+            offererPhone: users[index].phone
           };
         });
       });
@@ -61,5 +62,15 @@ export class MyProductOffersComponent implements OnInit {
       console.error('Error al rechazar la oferta:', error);
     });
     window.location.reload();
+  }
+
+  getWhatsAppLink(phoneNumber: string): string {
+    const productName = this.getProductName();
+    const message = `Hola, como estas? me gusto la oferta que me hiciste para el producto con nombre "${productName}", así que, me gustaría coordinar la entrega.`;
+    return `https://wa.me/57${phoneNumber}?text=${encodeURIComponent(message)}`;
+  }
+
+  getProductName(): string {
+    return localStorage.getItem('product-offers') || '';
   }
 }

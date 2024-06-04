@@ -5,8 +5,8 @@ import { UserDto } from '../model/user-dto.model';
 import { ProductDto } from '../model/product-dto.model';
 import { PublicationDto } from '../model/publication-dto.model';
 import { OfferDto } from '../model/offer-dto.model';
+import { AssessmentDto } from '../model/assessment-dto.model';
 import { AuthService } from './auth.service';
-import { Token } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -40,18 +40,32 @@ export class PublicationInfoService {
   }
 
   getOffersByPublication(publicationId: number): Observable<OfferDto[]> {
-    return this.http.get<OfferDto[]>(`${this.baseUrl}/offers/publication/${publicationId}`);
+    const headers = this.getAuthHeaders();
+    return this.http.get<OfferDto[]>(`${this.baseUrl}/offers/publication/${publicationId}`, { headers });
   }
+
   createOffer(offer: OfferDto): Observable<OfferDto> {
     const headers = this.getAuthHeaders();
     return this.http.post<OfferDto>(`${this.baseUrl}/offers`, offer, { headers });
   }
 
   acceptOffer(offerId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/offers/${offerId}/accept`, null);
+    const headers = this.getAuthHeaders();
+    return this.http.post(`${this.baseUrl}/offers/${offerId}/accept`, { headers });
   }
 
   rejectOffer(offerId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/offers/${offerId}/reject`, null);
+    const headers = this.getAuthHeaders();
+    return this.http.post(`${this.baseUrl}/offers/${offerId}/reject`, { headers });
+  }
+
+  getOffersByUserId(userId: number): Observable<OfferDto[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<OfferDto[]>(`${this.baseUrl}/offers/user/${userId}`, { headers });
+  }
+  
+  addAssessment(assessment: AssessmentDto): Observable<AssessmentDto> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<AssessmentDto>(`${this.baseUrl}/assessments/add`, assessment, { headers });
   }
 }

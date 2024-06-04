@@ -19,6 +19,8 @@ import { PublicationComponent } from './views/publication/publication.component'
 import { OffersComponent } from './views/offers/offers.component'; // Asegúrate de ajustar la ruta
 import { CreateReportModule } from './views/create-report/create-report.module';
 import { CircularEconomyComponent } from './views/circular-economy/circular-economy.component';
+import { AssessmentModule } from './views/assessment/assessment.module';
+import { RewardsComponent } from './views/rewards/rewards.component';
 
 
 
@@ -35,6 +37,7 @@ import { CircularEconomyComponent } from './views/circular-economy/circular-econ
     PublicationComponent,
     OffersComponent,
     CircularEconomyComponent,
+    RewardsComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { CircularEconomyComponent } from './views/circular-economy/circular-econ
     ReactiveFormsModule,
     HttpClientModule,
     LandingCircularEconomyModule,
-    CreateReportModule
+    CreateReportModule,
+    AssessmentModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

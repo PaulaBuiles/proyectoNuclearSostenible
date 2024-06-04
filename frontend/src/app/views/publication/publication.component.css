@@ -1,6 +1,7 @@
-h1{
+h1 {
   font-size: 30px;
 }
+
 .publication-container {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -106,13 +107,14 @@ h1{
   font-weight: 600;
   font-size: 12px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .user-card button:hover {
   background: #ececec;
 }
 
-button.btn {
+.btn {
   grid-column: 2 / 3;
   grid-row: 3 / 4;
   width: 100%;
@@ -128,8 +130,27 @@ button.btn {
   transition: background-color 0.3s ease;
 }
 
-button.btn:hover {
+.btn:hover {
   background-color: #2980b9;
+}
+
+/* Estilos del botón de WhatsApp */
+.btn-whatsapp {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-top: 10px;
+  background-color: #25D366;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+  background-color: #128C7E;
 }
 
 /* Estilos de la ventana modal */

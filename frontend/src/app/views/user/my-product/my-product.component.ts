@@ -33,6 +33,7 @@ export class MyProductComponent implements OnInit {
     this.publicationInfoService.getProductById(productId).subscribe(product => {
       this.product = product;
       if (product) {
+        localStorage.setItem('product-offers', product.name);
         // Comprueba si el producto tiene publicaciones asociadas
         this.publicationInfoService.getPublicationByProductId(productId).subscribe(publication => {
           this.publication = publication;
