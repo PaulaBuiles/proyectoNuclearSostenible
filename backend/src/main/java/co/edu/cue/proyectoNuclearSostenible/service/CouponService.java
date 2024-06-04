@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CouponService {
 
-    void purchaseCoupon(Long userId, Long couponId);
+    Coupon purchaseCoupon(Long userId, Long couponId);
 
     List<Coupon> getAllCoupons();
 

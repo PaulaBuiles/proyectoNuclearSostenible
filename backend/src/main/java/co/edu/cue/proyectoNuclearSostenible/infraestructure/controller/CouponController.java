@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/coupons")
@@ -27,10 +28,14 @@ public class CouponController {
     @PostMapping("/purchase")
     public ResponseEntity<?> purchaseCoupon(@RequestParam Long userId, @RequestParam Long couponId) {
         try {
-            couponService.purchaseCoupon(userId, couponId);
-            return new ResponseEntity<>("Cupón comprado con éxito.", HttpStatus.OK);
-        } catch (Exception e) {
+            Coupon purchasedCoupon = couponService.purchaseCoupon(userId, couponId);
+            return new ResponseEntity<>(purchasedCoupon, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

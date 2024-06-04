@@ -30,7 +30,7 @@ public class CouponServiceImpl implements CouponService {
      * @throws NoSuchElementException Si el usuario o el cupón no se encuentran.
      * @throws IllegalArgumentException Si el usuario no tiene suficientes puntos.
      */
-    public void purchaseCoupon(Long userId, Long couponId) {
+    public Coupon purchaseCoupon(Long userId, Long couponId) {
         User user = userDao.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado con el ID " + userId));
         Coupon coupon = couponDao.findById(couponId)
@@ -43,7 +43,10 @@ public class CouponServiceImpl implements CouponService {
         user.setPoints(user.getPoints() - coupon.getPointsValue());
         user.getCoupons().add(coupon);
         userDao.save(user);
+
+        return coupon;
     }
+
 
     /**
      * Obtiene todos los cupones disponibles.
