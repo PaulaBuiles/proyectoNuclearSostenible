@@ -1,5 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,6 +26,7 @@ public class Coupon implements Serializable {
     @Column(name = "pointsValue", nullable = false)
     private int pointsValue;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "coupons")
     private List<User> users;
 
