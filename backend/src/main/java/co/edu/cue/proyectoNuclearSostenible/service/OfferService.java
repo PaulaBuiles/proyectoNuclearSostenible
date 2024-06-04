@@ -12,8 +12,7 @@ public interface OfferService {
     OfferDto acceptOffer(Long offerId);
     OfferDto rejectOffer(Long offerId);
     List<OfferDto> getOffersByPublication(Long publicationId);
-    List<Offer> getOffersByUser(Long userId);
-
+    List<OfferDto> getOffersByUser(Long userId);
     State getStateByOfferId(Long offerId);
 
 }

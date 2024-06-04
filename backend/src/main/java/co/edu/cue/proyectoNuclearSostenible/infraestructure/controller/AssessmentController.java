@@ -22,16 +22,13 @@ public class AssessmentController {
 
     /**
      * Endpoint para añadir una calificación (Assessment) a una transacción específica.
-     *
-     * @param transactionId ID de la transacción.
      * @param assessmentDto DTO de la calificación a añadir.
      * @return DTO de la calificación añadida.
      */
     @PostMapping("/add")
-    public ResponseEntity<?> addAssessment(@RequestParam Long transactionId, @RequestBody AssessmentDto assessmentDto) {
+    public ResponseEntity<?> addAssessment(@RequestBody AssessmentDto assessmentDto) {
         try {
-            AssessmentDto result = assesmentService.addAssessment(transactionId, assessmentDto);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(assesmentService.addAssessment(assessmentDto.transactionId(), assessmentDto), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }

@@ -177,8 +177,27 @@ public class OfferServiceImpl implements OfferService {
      * @param userId ID del usuario.
      * @return Lista de DTOs de ofertas.
      */
-    public List<Offer> getOffersByUser(Long userId) {
-        return offerDao.findOfferById(userId);
+    public List<OfferDto> getOffersByUser(Long userId) {
+        List<Offer> offers = offerDao.findOfferById(userId);
+        List<OfferDto> offerDtos = new ArrayList<>();
+        for (Offer offer : offers) {
+            Long idTransaction = (offer.getTransaction() != null && offer.getTransaction().getIdTransaction() != null) ? offer.getTransaction().getIdTransaction() : null;
+            Long idExchanged = (offer.getExchangedProduct() != null && offer.getExchangedProduct().getIdProduct() != null) ? offer.getExchangedProduct().getIdProduct() : null;
+            Long idState = (offer.getState() != null && offer.getState().getIdState() != null) ? offer.getState().getIdState() : null;
+            assert offer.getState() != null;
+            offerDtos.add(new OfferDto(
+                    offer.getIdOffer(),
+                    offer.getPublication().getIdPublication(),
+                    idExchanged,
+                    offer.getOfferer().getIdUser(),
+                    offer.getMonetaryValue(),
+                    offer.getOfferDate(),
+                    idState,
+                    idTransaction,
+                    offer.getState().getDescription()
+            ));
+        }
+        return offerDtos;
     }
 
 
