@@ -96,11 +96,6 @@ public class PublicationServiceImp implements PublicationService {
         }
     }
 
-    @Override
-    public Publication getPublication(PublicationDto publicationDto) {
-        return null;
-    }
-
     public void purchasePublication(Long publicationId, UserDto buyerDto, Long state) {
 
         Publication publication = publicationDao.findById(publicationId)

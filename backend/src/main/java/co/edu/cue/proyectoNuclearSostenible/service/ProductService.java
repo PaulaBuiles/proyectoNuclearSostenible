@@ -13,7 +13,6 @@ public interface ProductService {
 
     ProductDto createProduct(ProductDto productDto);
 
-    Product getProduct(ProductDto product);
 
     Product getById(Long id);
 

@@ -100,16 +100,6 @@ public class ProductServiceImp implements ProductService {
     }
 
     /**
-     * Obtiene un producto a partir de su DTO.
-     *
-     * @param product El DTO del producto.
-     * @return El producto correspondiente al DTO proporcionado.
-     */
-    public Product getProduct(ProductDto product) {
-        return productDao.findById(product.idProduct()).get();
-    }
-
-    /**
      * Obtiene un producto a partir de su ID.
      *
      * @param id El ID del producto a obtener.

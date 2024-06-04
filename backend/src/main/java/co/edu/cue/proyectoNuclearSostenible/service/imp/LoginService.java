@@ -61,7 +61,7 @@ public class LoginService {
      */
     public UserOutDto createUser(UserDto userDto) {
         log.info("Iniciando crearUser");
-        User userToCreate = mapearObjeto(userDto); // Mapea el DTO a la entidad User.
+        User userToCreate = mapObject(userDto); // Mapea el DTO a la entidad User.
         UserOutDto userOutDto = new UserOutDto();
 
         // Verifica si el usuario ya existe por su identificación.
@@ -94,7 +94,7 @@ public class LoginService {
      * @return La entidad User mapeada y configurada.
      * @throws ResponseStatusException si el tipo de identificación no se encuentra.
      */
-    private User mapearObjeto(UserDto userDto) {
+    private User mapObject(UserDto userDto) {
         User user = userMapper.mapToEntity(userDto); // Mapea el DTO a la entidad User.
         user.setIsAdmin(userDto.isAdmin()); // Configura si el usuario es administrador.
         user.setPassword(passwordEncoder.encode(userDto.password())); // Codifica y configura la contraseña del usuario.
@@ -111,7 +111,7 @@ public class LoginService {
      * @return UserOutDto que contiene la información del usuario y el token de autenticación.
      * @throws ResponseStatusException si el usuario no es encontrado o las credenciales son inválidas.
      */
-    public UserOutDto autenticar(UserDto userDto) {
+    public UserOutDto authenticate(UserDto userDto) {
         log.info("Iniciando autenticar");
 
         UserOutDto userOutDto = new UserOutDto();

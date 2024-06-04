@@ -13,8 +13,6 @@ public interface PublicationService {
 
     PublicationDto createPublication(PublicationDto publicationDto);
 
-    Publication getPublication(PublicationDto publicationDto);
-
     List<Publication> searchPublications(
             String title,
             String productName,

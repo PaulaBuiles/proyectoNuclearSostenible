@@ -10,8 +10,6 @@ import java.util.Optional;
 
 public interface UserDao extends JpaRepository<User, Long> {
 
-    List<User> findByUserNameIgnoreCaseOrEmailIgnoreCaseOrIdentificationIgnoreCaseOrPhoneIgnoreCase(String username, String email, String identification, String phone);
-
     @Query("SELECT t FROM User t WHERE t.idUser = :id")
     User findUserById(@Param("id") Long id);
 
@@ -19,5 +17,4 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     Optional<User> findByIdentification(String identification);
 
-    User findByEmail(String email);
 }

@@ -20,9 +20,7 @@ public class PublicationRepository {
 
 
     public List<Publication> searchPublications(String title, String productName, String productDescription, String categoryTitle, String stateDescription) {
-        // Verificar si se proporcionan parámetros de búsqueda
         if (title == null && productName == null && productDescription == null && categoryTitle == null && stateDescription == null) {
-            // No se proporcionaron parámetros, devolver un mensaje o lanzar una excepción
             throw new IllegalArgumentException("Debe proporcionar al menos un parámetro de búsqueda.");
         }
 

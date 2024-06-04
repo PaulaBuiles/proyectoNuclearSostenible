@@ -36,13 +36,13 @@ public class AssessmentServiceImpl implements AssesmentService {
     private UserMapper userMapper;
 
     @Override
-/**
- * Añade una calificación (Assessment) a una transacción específica y otorga puntos al usuario que realiza la calificación.
- *
- * @param transactionId ID de la transacción a la que se añadirá la calificación.
- * @param assessmentDto DTO de la calificación a añadir.
- * @return DTO de la calificación añadida.
- */
+    /**
+     * Añade una calificación (Assessment) a una transacción específica y otorga puntos al usuario que realiza la calificación.
+     *
+     * @param transactionId ID de la transacción a la que se añadirá la calificación.
+     * @param assessmentDto DTO de la calificación a añadir.
+     * @return DTO de la calificación añadida.
+     */
     public AssessmentDto addAssessment(Long transactionId, AssessmentDto assessmentDto) {
         Transaction transaction = transactionDao.findById(transactionId)
                 .orElseThrow(() -> new RuntimeException("Transacción no encontrada"));
@@ -64,6 +64,24 @@ public class AssessmentServiceImpl implements AssesmentService {
         );
 
         return assessmentMapper.mapToDTO(savedAssessment);
+    }
+
+    /**
+     * Obtiene una evaluación (Assessment) basada en el ID de la transacción.
+     * @param transactionId ID de la transacción.
+     * @return Evaluación (Assessment) asociada a la transacción.
+     */
+    public Assessment getAssessmentByTransactionId(Long transactionId) {
+        return assessmentDao.findAssessmentByTransactionId(transactionId);
+    }
+
+    /**
+     * Obtiene el promedio de las calificaciones (ratings) de un usuario basado en el ID del usuario.
+     * @param userId ID del usuario.
+     * @return Promedio de las calificaciones del usuario.
+     */
+    public Double getAverageRatingByUserId(Long userId) {
+        return assessmentDao.findAverageRatingByUserId(userId);
     }
 
 

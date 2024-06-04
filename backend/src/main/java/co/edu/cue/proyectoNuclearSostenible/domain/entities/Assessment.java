@@ -1,5 +1,6 @@
 package co.edu.cue.proyectoNuclearSostenible.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,6 +26,7 @@ public class Assessment implements Serializable {
 
     @OneToOne
     @JoinColumn(name="id_transaction")
+    @JsonIgnore
     private Transaction transaction;
 
 

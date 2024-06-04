@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/persona")
+@RequestMapping("/api/login")
 @CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
 
@@ -23,7 +23,7 @@ public class LoginController {
      * @param userDto DTO del usuario a registrar.
      * @return ResponseEntity con el DTO de salida del usuario registrado y el estado HTTP correspondiente.
      */
-    @PostMapping("/crearUsuario")
+    @PostMapping("/createUser")
     public ResponseEntity<UserOutDto> register(@RequestBody UserDto userDto) {
         try {
             UserOutDto userOutDto = loginService.createUser(userDto);
@@ -50,10 +50,10 @@ public class LoginController {
      * @param userDto DTO del usuario a autenticar.
      * @return ResponseEntity con el DTO de salida del usuario autenticado y el estado HTTP correspondiente.
      */
-    @PostMapping("/autenticar")
+    @PostMapping("/authenticate")
     public ResponseEntity<UserOutDto> login(@RequestBody UserDto userDto) {
         try {
-            UserOutDto userOutDto = loginService.autenticar(userDto);
+            UserOutDto userOutDto = loginService.authenticate(userDto);
             if (CodeMessageEnum.SUCCESSFUL.getCode().equals(userOutDto.getStatusDto().getCode())) {
                 return ResponseEntity.ok(userOutDto);
             } else {
